@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		%header%<!-- User defined head content such as meta tags and encoding options -->
+		<title>%title%</title>
+		<link rel="shortcut icon" href="%pathto(favicon.ico)%">
+		<link rel="stylesheet" type="text/css" media="screen" href="%pathto(css/bootstrap.min.css)%"  />
+		<link rel="stylesheet" type="text/css" media="screen" href="%pathto(css/bootstrap-responsive.min.css)%"  />
+		<link rel="stylesheet" type="text/css" media="screen" href="%pathto(css/font-awesome.min.css)%"  />
+		<link rel="stylesheet" type="text/css" media="screen" href="%pathto(styles.css)%"  />
+		%style_variations%<!-- Style variations - these are set up in the theme.plist -->            		
+		%user_styles%<!-- User defined styles -->
+		%user_javascript%<!-- User defined javascript -->
+		%plugin_header%
+		%user_header%
+	</head>
+	<body>
+
+		<div class="navbar navbar-fixed-top">
+		  <div class="navbar-inner">
+			  <div class="container">
+				  <span class="brand" style="background: url('%pathto(img/logo.png)%') no-repeat left center"></span>
+				  <div class="row">
+					  <div class="pull-right"><!-- Start loginblock -->
+						  %loginblock%
+					  </div><!-- End loginblock -->
+				  </div>
+			  </div>
+		  </div>
+		</div>
+
+		<div id="content"><!-- Start content -->
+			%content%
+		</div><!-- End content -->
+
+	</body>
+</html>
