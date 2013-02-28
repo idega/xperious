@@ -129,8 +129,13 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
     <dependency>
       <groupId>com.idega.block.private</groupId>
       <artifactId>com.idega.travel</artifactId>
+      <exclusions>
+          <exclusion>
+	        <groupId>com.idega.block.egov</groupId>
+	        <artifactId>is.idega.idegaweb.egov.xformscase</artifactId>
+          </exclusion>
+      </exclusions>
     </dependency>
-
   </dependencies>
 
   <distributionManagement>
