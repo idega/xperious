@@ -229,11 +229,12 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 	  
 	  <plugin>
 	    <artifactId>maven-assembly-plugin</artifactId>
-	    <version>2.2-beta-5</version>
+	    <version>2.4</version>
 	    <configuration>
 	      <descriptors>
-          <descriptor>src/main/assembly/rwtheme.xml</descriptor>
-        </descriptors>
+          	<descriptor>src/main/assembly/admin.rwtheme.xml</descriptor>
+			<descriptor>src/main/assembly/site.rwtheme.xml</descriptor>
+		  </descriptors>
 	    </configuration>
 	    <executions>
 	      <execution>
@@ -245,7 +246,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 	      </execution>
 	    </executions>
 	  </plugin>
-	  
+
     </plugins>
   </build>
 </project>
