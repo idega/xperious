@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<urlrewrite>
+
+      <rule>
+          <from>^/$</from>
+          <to type="redirect" last="true">/app/</to>
+      </rule>
+
+      <rule>
+          <from>^/app/images/(.+)$</from>
+          <to type="forward" last="true">/portal/styles/import/images/$1</to>
+      </rule>
+
+      <rule>
+          <from>^/app/(.*)$</from>
+          <to type="forward" last="true">/portal/</to>
+      </rule>
+      
+
+
+</urlrewrite>

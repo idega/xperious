@@ -184,69 +184,89 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
     </pluginRepositories>
 
   <build>
-    <plugins>
-    
-    <plugin>
-      <groupId>org.codehaus.mojo</groupId>
-      <artifactId>buildnumber-maven-plugin</artifactId>
-      <version>1.0-beta-2</version>
-      <configuration>
-            <format>{0,date,yyyyMMdd.HHmmss}</format>
-            <items>
-            <item>timestamp</item>
-            </items>
-        </configuration>
-      <executions>
-        <execution>
-          <phase>validate</phase>
-          <goals>
-            <goal>create</goal>
-          </goals>
-        </execution>
-      </executions>
-    </plugin>
-    
-      <plugin>
-        <groupId>com.idega.maven.plugins</groupId>
-        <artifactId>com.idega.maven.webapp</artifactId>
-        <extensions>true</extensions>
-        <configuration>
-          <archive>
-            <manifest>
-              <!--addClasspath>true</addClasspath-->
-              <addExtensions />
-            </manifest>
-            <manifestEntries>
-                <!--Implementation-Vendor>${pom.organization.name}</Implementation-Vendor-->
-                <Implementation-Vendor-Url>${pom.organization.url}</Implementation-Vendor-Url>
-                <Implementation-Build>${buildNumber}</Implementation-Build>
-                <Implementation-InceptionYear>${pom.inceptionYear}</Implementation-InceptionYear>
-            </manifestEntries>
-          </archive>          
-        </configuration>
-      </plugin>
-	  
-	  
-	  <plugin>
-	    <artifactId>maven-assembly-plugin</artifactId>
-	    <version>2.4</version>
-	    <configuration>
-	      <descriptors>
-          	<descriptor>src/main/assembly/admin.rwtheme.xml</descriptor>
-			<descriptor>src/main/assembly/site.rwtheme.xml</descriptor>
-		  </descriptors>
-	    </configuration>
-	    <executions>
-	      <execution>
-	        <id>make-assembly</id>
-	        <phase>package</phase>
-	        <goals>
-	          <goal>single</goal>
-	        </goals>
-	      </execution>
-	    </executions>
-	  </plugin>
+  
+    <plugins>  
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-resources-plugin</artifactId>
+			<version>2.4.2</version>
+			<executions>
+			   <execution>
+			      <id>default-copy-resources</id>
+			      <phase>process-resources</phase>
+			      <goals>
+			        <goal>copy-resources</goal>
+			      </goals>
+			      <configuration>
+			        <overwrite>true</overwrite>
+			        <outputDirectory>${project.build.directory}/${project.artifactId}-${project.version}/portal</outputDirectory>
+			        <resources>
+			          <resource>
+			            <directory>${project.basedir}/src/main/portal</directory>
+			          </resource>
+			        </resources>
+			      </configuration>
+			    </execution>
+			  </executions>
+		</plugin>
 
+		<plugin>
+		  <groupId>org.codehaus.mojo</groupId>
+		  <artifactId>buildnumber-maven-plugin</artifactId>
+		  <version>1.0-beta-2</version>
+		  <configuration>
+		        <format>{0,date,yyyyMMdd.HHmmss}</format>
+		        <items>
+		        <item>timestamp</item>
+		        </items>
+		    </configuration>
+		  <executions>
+		    <execution>
+		      <phase>validate</phase>
+		      <goals>
+		        <goal>create</goal>
+		      </goals>
+		    </execution>
+		  </executions>
+		</plugin>
+	    
+		<plugin>
+		  <groupId>com.idega.maven.plugins</groupId>
+		  <artifactId>com.idega.maven.webapp</artifactId>
+		  <extensions>true</extensions>
+		  <configuration>
+		    <archive>
+		      <manifest>
+		        <addExtensions />
+		      </manifest>
+		      <manifestEntries>
+		          <Implementation-Vendor-Url>${pom.organization.url}</Implementation-Vendor-Url>
+		          <Implementation-Build>${buildNumber}</Implementation-Build>
+		          <Implementation-InceptionYear>${pom.inceptionYear}</Implementation-InceptionYear>
+		      </manifestEntries>
+		    </archive>          
+		  </configuration>
+		</plugin>
+	  
+		<plugin>
+		  <artifactId>maven-assembly-plugin</artifactId>
+		  <version>2.4</version>
+		  <configuration>
+		    <descriptors>
+		       	<descriptor>src/main/assembly/admin.rwtheme.xml</descriptor>
+		        <descriptor>src/main/assembly/site.rwtheme.xml</descriptor>
+	    	 </descriptors>
+		  </configuration>
+		  <executions>
+		    <execution>
+		      <id>make-assembly</id>
+		      <phase>package</phase>
+		      <goals>
+		        <goal>single</goal>
+		      </goals>
+		    </execution>
+		  </executions>
+		</plugin>
     </plugins>
   </build>
 </project>

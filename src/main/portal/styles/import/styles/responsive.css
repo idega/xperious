@@ -1,0 +1,106 @@
+/*Responsive layout--------------------------------------*/
+
+@media only screen and (max-width: 1099px) {
+    a.prev, a.next,
+    .jcarousel-container .jcarousel-prev, 
+    .jcarousel-container .jcarousel-next {display: none !important;}
+}
+
+
+/*980----------------------------------------------------*/
+@media only screen and (max-width: 989px) {
+
+.site-block,
+.site-block-in,
+.site-bottom-menu .site-block-in {width: auto; padding-left: 5%; padding-right: 5%; overflow: hidden;}
+.site-bottom-menu .site-block-in {overflow: visible;}
+
+.planner {left: 5%; right: 5%;}
+
+.planner-form .hidden {left: 0 !important;}
+.planner-form .buttoned {display: none;}
+
+.article-content {left: 5%;}
+.article-section .logo {display: none;}
+
+.subscribe-form input[type="text"] {width: 82%; margin-bottom: 15px;}
+
+.contact-form input[type="text"], 
+.contact-form input[type="password"], 
+.contact-form textarea {width: 90%;}
+
+.contact-form .shorter {margin-bottom: 15px; margin-right: 0;}
+.contact-form .ui-selectmenu {float: none;}
+
+.contact-form .form-controls {text-align: left;}
+.subscribe-form .explain {width: auto;}
+
+
+}
+
+/*780----------------------------------------------------*/
+@media only screen and (max-width: 720px) {
+
+.planner-form input[type="text"] {width: 60%;}
+
+.team-list .element,
+.team-list .element:nth-child(3n) {width: 47%; margin-right: 6%;}
+.team-list .element:nth-child(2n) {margin-right: 0;}
+
+.team-section .title h2 {font-size: 52px; line-height: 52px;}
+.team-section .title .subtitle {margin-top: 54px;}
+
+.footer-section h4 {font-size: 30px;}
+
+}
+
+/*600----------------------------------------------------*/
+@media only screen and (max-width: 600px) {
+
+.planner {margin-top: 140px; position: static; height: auto; padding-bottom: 170px;}
+
+.article-content {position: static; top: 20px; width: auto; margin-top: 30px; padding-bottom: 30px;}
+
+.footer-section .col {float: none; margin-right: 0; width: auto; margin-bottom: 10px;}
+.footer-section h4 {margin-bottom: 15px;}
+.footer-links {padding-top: 0;}
+
+}
+
+/*540----------------------------------------------------*/
+@media only screen and (max-width: 539px) { 
+ .site-block {height: auto !important;}
+
+
+.home-section {background: none;}
+.site-header {text-align: left; height: 65px;}
+.site-header .logo {margin-top: 0;}
+.site-header .logo img {width: 70%; height: auto;}
+
+
+.planner {margin-top: 85px;}
+.planner-form input[type="text"] {width: 80%; margin-bottom: 15px;}
+
+.article-section .grid {display: none;}
+
+ .subscribe-form input[type="submit"] {clear: left;}
+ .subscribe-form .ui-selectmenu {margin-bottom: 15px;}
+}
+
+/*480----------------------------------------------------*/
+@media only screen and (max-width: 479px) { 
+
+.contact-form-section .contact-form {float: none; width: auto;}
+.contact-form-section .contact-info {loat: none; width: auto; padding-right: 0;}
+
+.join-club-section .lefter {float: none; width: auto; padding-bottom: 25px;}
+.join-club-section .righter {float: none; width: auto;}
+
+.team-section .title h2 {font-size: 40px; line-height: 40px;}
+.team-section .title .subtitle {margin-top: 40px;}
+
+.team-list .element,
+.team-list .element:nth-child(3n),
+.team-list .element:nth-child(2n) {margin-right: 0; width: 72%; margin-left: auto; margin-right: auto; float: none;}
+
+}

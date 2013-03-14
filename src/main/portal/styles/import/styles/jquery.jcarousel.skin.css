@@ -1,0 +1,87 @@
+
+
+/*-----------------------------------------------------------------------------------------------*/
+
+.jcarousel-skin-inner .jcarousel-container {
+    position: relative;
+    margin-bottom: 12px;
+}
+
+.jcarousel-skin-inner .jcarousel-direction-rtl {
+    direction: rtl;
+}
+
+.jcarousel-skin-inner .jcarousel-container-horizontal {
+    width: 674px;
+    padding: 15px 35px;
+    background: #e7e7e7;
+}
+
+.jcarousel-skin-inner .jcarousel-clip {
+    overflow: hidden;
+}
+
+.jcarousel-skin-inner .jcarousel-clip-horizontal {
+    width: 674px;
+    height: 83px;
+}
+
+.jcarousel-skin-inner .jcarousel-item {
+    width: 124px;
+    height: 83px;
+    margin-right: 13px;
+}
+
+.jcarousel-skin-inner .jcarousel-item-horizontal {
+    margin-left: 0;
+}
+
+.jcarousel-skin-inner .jcarousel-direction-rtl .jcarousel-item-horizontal {
+    margin-left: 10px;
+    margin-right: 0;
+}
+
+.jcarousel-skin-inner .jcarousel-item-vertical {
+    margin-bottom: 10px;
+}
+
+.jcarousel-skin-inner .jcarousel-item-placeholder {
+    background: #fff;
+    color: #000;
+}
+
+/**
+ *  Horizontal Buttons
+ */
+.jcarousel-skin-inner .jcarousel-next-horizontal {
+    position: absolute;
+    top: 35px;
+    right: 0px;
+    width: 24px;
+    height: 46px;
+    cursor: pointer;
+    background: transparent url(next-3.png) no-repeat 0 0;
+}
+
+.jcarousel-skin-inner .jcarousel-direction-rtl .jcarousel-next-horizontal {
+    left: 5px;
+    right: auto;
+    background-image: url(http://apsai.lt:1113/scripts/jcarousel/prev-horizontal.png);
+}
+
+
+.jcarousel-skin-inner .jcarousel-prev-horizontal {
+    position: absolute;
+    top: 35px;
+    left: 0px;
+    width: 24px;
+    height: 46px;
+    cursor: pointer;
+    background: transparent url(prev-3.png) no-repeat 0 0;
+}
+
+.jcarousel-skin-inner .jcarousel-direction-rtl .jcarousel-prev-horizontal {
+    left: auto;
+    right: 5px;
+    background-image: url(http://apsai.lt:1113/scripts/jcarousel/next-horizontal.png);
+}
