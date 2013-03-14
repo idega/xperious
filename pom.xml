@@ -185,14 +185,71 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 
   <build>
   
-    <plugins>  
+    <!-- 
+    This is required for eclipse maven plugin. It prevents
+    exec plugin execution on each file compilation. 
+    -->
+    <pluginManagement>
+        <plugins>
+           <plugin>
+             <groupId>org.eclipse.m2e</groupId>
+             <artifactId>lifecycle-mapping</artifactId>
+             <version>1.0.0</version>
+             <configuration>
+               <lifecycleMappingMetadata>
+                 <pluginExecutions>
+                   <pluginExecution>
+                     <pluginExecutionFilter>
+                       <groupId>org.codehaus.mojo</groupId>
+                       <artifactId>exec-maven-plugin</artifactId>
+                       <versionRange>[1.2.1,)</versionRange>
+                       <goals>
+                         <goal>exec</goal>
+                       </goals>
+                     </pluginExecutionFilter>
+                     <action>
+                       <ignore />
+                     </action>
+                   </pluginExecution>
+                 </pluginExecutions>
+               </lifecycleMappingMetadata>
+             </configuration>
+          </plugin>
+        </plugins>
+    </pluginManagement>
+  
+
+    <plugins>    
+		<plugin>
+		  <groupId>org.codehaus.mojo</groupId>
+		  <artifactId>exec-maven-plugin</artifactId>
+		  <version>1.2.1</version>
+		  <executions>
+		    <execution>
+		      <phase>generate-resources</phase>
+		      <goals>
+		        <goal>exec</goal>
+		      </goals>
+		    </execution>
+		  </executions>
+		  <configuration>
+		    <executable>node</executable>
+		    <skip>${js.optimize.skip}</skip>
+		    <arguments>
+		      <argument>src/main/portal/lib/require/r.js</argument>
+		      <argument>-o</argument>
+		      <argument>src/main/portal/build.js</argument>
+		    </arguments>
+		  </configuration>
+		</plugin>    
+
+
 		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-resources-plugin</artifactId>
 			<version>2.4.2</version>
 			<executions>
 			   <execution>
-			      <id>default-copy-resources</id>
 			      <phase>process-resources</phase>
 			      <goals>
 			        <goal>copy-resources</goal>
@@ -203,12 +260,14 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			        <resources>
 			          <resource>
 			            <directory>${project.basedir}/src/main/portal</directory>
+			            <filtering>true</filtering>
 			          </resource>
 			        </resources>
 			      </configuration>
 			    </execution>
 			  </executions>
 		</plugin>
+
 
 		<plugin>
 		  <groupId>org.codehaus.mojo</groupId>
@@ -229,7 +288,8 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 		    </execution>
 		  </executions>
 		</plugin>
-	    
+
+
 		<plugin>
 		  <groupId>com.idega.maven.plugins</groupId>
 		  <artifactId>com.idega.maven.webapp</artifactId>
@@ -248,6 +308,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 		  </configuration>
 		</plugin>
 	  
+
 		<plugin>
 		  <artifactId>maven-assembly-plugin</artifactId>
 		  <version>2.4</version>
@@ -269,4 +330,27 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 		</plugin>
     </plugins>
   </build>
+
+
+  <profiles>
+      <profile>
+          <id>default</id>
+          <properties>
+            <js.optimize.skip>true</js.optimize.skip>
+            <js.main.file>/portal/lib/require/require.js</js.main.file>
+          </properties>
+          <activation>
+              <activeByDefault>true</activeByDefault>
+          </activation>
+      </profile>
+      <profile>
+          <id>optimize</id>
+          <properties>
+            <js.optimize.skip>false</js.optimize.skip>
+            <js.main.file>/portal/optimized.js</js.main.file>
+          </properties>
+      </profile>
+  </profiles>  
+
+
 </project>

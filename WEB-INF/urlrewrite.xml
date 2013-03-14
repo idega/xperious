@@ -15,7 +15,5 @@
           <from>^/app/(.*)$</from>
           <to type="forward" last="true">/portal/</to>
       </rule>
-      
-
 
 </urlrewrite>

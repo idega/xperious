@@ -19,8 +19,7 @@ function(
 
 	    routes: {
 	      'search*query': 'searchAction',
-	      'index': 'indexAction',
-	      '*path': 'defaultAction'
+	      '*path': 'indexAction'
 	    },
 
 
@@ -57,14 +56,7 @@ function(
 
 		    	layout.render();
 			}});	    	
-	    },
-
-
-	    defaultAction: function(path) {
-	    	app.layout(_.template(HtmlApp))
-	    		.setViews({'#SearchView': new Search.Views.Model()})
-	    		.render();
-	    }		
+	    }
 	});
 
 
