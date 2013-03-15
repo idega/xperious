@@ -6,14 +6,33 @@
           <to type="redirect" last="true">/app/</to>
       </rule>
 
+
       <rule>
-          <from>^/app/images/(.+)$</from>
+          <from>^/app$</from>
+          <to type="redirect" last="true">/app/</to>
+      </rule>
+
+
+      <rule>
+          <from>^/app/.*images/(.+)$</from>
           <to type="forward" last="true">/portal/styles/import/images/$1</to>
       </rule>
+
 
       <rule>
           <from>^/app/(.*)$</from>
           <to type="forward" last="true">/portal/</to>
       </rule>
+
+
+      <!-- No cache for javascript, css and html templates. -->
+      <rule>
+          <from>^/portal/.*(js|css|html)$</from>
+          <set type="response-header" name="Cache-Control">no-cache</set>
+          <set type="response-header" name="Pragma">no-cache</set>
+          <set type="response-header" name="Expires">0</set>
+          <set type="response-header" name="Max-Age">0</set>
+      </rule>
+
 
 </urlrewrite>

@@ -1,5 +1,6 @@
 define([
    'app',
+   'modules/plan',
    'text!templates/index/index.html',
    'jquery.fancybox',
    'jquery.hoverIntent',
@@ -13,70 +14,130 @@ define([
    'jquery.ui.selectmenu',
    'modernizr'
 ],function(
-	app, 
+	app,
+	Plan,
 	HtmlIndex) 
 {
 
 	var Index = app.module();
 
+	
+	Index.Views.DestinationMap = Backbone.View.extend({
+
+		defaultIcon: '/app/images/map-pin.png',
+
+		/**
+		 * Supported countries data.
+		 */
+		markers: _.chain([
+	        {
+	        	code: 'uk',
+	        	title: 'United Kingdom',
+	        	icon: '/app/images/map-uk.png',
+	        	lat: 51.5171,
+	        	lng: -0.1062
+	        },
+	        {
+	        	code: 'is',
+	        	title: 'Iceland',
+	        	icon: '/app/images/map-is.png',
+	        	lat: 64.787583,
+	        	lng: -18.413086  
+	        }
+        ]),
+
+		afterRender: function() {
+			var that = this;
+
+			require(['google'], function(google) {
+				var map = new google.maps.Map(
+					$('.map-holder')[0], {
+						zoom: 3,
+						center: new google.maps.LatLng(62.262171, -15.249023),
+						mapTypeId: google.maps.MapTypeId.ROADMAP,
+						mapTypeControl: false,
+						streetViewControl: false
+				});
+
+				that.markers.each(function(descriptor) {
+					 var marker = new google.maps.Marker({
+						 position: new google.maps.LatLng(descriptor.lat, descriptor.lng),
+						 title: descriptor.title,
+						 icon: that.defaultIcon,
+						 map: map
+					 });
+					 descriptor.marker = marker;
+					 
+					 if (descriptor.code === app.country()) {
+						descriptor.marker.setIcon(descriptor.icon);
+					 }
+				});
+
+				that.markers.each(function(descriptor) {
+					 google.maps.event.addListener(
+						 descriptor.marker, 
+						 'click', 
+						 function() {
+							 that.resetMarkers();
+							 descriptor.marker.setIcon(descriptor.icon);
+							 app.country(descriptor.code);
+						 });
+				 });
+			});
+
+		},
+
+		resetMarkers: function() {
+			var that = this;
+			this.markers.each(function(descriptor) { 
+				 descriptor.marker.setIcon(that.defaultIcon);
+			});
+		}
+	});
+	
+
 
 	Index.Views.Model = Backbone.View.extend({
 		template: _.template(HtmlIndex),
 
+
+		events: {
+			'click #plan' : 'plan'
+		},
+
+		plan: function() {
+			Backbone.history.navigate(
+				'search?' + 
+					'query=' + $('#query').val() + '&' +
+					'country=' + app.country(),
+				{trigger: true});
+			return false;
+		},
+
+		renderDestinationMap: function() {
+            this.insertView(new Index.Views.DestinationMap()).render();
+		},
 		
 		afterRender: function() {
 
-			
-			
-			
+			var that = this;
 
-			//TODO: add real autocomplete data source
-			var availableTags = [
-			    "ActionScript",
-			    "AppleScript",
-			    "Asp",
-			    "BASIC",
-			    "C",
-			    "C++",
-			    "Clojure",
-			    "COBOL",
-			    "ColdFusion",
-			    "Erlang",
-			    "Fortran",
-			    "Groovy",
-			    "Haskell",
-			    "Java",
-			    "JavaScript",
-			    "Lisp",
-			    "Perl",
-			    "PHP",
-			    "Python",
-			    "Ruby",
-			    "Scala",
-			    "Scheme"];
 
-			
-			
-			
-			
-			
-			
-			
-			
 			        /*Placeholder for old browsers*/
 			        $('input[placeholder], textarea[placeholder]').placeholder();
 
 			        $("a.chose-destination").fancybox({
-			            hideOnContentClick: true,
 			            padding: 0,
 			            onStart: function() {
 			                $('#fancybox-close').text('Close');
+			                that.renderDestinationMap();
 			            }
 			        });
 
+
 			        /* http://jqueryui.com/autocomplete/ */
 			        $("input.autocomplete-search-input").autocomplete({
-			            source: availableTags
+			            source: '/api/v1/keywords/suggest?country=is'
 			        });
 
 			        if (!Modernizr.touch) {
@@ -121,12 +182,14 @@ define([
 			            });
 			        }
 
-			        $(".animate-parent").on('click', function() {
+			        $(".animate-parent").on('click', function(event) {
 			            var $this = $(this),
 			                $toAnimate = $this.parent('.hidden');
 			            $toAnimate.animate({
 			                left: 0
-			            }, 1000);
+			            }, 300, function() {
+			            	$(".animate-parent").unbind(event);
+			            });
 			            return false;
 			        });
 
@@ -292,13 +355,7 @@ define([
 			        });
 			
 			
-			
-			
-			
-			
-			
-			
-			
+			        
 			
 			
 			

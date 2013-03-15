@@ -4,34 +4,41 @@ define([
   'backbone.layoutmanager',
   'backbone.relational',
   'backbone.queryparams',
-  'moment'
+  'backbone.super',
+  'moment',
+  'jquery.cookie'
 ], function(LayoutManager) 
 {
-		
-	  // Configure LayoutManager with Backbone Boilerplate defaults.
+
 	  LayoutManager.configure({
-	    // Allow LayoutManager to augment Backbone.View.prototype.
+	    // allow LayoutManager to augment Backbone.View.prototype.
 	    manage: true
 	  });
 	
 	
-	
-	  // Provide a global location to place configuration
-	  // settings and module creation.
 	  var app = {
-	    // The root path to run the application.
 	    root: '/app/'
 	  };
 	
-	  // Mix Backbone.Events, modules, and layout management into the app object.
+	  // mix Backbone.Events, modules, and layout management into the app object
 	  return _.extend(app, {
-	
-	    // Create a custom object with a nested Views object.
+
+
 	    module: function(additionalProps) {
 	      return _.extend({ Views: {} }, additionalProps);
 	    },
-	
-	
+
+	    
+	    country: function(code) {
+	    	if (code) {
+	    		$.cookie('country', code, {expires: 14, path: '/'});
+	    	} else {
+	    		code = $.cookie('country');
+	    		if (!code) code = 'is';
+	    		return code;
+	    	}
+	    },
+
 	    layout: function(template, options) {
 	
 	    	options = options || {};

@@ -41,6 +41,13 @@ require.config({
               exports: 'Backbone.Layout'
        },
        
+
+       'backbone.super': {
+           deps: [
+                  'backbone'
+              ]
+       },
+       
        'jquery.fancybox': {
     	   deps: [
     	          'jquery'
@@ -99,6 +106,12 @@ require.config({
     	   deps: [
     	          'jquery', 'jquery.ui'
     	  ]
+       },
+
+       'jquery.cookie': {
+    	   deps: [
+    	          'jquery'
+    	  ]
        }
        
    },
@@ -117,12 +130,14 @@ require.config({
        'jquery.scrollTo': '../lib/jquery/jquery.scrollTo',
        'jquery.ui' : '../lib/jquery/jquery.ui.custom',
        'jquery.ui.selectmenu' : '../lib/jquery/jquery.ui.selectmenu',
+       'jquery.cookie' : '../lib/jquery/jquery.cookie',
        'modernizr' : '../lib/modernizr/modernizr',
        'underscore' : '../lib/underscore/underscore',
        'backbone' : '../lib/backbone/backbone',
        'backbone.relational' : '../lib/backbone/backbone.relational',
        'backbone.layoutmanager' : '../lib/backbone/backbone.layoutmanager',
        'backbone.queryparams' : '../lib/backbone/backbone.queryparams',
+       'backbone.super' : '../lib/backbone/backbone.super',
        'moment' : '../lib/moment/moment',
        'google' : '../lib/google/maps'
    }

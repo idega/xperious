@@ -17,6 +17,7 @@ function(
 	 * Plan model, maps directly on API response.
 	 */
 	Plan.Model = Backbone.RelationalModel.extend({
+
 		idAttribute: 'id',
 
 		relations: [{
@@ -24,7 +25,8 @@ function(
 			key: 'items',
 			relatedModel: PlanItem.Model,
 			collectionType: PlanItem.Collection,
-			includeInJSON: true
+			includeInJSON: true,
+			parse: true
 		}],
 
 		center: function() {
@@ -50,7 +52,20 @@ function(
 	 * Plans list. Root element on API response.
 	 */
 	Plan.Collection = Backbone.Collection.extend({
+
+		url: '/api/v1/plans/search',
+
 		model: Plan.Model,
+
+		initialize: function(models, options) {
+			this.query = options.query;
+			this.country = options.country;
+			this.from = options.from;
+			this.to = options.to;
+			if (!this.from || !this.to) {
+				this.build(this.query);
+			}
+		},
 
 		selected: function(plan) {
 			if (plan) {
@@ -61,7 +76,97 @@ function(
 					? this.selectedPlan 
 					: this.at(0);
 			}
+		},
+
+		fetch: function(options) {
+			options = options || {};
+			this._super(_.extend(options, 
+				{data: {
+					query: this.query,
+					country: this.country,
+					from: this.from,
+					to: this.to
+				}}
+			));
+			return this;
+		},
+
+		/** Whenever from/to are missing parse for period or set the defaults */
+		build: function(query) {
+
+			var numberRegexp = new RegExp('[1-9]+(?= *(month|week|day))', 'gi');
+			var periodRegexp = new RegExp('(months|weeks|days|month|week|day)', 'gi');
+
+			var number = query.match(numberRegexp);
+			var period = query.match(periodRegexp);
+
+			if (number || period) {
+				if (!number) number = [1]; // number not given, guess it is 1
+
+				this.from = moment()
+					.startOf('day')
+					.add('days', 1)
+					.format();
+
+				this.to = moment()
+					.startOf('day')
+					.add(this.toUnits(period[0]), number[0])
+					.format();
+
+				this.query = query
+					.replace(numberRegexp, '')
+					.replace(periodRegexp, '');
+
+			} else {
+				// default period is one week starting from tomorrow
+				this.from = moment()
+					.startOf('day')
+					.add('days', 1)
+					.format();
+
+				this.to = moment()
+					.startOf('day')
+					.add('days', 7)
+					.format();
+
+				this.query = this.reduce(query);
+			}
+		},
+
+		reduce: function(keyword) {
+			if (keyword) {
+
+				var filtered = _.filter(
+					keyword.split(' '), 
+					function(word) {
+						// filter out shorter than 3
+						return word.length > 3;
+					});
+
+				var reduced = undefined;
+				if (filtered.length > 0) {
+					reduced = _.reduce(
+						filtered,
+						function(sum, word) {
+							return (sum + ' ' + word).trim();
+						});
+				}
+	
+				return reduced;
+
+			}
+		},
+
+		toUnits: function(period) {
+			if (period.toLowerCase().indexOf('d') == 0) {
+				return 'days';
+			} else if (period.toLowerCase().indexOf('m') == 0) {
+				return 'months';
+			} else if (period.toLowerCase().indexOf('w') == 0) {
+				return 'weeks';
+			}
 		}
+
 	});
 
 	

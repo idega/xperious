@@ -350,7 +350,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
             <js.main.file>/portal/optimized.js</js.main.file>
           </properties>
       </profile>
-  </profiles>  
+  </profiles>
 
 
 </project>

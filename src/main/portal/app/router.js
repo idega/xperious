@@ -1,13 +1,11 @@
 define([
 	'app',
-	'moment',
 	'modules/plan',
 	'modules/search',
 	'modules/index',
 	'text!templates/app.html'],
 function(
 	app, 
-	moment,
 	Plan,
 	Search,
 	Index,
@@ -18,44 +16,27 @@ function(
 	return Backbone.Router.extend({
 
 	    routes: {
-	      'search*query': 'searchAction',
-	      '*path': 'indexAction'
+	      'search*query': 'search',
+	      '*path': 'index'
 	    },
 
 
-	    indexAction: function() {
+	    index: function() {
 	    	var layout = app.layout(_.template(''));
 	    	layout.insertView(new Index.Views.Model());
 	    	layout.render();
 	    },
-
-
-	    searchAction: function(query, param) {
-	    	var model = new Search.Model({}, {query: param['q']});
-			
-			model.save([], {success: function(model, response, options) {
-				var layout = app.layout(_.template(HtmlApp));
-
-				var collection = new Plan.Collection(response);
-		    	layout.setView(
-	    			'#SearchView', new Search.Views.Model(
-	    			{query: decodeURIComponent(param['q'])}));
-		    	layout.setView(
-	    			'#PlanListView', new Plan.Views.Collection(
-	    			{model: collection}));		
-
-		    	// found anything?
-		    	if (collection.selected()) {
-		    		layout.setView(
-		    			'#PlanView', new Plan.Views.Model(
-		    			{model: collection}));
-		    	} else {
-		    		var planView = layout.getView('#PlanView');
-		    		if (planView) planView.remove();
-		    	}
-
-		    	layout.render();
-			}});	    	
+	    
+	    search: function(query, param) {
+			new Plan.Collection([], {
+				query: param['query'],
+				country: param['country']
+			}).fetch({success: 
+				function(collection) {
+					alert('Found plans: ' + collection.size());
+				}
+			});
+			this.index();
 	    }
 	});
 
