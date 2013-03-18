@@ -108,6 +108,12 @@ require.config({
     	  ]
        },
 
+       'jquery.waypoints': {
+    	   deps: [
+    	         'jquery'
+    	  ]
+       },
+
        'jquery.cookie': {
     	   deps: [
     	          'jquery'
@@ -130,6 +136,7 @@ require.config({
        'jquery.scrollTo': '../lib/jquery/jquery.scrollTo',
        'jquery.ui' : '../lib/jquery/jquery.ui.custom',
        'jquery.ui.selectmenu' : '../lib/jquery/jquery.ui.selectmenu',
+       'jquery.waypoints' : '../lib/jquery/jquery.waypoints',
        'jquery.cookie' : '../lib/jquery/jquery.cookie',
        'modernizr' : '../lib/modernizr/modernizr',
        'underscore' : '../lib/underscore/underscore',

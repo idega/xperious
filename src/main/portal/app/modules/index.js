@@ -12,13 +12,14 @@ define([
    'jquery.scrollTo',
    'jquery.ui',
    'jquery.ui.selectmenu',
+   'jquery.waypoints',
    'modernizr'
 ],function(
 	app,
 	Plan,
 	HtmlIndex) 
 {
-
+	
 	var Index = app.module();
 
 	
@@ -100,15 +101,14 @@ define([
 	Index.Views.Model = Backbone.View.extend({
 		template: _.template(HtmlIndex),
 
-
 		events: {
-			'click #plan' : 'plan'
+			'click input[value="Plan"]' : 'plan'
 		},
 
 		plan: function() {
 			Backbone.history.navigate(
 				'search?' + 
-					'query=' + $('#query').val() + '&' +
+					'query=' + $('input.autocomplete-search-input').val() + '&' +
 					'country=' + app.country(),
 				{trigger: true});
 			return false;
@@ -123,241 +123,382 @@ define([
 			var that = this;
 
 
-			        /*Placeholder for old browsers*/
-			        $('input[placeholder], textarea[placeholder]').placeholder();
+			
+			jQuery.fn.shorten = function(settings) {
+			    var config = {
+			        showChars: 100,
+			        ellipsesText: "...",
+			        moreText: "More info",
+			        lessText: "less"
+			    };
 
-			        $("a.chose-destination").fancybox({
-			            padding: 0,
-			            onStart: function() {
-			                $('#fancybox-close').text('Close');
-			                that.renderDestinationMap();
-			            }
-			        });
+			    if (settings) {
+			        $.extend(config, settings);
+			    }
 
-
-			        /* http://jqueryui.com/autocomplete/ */
-			        $("input.autocomplete-search-input").autocomplete({
-			            source: '/api/v1/keywords/suggest?country=is'
-			        });
-
-			        if (!Modernizr.touch) {
-			            /* http://craigsworks.com/projects/qtip/ */
-			            $(".tooltip").each(function() {
-			                var config = {
-			                    content: {},
-			                    style: {
-			                        name: 'dark',
-			                        width: 285,
-			                        padding: 15,
-			                        border: {
-			                            width: 2,
-			                            radius: 2,
-			                            color: '#000000'
-			                        },
-
-			                        tip: { // Now an object instead of a string
-			                            corner: 'topLeft', // We declare our corner within the object using the corner sub-option
-			                            color: '#000000',
-			                            size: {
-			                                x: 20, // Be careful that the x and y values refer to coordinates on screen, not height or width.
-			                                y: 20 // Depending on which corner your tooltip is at, x and y could mean either height or width!
-			                            }
-			                        }
-			                    },
-			                    position: {
-			                        adjust: {
-			                            x: -350,
-			                            y: 0
-			                        }
-			                    }
-			                },
-			                $this = $(this);
-			                if ($this.data('tooltipcontent')) {
-			                    config.content.text = $this.data('tooltipcontent');
-			                }
-			                if ($this.data('tooltiptitle')) {
-			                    config.content.title = $this.data('tooltiptitle');
-			                }
-			                $this.qtip(config);
-			            });
+			    $('body').on('click', '.morelink', function() {
+			        var $this = $(this);
+			        if ($this.hasClass('less')) {
+			            $this.removeClass('less');
+			            $this.html(config.moreText);
+			        } else {
+			            $this.addClass('less');
+			            $this.html('');
 			        }
+			        $this.parent().prev().slideDown();
+			        $this.prev().slideDown();
+			        return false;
+			    });
 
-			        $(".animate-parent").on('click', function(event) {
-			            var $this = $(this),
-			                $toAnimate = $this.parent('.hidden');
-			            $toAnimate.animate({
-			                left: 0
-			            }, 300, function() {
-			            	$(".animate-parent").unbind(event);
-			            });
-			            return false;
-			        });
+			    return this.each(function() {
+			        var $this = $(this);
 
-			        /* Calculate Section Height */
-			        var $window = $(window),
-			            $body = $('body');
-			        $window.resize(function() {
-			            var windowHeight = $window.height();
-			            $('.full-height-section .site-block').height(windowHeight);
-			            if (!$body.data('initialized')) {
-			                $body.css({
-			                    display: 'none',
-			                    visibility: 'visible'
-			                }).fadeIn(200, onInit);
-			            }
-			            $body.data('initialized', 'initialized');
-			        }).trigger('resize');
-
-			        function onInit() {
-			            $('select.selectmenu').selectmenu({
-			                create : function(){
-			                    if (window.PIE) {
-			                        $('.ui-selectmenu, .ui-selectmenu-menu ul').each(function() {
-			                            PIE.attach(this);
-			                        });
-			                    }
-			                }
-			            });
-
-			            $('select.selectmenu-in-popup').selectmenu({
-			                create : function(){
-			                    if (window.PIE) {
-			                        $('.ui-selectmenu, .ui-selectmenu-menu ul').each(function() {
-			                            PIE.attach(this);
-			                        });
-			                    }
-			                },
-			                appendTo: 'form.convert-form'
-			            });
-
-			            $(".convert-form .ui-widget").mouseout(function(e) {
-			                e.stopPropagation();
-			            });
-
-
-			            /*JS PIE. Fetures and usage: http://css3pie.com/documentation/supported-css3-features/*/
-			            if (window.PIE) {
-			                $('.button, .buttoned, input[type="text"], input[type="password"], textarea, .ui-selectmenu').each(function() {
-			                    PIE.attach(this);
-			                });
-			            }
+			        var content = $this.html();
+			        if (content.length > config.showChars) {
+			            var c = content.substr(0, config.showChars);
+			            var h = content.substr(config.showChars, content.length - config.showChars);
+			            var html = c + '<span class="morecontent"><span>' + h + '</span>&nbsp;&nbsp;<a href="javascript://nop/" class="morelink show-more">' + config.moreText + '</a></span>';
+			            $this.html(html);
+			            $(".morecontent span").hide();
 			        }
+			    });
+			};
+			
 
-			        /* Background video */
-			        /*$(".section").each(function() {
-			            var $section = $(this);
-			            if ($section.data('videoid')) {
-			                var $iframe = $('<div id="iframe-container"><iframe height="100%" width="100%" style="overflow-y: hidden;" src="http://player.vimeo.com/video/' + $section.data('videoid') +
-			                    '?autoplay=1&loop=1&color=000000" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen scrolling="no"></iframe></div>');
-			                $body.append($iframe);
-			            }
-			        });*/
+			var $window = $(window),
+            $body = $('body'),
+            $bottom = $('#bottom');
+        /*Placeholder for old browsers*/
+        $('input[placeholder], textarea[placeholder]').placeholder();
 
-			        /* Slide down */
-			        $('.site-bottom-menu').localScroll({
-			            duration: 300,
-			            easing: "swing"
-			        });
+        $("a.chose-destination").fancybox({
+            hideOnContentClick: false,
+            padding: 0,
+            onStart: function() {
+                $('#fancybox-close').text('Close');
+                $("#fancybox-outer").removeClass('event-lightbox');
+                that.renderDestinationMap();
+            }
+        });
+
+        /* http://jqueryui.com/autocomplete/ */
+        $("input.autocomplete-search-input").autocomplete({
+        	source: '/api/v1/keywords/suggest?country=is'
+        });
+
+        if (!Modernizr.touch) {
+            /* http://craigsworks.com/projects/qtip/ */
+            $(".tooltip").each(function() {
+                var config = {
+                    content: {},
+                    style: {
+                        name: 'dark',
+                        width: 285,
+                        padding: 15,
+                        border: {
+                            width: 2,
+                            radius: 2,
+                            color: '#000000'
+                        },
+
+                        tip: { // Now an object instead of a string
+                            corner: 'topLeft', // We declare our corner within the object using the corner sub-option
+                            color: '#000000',
+                            size: {
+                                x: 20, // Be careful that the x and y values refer to coordinates on screen, not height or width.
+                                y: 20 // Depending on which corner your tooltip is at, x and y could mean either height or width!
+                            }
+                        }
+                    },
+                    position: {
+                        adjust: {
+                            x: -350,
+                            y: 0
+                        }
+                    }
+                },
+                $this = $(this);
+                if ($this.data('tooltipcontent')) {
+                    config.content.text = $this.data('tooltipcontent');
+                }
+                if ($this.data('tooltiptitle')) {
+                    config.content.title = $this.data('tooltiptitle');
+                }
+                $this.qtip(config);
+            });
+        }
+
+        function centerContainerImages(selector) {
+            var windowHeight = $window.height(),
+                windowWidth = $window.width(),
+                changeWidth = false,
+                changeHeight = false;
+            $(selector).each(function() {
+                var $img = $(this);
+                if ($img.width() < windowWidth) {
+                    changeWidth = true;
+                    $img.width(windowWidth);
+                }
+                if ($img.height() < windowHeight) {
+                    changeHeight = true;
+                    $img.height(windowHeight);
+                }
+                if (changeHeight && !changeWidth) {
+                    $img.css({
+                        'width': 'auto'
+                    });
+                }
+                if (changeWidth && !changeHeight) {
+                    $img.css({
+                        'height': 'auto'
+                    });
+                }
+
+                if ($img.height() > windowHeight) {
+                    $img.css({
+                        marginTop: -($img.height() / 2)
+                    });
+                }
+
+                if ($img.width() > windowWidth) {
+                    $img.css({
+                        marginLeft: -($img.width() / 2)
+                    });
+                }
+                $img.css({
+                    visibility: 'visible'
+                });
+            });
+        }
+
+        function centerSliderImages() {
+            centerContainerImages(".slider-container img:visible");
+            $window.resize(function() {
+                centerContainerImages(".slider-container img:visible");
+            });
+        }
+
+        $(".slider-container").imagesLoaded(centerSliderImages);
+
+        /* Calculate Section Height */
+        $window.resize(function() {
+            var windowHeight = $window.height(),
+                windowWidth = $window.width();
+            $('.full-height-section .site-block').height(windowHeight);
+            if (!$body.data('initialized')) {
+                $body.css({
+                    display: 'none',
+                    visibility: 'visible'
+                }).fadeIn(200, onInit);
+            }
+            $body.data('initialized', 'initialized');
+        }).trigger('resize');
+
+        function onInit() {
+            $('select.selectmenu').selectmenu({
+                create: function() {
+                    if (window.PIE) {
+                        $('.ui-selectmenu, .ui-selectmenu-menu ul').each(function() {
+                            PIE.attach(this);
+                        });
+                    }
+                }
+            });
+
+            $('select.selectmenu-in-popup').selectmenu({
+                create: function() {
+                    if (window.PIE) {
+                        $('.ui-selectmenu, .ui-selectmenu-menu ul').each(function() {
+                            PIE.attach(this);
+                        });
+                    }
+                },
+                appendTo: 'form.convert-form'
+            });
+
+            $(".convert-form .ui-widget").mouseout(function(e) {
+                e.stopPropagation();
+            });
+
+            /*JS PIE. Fetures and usage: http://css3pie.com/documentation/supported-css3-features/*/
+            if (window.PIE) {
+                $('.button, .buttoned, input[type="text"], input[type="password"], textarea, .ui-selectmenu').each(function() {
+                    PIE.attach(this);
+                });
+            }
+        }
+
+        /* Slide down */
+        $('.site-bottom-menu').localScroll({
+            duration: 300,
+            easing: "swing"
+        });
 
 
-			        /* Top slider */
-			        var $images = $('.slider-container');
+        /* Top slider */
+        initSlider('.home-section .next', '.home-section .prev', '.slider-container');
 
-			        function sliderCallback(direction, selector, callback) {
-			            $(selector).unbind('click', callback);
-			            var $img = $images.find(':visible'),
-			                $next = $images.find(':visible')[direction]();
-			            if (!$next.length) {
-			                $next = $images.find(direction == 'prev' ? ':last' : ':first');
-			            }
-			            $img.css({
-			                'z-index': -1
-			            });
-			            $images.imagesLoaded(function imagesLoadedCallback() {
-			                $img.fadeOut(600, function fadeoutAfterImageLoadedCallback() {
-			                    $(selector).bind('click', callback);
-			                });
-			            });
-			            $next.css({
-			                'z-index': -2
-			            }).show();
-			            return false;
-			        }
+        function initSlider(nextSelector, prevSelector, imagesSelector, startingZIndex) {
+            startingZIndex = startingZIndex || -1;
+            var $images = $(imagesSelector),
+                $nextButton = $(nextSelector),
+                $prevButton = $(prevSelector);
 
-			        function sliderNextCallback() {
-			            sliderCallback.call(this, 'next', '.home-section .next', sliderNextCallback);
-			            return false;
-			        }
+            function sliderCallback(direction) {
+                $nextButton.off();
+                $prevButton.off();
+                var $img = $images.find('img:visible'),
+                    $next = $images.find('img:visible')[direction]();
+                if (!$next.length || !$next.is('img')) {
+                    $next = $images.find(direction == 'prev' ? 'img:last' : 'img:first');
+                }
+                $img.css({
+                    'z-index': startingZIndex
+                });
+                $images.imagesLoaded(function imagesLoadedCallback() {
+                    centerSliderImages();
+                    $img.fadeOut(600, function fadeoutAfterImageLoadedCallback() {
+                        $nextButton.on('click', sliderNextCallback);
+                        $prevButton.on('click', sliderPrevCallback);
+                    });
+                });
+                $next.css({
+                    'z-index': startingZIndex - 1
+                }).show();
+                return false;
+            }
 
-			        $('.home-section .next').on('click', sliderNextCallback);
+            function sliderNextCallback() {
+                sliderCallback.call(this, 'next');
+                return false;
+            }
 
-			        function sliderPrevCallback() {
-			            sliderCallback.call(this, 'prev', '.home-section .prev', sliderPrevCallback);
-			            return false;
-			        }
+            $nextButton.on('click', sliderNextCallback);
 
-			        $('.home-section .prev').on('click', sliderPrevCallback);
+            function sliderPrevCallback() {
+                sliderCallback.call(this, 'prev');
+                return false;
+            }
 
-			        /*Events slider*/
-			        $("#events-slider").jcarousel({
-			            scroll: 1,
-			            wrap: 'circular'
-			        });
+            $prevButton.on('click', sliderPrevCallback);
+        }
 
+        /*Events slider*/
+        $("#events-slider").jcarousel({
+            scroll: 1,
+            wrap: 'circular'
+        });
 
-			        /* First page bottom menus */
-			        var menuAnimationTime = 100;
-			        $(".site-bottom-menu li:has('.convert-form')").hoverIntent({
-			            over: function showHovered() {
-			                $(this).find('.convert-form').css({
-			                    opacity: 0.0,
-			                    visibility: 'visible',
-			                    display: 'block'
-			                }).animate({
-			                    opacity: 1.0
-			                }, menuAnimationTime);
-			            },
-			            out: function hideHovered(p, a, r) {
-			                var $form = $(this).find('.convert-form');
-			                $form.css({
-			                    opacity: 1.0
-			                }).animate({
-			                    opacity: 0.0
-			                }, menuAnimationTime, function() {
-			                    $form.css({
-			                        visibility: 'hidden',
-			                        display: 'none'
-			                    });
-			                });
-			            },
-			            sensitivity: 50
-			        });
+        /* First page bottom menus */
+        var menuAnimationTime = 100;
+        $(".site-bottom-menu li:has('.convert-form')").hoverIntent({
+            over: function showHovered() {
+                $(this).find('.convert-form').css({
+                    opacity: 0.0,
+                    visibility: 'visible',
+                    display: 'block'
+                }).animate({
+                    opacity: 1.0
+                }, menuAnimationTime);
 
-			        $(".site-bottom-menu li:has('.submenu')").hoverIntent(function() {
-			            $(this).find('.submenu').css({
-			                opacity: 0.0,
-			                display: 'block',
-			                width: '2000px'
-			            }).animate({
-			                opacity: 1.0
-			            }, menuAnimationTime);
-			        }, function() {
-			            var $submenu = $(this).find('.submenu');
-			            $submenu.css({
-			                opacity: 1.0
-			            }).animate({
-			                opacity: 0.0
-			            }, menuAnimationTime, function() {
-			                $submenu.css({
-			                    display: 'none'
-			                });
-			            });
-			        });
+                if (window.PIE) {
+                    $(".convert-form .ui-selectmenu, .convert-form input[type='text']").each(function() {
+                        PIE.attach(this);
+                    });
+                }
+            },
+            out: function hideHovered(p, a, r) {
+                var $form = $(this).find('.convert-form');
+                $form.css({
+                    opacity: 1.0
+                }).animate({
+                    opacity: 0.0
+                }, menuAnimationTime, function() {
+                    $form.css({
+                        visibility: 'hidden',
+                        display: 'none'
+                    });
+                });
+            }
+        });
+
+        $(".site-bottom-menu li:has('.submenu')").hoverIntent(function() {
+            $(this).find('.submenu').css({
+                opacity: 0.0,
+                display: 'block',
+                width: '2000px'
+            }).animate({
+                opacity: 1.0
+            }, menuAnimationTime);
+        }, function() {
+            var $submenu = $(this).find('.submenu');
+            $submenu.css({
+                opacity: 1.0
+            }).animate({
+                opacity: 0.0
+            }, menuAnimationTime, function() {
+                $submenu.css({
+                    display: 'none'
+                });
+            });
+        });
+
+        $('.event-link').on('click', function() {
+            var $trigger = $(this);
+            $.fancybox({
+                //TODO: load content via AJAX, etc
+                content: $('#event-popup').html(),
+                padding: 0,
+                overlayShow: false,
+                onStart: function() {
+                    $("#fancybox-outer").addClass('event-lightbox');
+                    $('#fancybox-close').text('Close');
+                },
+                onComplete: function() {
+                    initSlider('#fancybox-content .popup-gallery-fader .next',
+                        '#fancybox-content .popup-gallery-fader .prev',
+                        '#fancybox-content .popup-gallery-fader', 1103, false);
+                    $(".event-popup p.info").shorten();
+                    initHovers();
+                    if (window.PIE) {
+                        $('.popup-gallery-fader, .event-popup, .event-lightbox, .button-ticket').each(function() {
+                            PIE.attach(this);
+                        });
+                    }
+                }
+            });
+            return false;
+        });
+
+        $("#team").waypoint(function(dir) {
+            if (dir == 'down') {
+                $bottom.css({
+                    visibility: 'visible'
+                });
+            } else {
+                $bottom.css({
+                    visibility: 'hidden'
+                });
+            }
+        });
+
+        function hoverCallback() {
+            var $this = $(this);
+            $this.toggleClass('hovered', 200, 'swing');
+        }
+
+        function initHovers() {
+            $('input[type="submit"], a').hoverIntent({
+                over: hoverCallback,
+                out: hoverCallback,
+                interval: 25
+            });
+        }
+        initHovers();
 			
 			
-			        
-			
-			
+
+        
 			
 		}
 

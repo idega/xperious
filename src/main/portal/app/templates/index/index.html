@@ -1,8 +1,19 @@
-<div class="site">
-      <div style="position:fixed; top:0px; left:0px; width:100%; height:100%; z-index:-1;" class="slider-container"><img src="images/bg-1.jpg"><img src="images/bg-2.jpg" style="display:none;"><img src="images/bg-3.jpg" style="display:none;"><img src="images/bg-1.jpg" style="display:none;"><img src="images/bg-2.jpg" style="display:none;"><img src="images/bg-3.jpg" style="display:none;"><img src="images/bg-1.jpg" style="display:none;"><img src="images/bg-2.jpg" style="display:none;"><img src="images/bg-3.jpg" style="display:none;"></div>
-      <div id="home" //-data-videoid="9848191" class="section home-section full-height-section">
+ <div style="position:fixed; top:0px; left:0px; width:100%; height:100%; z-index:-1;" class="slider-container"><img src="images/home-bg-1.jpg"><img src="images/home-bg-2.jpg" style="display:none;"></div>
+    <div class="site">          
+      <div id="home" class="section home-section full-height-section">
         <div class="site-header">
-          <div class="site-block-in"><span href="#" class="logo"><img src="images/logo.png"></span>
+          <div class="site-block-in">
+            <div class="mobile-menu">
+              <ul class="menu menu-items">
+                <li> <a href="#">Facts about Iceland</a></li>
+                <li> <a href="#">Facts about Iceland</a></li>
+                <li> <a href="#">Facts about Iceland</a></li>
+                <li> <a href="#">Facts about Iceland</a></li>
+                <li> <a href="#">Facts about Iceland</a></li>
+                <li> <a href="#">Facts about Iceland</a></li>
+                <li> <a href="#">Facts about Iceland</a></li>
+              </ul>
+            </div><span href="#" class="logo"><img src="images/logo.png"></span>
             <div class="top-menu clearfix"> <a href="#map-popup" class="chose-destination">Choose your <br/><strong>destination</strong></a>
               <ul class="menu lang-menu clearfix">
                 <li><a href="#" class="en active"><br></a></li>
@@ -17,15 +28,15 @@
             <h2>You can plan your own vacation based on what you like to do, <br>how many you are, budget and more.</h2>
             <form class="planner-form">
               <div class="form-row">
-                <div style="position: relative; left: -788px;" class="hidden">
-                  <input id="query" type="text" placeholder="Your type of interest, example: horses, hicking, whale watching" data-tooltiptitle="What is your interest" data-tooltipcontent="Here you type what you want to do in your dream vacation. &lt;br&gt;&lt;br&gt;e.g. whale watching, hicking, glacier tour, river rafting, horses" class="autocomplete-search-input tooltip"><span class="buttoned ico-calendar">Timeframe</span><span class="buttoned ico-guest">1 Guests</span><span class="buttoned ico-event">Event</span>
-                  <input id="plan" type="submit" value="Plan" class="button animate-parent">
+                <div class="hidden">
+                  <input type="text" placeholder="Your type of interest, example: horses, hicking, whale watching" data-tooltiptitle="What is your interest" data-tooltipcontent="Here you type what you want to do in your dream vacation. &lt;br&gt;&lt;br&gt;e.g. whale watching, hicking, glacier tour, river rafting, horses" class="autocomplete-search-input tooltip"><span class="buttoned ico-calendar">Timeframe</span><span class="buttoned ico-guest">1 Guests</span><span class="buttoned ico-event">Event</span>
+                  <input type="submit" value="Plan" class="button">
                 </div>
               </div>
             </form>
             <p class="info">Are you attending an event? <a href="#">click here</a></p>
           </div>
-        </div><a href="javaScript:void(0);" class="prev"><br/></a><a href="javaScript:void(0);" class="next"><br/></a>
+        </div><span class="prev"><br/></span><span class="next"><br/></span>
         <div class="site-bottom-menu">
           <div class="site-block-in">
             <ul class="menu bottom-menu clearfix">
@@ -74,11 +85,12 @@
       </div>
       <div id="article" class="section article-section full-height-section">
         <div class="grid"><br/></div>
+        <div class="background"><img src="images/bg-2.jpg"></div>
         <div class="site-block">
           <div class="article-content">
             <p class="brand">ambassador</p>
             <h2>whale watching in iceland</h2>
-            <p class="subcontent">â€¦bon voyage</p>
+            <p class="subcontent">Ébon voyage</p>
             <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet urna adipiscing tellus ultricies porttitor. <a class="button" href="#">Read more</a></p>
             <div class="logo"> <img src="images/logo-ambassador.png"></div>
           </div>
@@ -91,49 +103,49 @@
         <div class="events-slider">
           <div class="site-block">
             <ul id="events-slider" class="clearfix menu event-skin">
-              <li class="clearfix">
+              <li class="clearfix event-link">
                 <div class="date"><span class="day">28</span><span class="month">FEB</span><span class="year">2013</span></div>
                 <p class="name">Sample Event</p>
                 <p class="time">08:00 to 16:00</p>
                 <p class="text">Lorem ipsum dolor sit amet, consectetur adipisciong eitt.</p>
               </li>
-              <li class="clearfix">
+              <li class="clearfix event-link">
                 <div class="date"><span class="day">28</span><span class="month">FEB</span><span class="year">2013</span></div>
                 <p class="name">Sample Event</p>
                 <p class="time">08:00 to 16:00</p>
                 <p class="text">Lorem ipsum dolor sit amet, consectetur adipisciong eitt.</p>
               </li>
-              <li class="clearfix">
+              <li class="clearfix event-link">
                 <div class="date"><span class="day">28</span><span class="month">FEB</span><span class="year">2013</span></div>
                 <p class="name">Sample Event</p>
                 <p class="time">08:00 to 16:00</p>
                 <p class="text">Lorem ipsum dolor sit amet, consectetur adipisciong eitt.</p>
               </li>
-              <li class="clearfix">
+              <li class="clearfix event-link">
                 <div class="date"><span class="day">28</span><span class="month">FEB</span><span class="year">2013</span></div>
                 <p class="name">Sample Event</p>
                 <p class="time">08:00 to 16:00</p>
                 <p class="text">Lorem ipsum dolor sit amet, consectetur adipisciong eitt.</p>
               </li>
-              <li class="clearfix">
+              <li class="clearfix event-link">
                 <div class="date"><span class="day">28</span><span class="month">FEB</span><span class="year">2013</span></div>
                 <p class="name">Sample Event</p>
                 <p class="time">08:00 to 16:00</p>
                 <p class="text">Lorem ipsum dolor sit amet, consectetur adipisciong eitt.</p>
               </li>
-              <li class="clearfix">
+              <li class="clearfix event-link">
                 <div class="date"><span class="day">28</span><span class="month">FEB</span><span class="year">2013</span></div>
                 <p class="name">Sample Event</p>
                 <p class="time">08:00 to 16:00</p>
                 <p class="text">Lorem ipsum dolor sit amet, consectetur adipisciong eitt.</p>
               </li>
-              <li class="clearfix">
+              <li class="clearfix event-link">
                 <div class="date"><span class="day">28</span><span class="month">FEB</span><span class="year">2013</span></div>
                 <p class="name">Sample Event</p>
                 <p class="time">08:00 to 16:00</p>
                 <p class="text">Lorem ipsum dolor sit amet, consectetur adipisciong eitt.</p>
               </li>
-              <li class="clearfix">
+              <li class="clearfix event-link">
                 <div class="date"><span class="day">28</span><span class="month">FEB</span><span class="year">2013</span></div>
                 <p class="name">Sample Event</p>
                 <p class="time">08:00 to 16:00</p>
@@ -197,7 +209,7 @@
             </div>
           </form>
           <div class="contact-info">
-            <p class="small">Our office is open 9:00 AM to 5:00 PM (EST) Monday â€“ Friday. We will respond as soon as possible to voicemail and emails.</p>
+            <p class="small">Our office is open 9:00 AM to 5:00 PM (EST) Monday Ð Friday. We will respond as soon as possible to voicemail and emails.</p>
             <h3>Live Chat</h3><br>
             <h3>Our US Office</h3>
             <p>400 West Broadway, New York, <br>NY 10012, United States<br>Tel: +354 415 5100<br>Email: <a href="#">iceland@xperious.travel</a></p>
@@ -265,7 +277,7 @@
           </div>
           <div class="col col-2">
             <h4>CONTACT</h4>
-            <p><strong>Xperious</strong><br>ICELAND office<br>Ofanleiti 2, 4th floor<br>105 Reykjavik - Iceland<br><br>ICELAND@XPERIOUS.TRAVEL<br><br>Tel: +354 415 5100<br><br><br><br><strong>LIVE CHAT</strong><br>Our office is open 9:00 AM to <br>5:00 PM (GMT) Monday â€“ Friday.<br>We will respond as soon as possible <br>to voicemail and emails.</p>
+            <p><strong>Xperious</strong><br>ICELAND office<br>Ofanleiti 2, 4th floor<br>105 Reykjavik - Iceland<br><br><a href="#">ICELAND@XPERIOUS.TRAVEL</a><br><br>Tel: +354 415 5100<br><br><br><br><strong>LIVE CHAT</strong><br>Our office is open 9:00 AM to <br>5:00 PM (GMT) Monday Ð Friday.<br>We will respond as soon as possible <br>to voicemail and emails.</p>
           </div>
           <div class="col col-3">
             <h4><br/></h4>
@@ -273,13 +285,13 @@
           </div>
         </div>
       </div>
-      <div id="bottom" class="section bottom-section">
-        <div class="site-block">
-          <p>We're based in Reykjavik, Iceland. <br>We work with clients from all over the world. Get in touch with us, weâ€™re user-friendly!</p>
-          <div class="contacts"><span class="email">iceland@xperious.travel</span><span class="phone">+354 415 5100</span></div>
-          <p>Weâ€™re always looking for great talent to join our team. Apply for a position today!</p>
-          <p class="copyrights">&copy;2013 Xperious Ltd. All Rights Reserved.</p>
-        </div>
+    </div>
+    <div id="bottom" class="section bottom-section">
+      <div class="site-block">
+        <p>We're based in Reykjavik, Iceland. <br>We work with clients from all over the world. Get in touch with us, weÕre user-friendly!</p>
+        <div class="contacts"><span class="email"> <a href="#">iceland@xperious.travel</a></span><span class="phone">+354 415 5100</span></div>
+        <p>WeÕre always looking for great talent to join our team. Apply for a position today!</p>
+        <p class="copyrights">&copy;2013 Xperious Ltd. All Rights Reserved.</p>
       </div>
     </div>
   </body>
@@ -287,9 +299,29 @@
     <div id="map-popup" class="map-popup">
       <div class="header">
         <p class="title">Select your favorit destination</p>
-        <p class="subtitle">Click on the country that you vant to visit and youâ€™ll be redirect to a site for that country.</p>
+        <p class="subtitle">Click on the country that you vant to visit and youÕll be redirect to a site for that country.</p>
       </div>
-      <div class="map-holder" style="width: 100%; height: 400px;"></div>
+      <div class="map-holder"></div>
     </div>
   </div>
-</div>
+  <div style="display: none">
+    <div id="event-popup">
+      <div class="event-popup">
+        <div class="popup-gallery-fader"><img src="images/popup-img.png"><img src="images/popup-img2.png" style="display:none;"><img src="images/popup-img3.png" style="display:none;"><span class="prev"><br/></span><span class="next"><br/></span></div>
+        <div class="inner">
+          <h5>Event title</h5>
+          <h6>Here is subtitle of the event</h6>
+          <div class="event-details"><span class="day">Friday</span><span class="time">12:00 until 13:00</span>
+            <p class="info">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam dignissim, diam quis congue consectetur, diam lorem porta nisi, non ultrices velit nunc non dui. Vivamus eu risus eros. consectetur, diam lorem porta nisi, non.</p>
+          </div>
+        </div>
+        <div class="map-wrap"><img src="images/event-map.png">
+          <div class="map-tooltip">
+            <p class="title">Ofanleiti 2</p>
+            <p>View map á Get Directions</p><span class="nip"></br></span>
+          </div>
+        </div>
+        <div class="popup-bottom"><a href="#" class="button button-ticket">Attend event</a></div>
+      </div>
+    </div>
+  </div>
