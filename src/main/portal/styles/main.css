@@ -4,6 +4,8 @@
 @import url('import/styles/jquery.jcarousel.skin.css');
 @import url('import/styles/style.css');
 @import url('import/styles/responsive.css');
+@import url('timeframe.css');
+
 
 .map-holder {
 	width: 100%;

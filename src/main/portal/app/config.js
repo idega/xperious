@@ -126,6 +126,7 @@ require.config({
        'text' : '../lib/require/text',
        'async' : '../lib/require/async',
        'jquery' : '../lib/jquery/jquery',
+       'useyui' : '../lib/require/useyui',
        'jquery.fancybox' : '../lib/jquery/jquery.fancybox',
        'jquery.hoverIntent' : '../lib/jquery/jquery.hoverIntent',
        'jquery.imagesloaded' : '../lib/jquery/jquery.imagesloaded',

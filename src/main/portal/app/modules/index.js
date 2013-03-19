@@ -2,6 +2,7 @@ define([
    'app',
    'modules/plan',
    'text!templates/index/index.html',
+   'text!templates/index/timeframe.html',
    'jquery.fancybox',
    'jquery.hoverIntent',
    'jquery.imagesloaded',
@@ -17,15 +18,20 @@ define([
 ],function(
 	app,
 	Plan,
-	HtmlIndex) 
+	HtmlIndex,
+	HtmlTimeframe) 
 {
 	
 	var Index = app.module();
 
-	
-	Index.Views.DestinationMap = Backbone.View.extend({
+
+	/**
+	 * Traveling destination selection control (popup).
+	 */
+	Index.Views.Destination = Backbone.View.extend({
 
 		defaultIcon: '/app/images/map-pin.png',
+
 
 		/**
 		 * Supported countries data.
@@ -47,10 +53,9 @@ define([
 	        }
         ]),
 
-		afterRender: function() {
-			var that = this;
 
-			require(['google'], function(google) {
+		afterRender: function() {
+			require(['google'], _.bind(function(google) {
 				var map = new google.maps.Map(
 					$('.map-holder')[0], {
 						zoom: 3,
@@ -60,11 +65,11 @@ define([
 						streetViewControl: false
 				});
 
-				that.markers.each(function(descriptor) {
+				this.markers.each(_.bind(function(descriptor) {
 					 var marker = new google.maps.Marker({
 						 position: new google.maps.LatLng(descriptor.lat, descriptor.lng),
 						 title: descriptor.title,
-						 icon: that.defaultIcon,
+						 icon: this.defaultIcon,
 						 map: map
 					 });
 					 descriptor.marker = marker;
@@ -72,34 +77,190 @@ define([
 					 if (descriptor.code === app.country()) {
 						descriptor.marker.setIcon(descriptor.icon);
 					 }
-				});
+				}, this));
 
-				that.markers.each(function(descriptor) {
+				this.markers.each(_.bind(function(descriptor) {
 					 google.maps.event.addListener(
 						 descriptor.marker, 
 						 'click', 
-						 function() {
-							 that.resetMarkers();
+						 _.bind(function() {
+							 this.resetMarkers();
 							 descriptor.marker.setIcon(descriptor.icon);
 							 app.country(descriptor.code);
-						 });
-				 });
-			});
+						 }, this));
+				 }, this));
+
+			}, this));
 
 		},
 
 		resetMarkers: function() {
-			var that = this;
-			this.markers.each(function(descriptor) { 
-				 descriptor.marker.setIcon(that.defaultIcon);
-			});
+			this.markers.each(_.bind(function(descriptor) { 
+				 descriptor.marker.setIcon(this.defaultIcon);
+			}, this));
 		}
 	});
 	
 
 
+	/**
+	 * Timeframe period model.
+	 */
+	Index.Timeframe = Backbone.Model.extend({
+		addDate: function(date) {
+			if (this.isFrom(date)) {
+				this.unset('from');
+				
+			} else  if (this.isTo(date)) {
+				this.unset('to');
+				
+			} else if (!this.has('from')) {
+				this.set('from', moment(date));
+				
+			} else {
+				this.set('to', moment(date));
+			}
+			
+			// user has switched the selection
+			// invert the period so it is correct
+			if (this.get('from') > this.get('to')) {
+				var from = this.get('from');
+				this.set('from', this.get('to'));
+				this.set('to', from);
+			}
+		},
+
+		hasDate: function(date) {
+			return this.isFrom(date) || this.isTo(date);
+		},
+		
+		isFrom: function(date) {
+			return this.has('from') && this.get('from').diff(this.toMoment(date)) == 0;
+		},
+
+		isTo: function(date) {
+			return this.has('to') && this.get('to').diff(this.toMoment(date)) == 0;
+		},
+		
+		toMoment: function(date) {
+			if (_.isString(date)) {
+				return moment(date, 'YYYY-MM-DD');
+			} else {
+				return moment(date);
+			}
+		},
+		
+		toString: function() {
+			return this.has('from') 
+				? moment(this.get('from')).format('YYYY-MM-DD')
+				: undefined;
+		}
+	});
+
+
+	/**
+	 * Control for timeframe selection.
+	 */
+	Index.Views.Timeframe = Backbone.View.extend({
+		template: _.template(HtmlTimeframe),
+
+		model: Index.Timeframe,
+
+		initialize: function(options) {
+			this.$trigger = options.$trigger;
+		},
+
+		afterRender: function() {
+			this.$el.dialog({
+				dialogClass: 'timeframe',
+				modal: true,
+				resizable: false,
+				minWidth: 600,
+				position: {
+					my : "center top", 
+					at:"center bottom", 
+					of: this.$trigger
+				},
+
+				open: _.bind(function( event, ui ) {
+
+					$('.datepicker').datepicker({
+						dateFormat: 'yy-mm-dd',
+						numberOfMonths: 2,
+						firstDay: 1,
+						modal: true,
+						defaultDate: this.model.toString(),
+
+						onSelect: _.bind(function(dateText) { 
+								this.model.addDate(dateText); 
+								this.updateTitlebar();
+							}, this),
+
+
+	                    beforeShowDay: _.bind(function (day){
+	                    		if (moment(day).isBefore(moment(), 'day')) {
+	                    			return [false, ""]; 
+	                    		}
+							  	if (this.model.hasDate(day)) {
+							  		return [true, "ui-state-highlight"]; 
+							  	}
+							  	return [true, ""];
+		                    }, this)
+						});
+
+						this.updateTitlebar();
+
+					}, this),
+
+				close: _.bind(function(event, ui) {
+					this.empty();
+				}, this)
+			});
+
+
+			$('.ui-widget-overlay').bind('click', _.bind(function() {
+				this.empty();
+			}, this));
+		},
+
+		empty: function() {
+			$('.datepicker').datepicker('destroy');
+			this.$el.dialog('close');
+			this.$el.remove();
+		},
+
+		updateTitlebar: function() {
+			if (this.model.has('from')) {
+				$('.from').show();
+				$('.from strong')
+					.text(this.model
+						.get('from')
+						.format('MMMM D'));
+			} else {
+				$('.from').hide();
+			}
+
+
+			if (this.model.has('to')) {
+				$('.to').show();
+				$('.to strong')
+					.text(this.model
+						.get('to')
+						.format('MMMM D'));
+			} else {
+				$('.to').hide();
+			}
+		},
+		
+	});
+	
+
+
 	Index.Views.Model = Backbone.View.extend({
+
 		template: _.template(HtmlIndex),
+		
+		timeframe: new Index.Timeframe(),
 
 		events: {
 			'click input[value="Plan"]' : 'plan'
@@ -114,13 +275,21 @@ define([
 			return false;
 		},
 
-		renderDestinationMap: function() {
-            this.insertView(new Index.Views.DestinationMap()).render();
+		renderDestination: function() {
+            this.insertView(new Index.Views.Destination()).render();
+		},
+		
+
+		_afterRender: function() {
+			$('.ico-calendar').click(_.bind(function() {
+				this.insertView(new Index.Views.Timeframe({
+						model: this.timeframe,
+						$trigger: $('.ico-calendar'),
+					})).render();
+			}, this));
 		},
 		
 		afterRender: function() {
-
-			var that = this;
 
 
 			
@@ -152,7 +321,6 @@ define([
 
 			    return this.each(function() {
 			        var $this = $(this);
-
 			        var content = $this.html();
 			        if (content.length > config.showChars) {
 			            var c = content.substr(0, config.showChars);
@@ -174,11 +342,11 @@ define([
         $("a.chose-destination").fancybox({
             hideOnContentClick: false,
             padding: 0,
-            onStart: function() {
+            onStart: _.bind(function() {
                 $('#fancybox-close').text('Close');
                 $("#fancybox-outer").removeClass('event-lightbox');
-                that.renderDestinationMap();
-            }
+                this.renderDestination();
+            }, this)
         });
 
         /* http://jqueryui.com/autocomplete/ */
@@ -496,9 +664,8 @@ define([
         }
         initHovers();
 			
-			
-
         
+        this._afterRender();
 			
 		}
 
