@@ -164,94 +164,101 @@ define([
 	Index.Views.Timeframe = Backbone.View.extend({
 		template: _.template(HtmlTimeframe),
 
+		events: {
+			'click .close' : 'empty'
+		},
+
 		model: Index.Timeframe,
 
-		initialize: function(options) {
-			this.$trigger = options.$trigger;
+		initialize: function() {
+			_.bindAll(this);
 		},
 
 		afterRender: function() {
+
 			this.$el.dialog({
 				dialogClass: 'timeframe',
 				modal: true,
 				resizable: false,
-				minWidth: 600,
-				position: {
-					my : "center top", 
-					at:"center bottom", 
-					of: this.$trigger
-				},
+				minWidth: 800,
+				minHeight: 400,
+				open: this.open,
+				close: this.empty
+			});
+			
+			// a click outside calendar will close the window
+			$('.ui-widget-overlay').bind('click', this.empty);
 
-				open: _.bind(function( event, ui ) {
-
-					$('.datepicker').datepicker({
-						dateFormat: 'yy-mm-dd',
-						numberOfMonths: 2,
-						firstDay: 1,
-						modal: true,
-						defaultDate: this.model.toString(),
-
-						onSelect: _.bind(function(dateText) { 
-								this.model.addDate(dateText); 
-								this.updateTitlebar();
-							}, this),
-
-
-	                    beforeShowDay: _.bind(function (day){
-	                    		if (moment(day).isBefore(moment(), 'day')) {
-	                    			return [false, ""]; 
-	                    		}
-							  	if (this.model.hasDate(day)) {
-							  		return [true, "ui-state-highlight"]; 
-							  	}
-							  	return [true, ""];
-		                    }, this)
-						});
-
-						this.updateTitlebar();
-
-					}, this),
-
-				close: _.bind(function(event, ui) {
-					this.empty();
-				}, this)
+			// recenter the dialog on window resize
+			$(window).resize(this.updatePosition);
+		},
+		
+		open: function() {
+			this.$('.datepicker').datepicker({
+				dateFormat: 'yy-mm-dd',
+				numberOfMonths: 2,
+				firstDay: 1,
+				modal: true,
+				defaultDate: this.model.toString(),
+				onSelect: this.onDateSelect,
+                beforeShowDay: this.beforeShowDay
 			});
 
-
-			$('.ui-widget-overlay').bind('click', _.bind(function() {
-				this.empty();
-			}, this));
+			this.updateTitlebar();
 		},
 
-		empty: function() {
-			$('.datepicker').datepicker('destroy');
-			this.$el.dialog('close');
-			this.$el.remove();
+		onDateSelect: function(dateText) {
+			this.model.addDate(dateText); 
+			this.updateTitlebar();
+			if (this.model.has('from') 
+				&& this.model.has('to')) {
+				this.empty();
+			}			
+		},
+
+		beforeShowDay: function(day) {
+    		if (moment(day).isBefore(moment(), 'day')) {
+    			return [false, ""]; 
+    		}
+		  	if (this.model.hasDate(day)) {
+		  		return [true, "ui-state-highlight"]; 
+		  	}
+		  	return [true, ""];
 		},
 
 		updateTitlebar: function() {
 			if (this.model.has('from')) {
-				$('.from').show();
-				$('.from strong')
+				this.$('.from').show();
+				this.$('.from strong')
 					.text(this.model
 						.get('from')
 						.format('MMMM D'));
 			} else {
-				$('.from').hide();
+				this.$('.from').hide();
 			}
 
 
 			if (this.model.has('to')) {
-				$('.to').show();
-				$('.to strong')
+				this.$('.to').show();
+				this.$('.to strong')
 					.text(this.model
 						.get('to')
 						.format('MMMM D'));
 			} else {
-				$('.to').hide();
+				this.$('.to').hide();
 			}
 		},
-		
+
+		updatePosition: function() {
+			this.$el.dialog("option", "position", "center");
+		},
+
+		empty: function() {
+			this.$('.datepicker').datepicker('destroy');
+			this.$el.dialog('close');
+			this.$el.remove();
+			$(window).unbind('resize', this.updatePosition);
+		},
 	});
 	
 
@@ -283,8 +290,7 @@ define([
 		_afterRender: function() {
 			$('.ico-calendar').click(_.bind(function() {
 				this.insertView(new Index.Views.Timeframe({
-						model: this.timeframe,
-						$trigger: $('.ico-calendar'),
+						model: this.timeframe
 					})).render();
 			}, this));
 		},
