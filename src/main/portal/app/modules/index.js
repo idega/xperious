@@ -190,7 +190,9 @@ define([
 			$('.ui-widget-overlay').bind('click', this.empty);
 
 			// recenter the dialog on window resize
-			$(window).resize(this.updatePosition);
+			$(window).resize(_.debounce(
+					this.updatePosition, 
+					100));
 		},
 		
 		open: function() {

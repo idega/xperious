@@ -219,29 +219,48 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
     </pluginManagement>
   
 
-    <plugins>    
-		<plugin>
-		  <groupId>org.codehaus.mojo</groupId>
-		  <artifactId>exec-maven-plugin</artifactId>
-		  <version>1.2.1</version>
-		  <executions>
-		    <execution>
-		      <phase>generate-resources</phase>
-		      <goals>
-		        <goal>exec</goal>
-		      </goals>
-		    </execution>
-		  </executions>
-		  <configuration>
-		    <executable>node</executable>
-		    <skip>${js.optimize.skip}</skip>
-		    <arguments>
-		      <argument>src/main/portal/lib/require/r.js</argument>
-		      <argument>-o</argument>
-		      <argument>src/main/portal/build.js</argument>
-		    </arguments>
-		  </configuration>
-		</plugin>    
+    <plugins>
+
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <version>1.2.1</version>
+          <executions>
+            <execution>
+                <id>optimize-js</id>
+              <phase>generate-resources</phase>
+              <goals>
+                <goal>exec</goal>
+              </goals>
+              <configuration>
+	            <executable>node</executable>
+	            <skip>${optimize.skip}</skip>
+	            <arguments>
+	              <argument>src/main/portal/lib/require/r.js</argument>
+	              <argument>-o</argument>
+	              <argument>src/main/portal/build.js</argument>
+	            </arguments>
+              </configuration>
+            </execution>
+            <execution>
+              <id>optimize-css</id>
+              <phase>generate-resources</phase>
+              <goals>
+                <goal>exec</goal>
+              </goals>
+               <configuration>
+	            <executable>node</executable>
+	            <skip>${optimize.skip}</skip>
+	            <arguments>
+	              <argument>src/main/portal/lib/require/r.js</argument>
+	              <argument>-o</argument>
+	              <argument>cssIn=src/main/portal/styles/main.css</argument>
+	              <argument>out=src/main/portal/styles/optimized.css</argument>
+	            </arguments>
+               </configuration>
+            </execution>
+          </executions>
+        </plugin>
 
 
 		<plugin>
@@ -336,8 +355,9 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
       <profile>
           <id>default</id>
           <properties>
-            <js.optimize.skip>true</js.optimize.skip>
+            <optimize.skip>true</optimize.skip>
             <js.main.file>/portal/lib/require/require.js</js.main.file>
+            <css.main.file>/portal/styles/main.css</css.main.file>
           </properties>
           <activation>
               <activeByDefault>true</activeByDefault>
@@ -346,8 +366,9 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
       <profile>
           <id>optimize</id>
           <properties>
-            <js.optimize.skip>false</js.optimize.skip>
-            <js.main.file>/portal/optimized.js</js.main.file>
+            <optimize.skip>false</optimize.skip>
+            <js.main.file>/portal/app/optimized.js</js.main.file>
+            <css.main.file>/portal/styles/optimized.css</css.main.file>
           </properties>
       </profile>
   </profiles>

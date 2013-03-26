@@ -1,7 +1,7 @@
 ({
 	baseUrl: 'app/',
 	name: 'config',
-	out: 'optimized.js',
+	out: 'app/optimized.js',
 	mainConfigFile: 'app/config.js',
 	include: ['requireLib'],
 	paths: {
