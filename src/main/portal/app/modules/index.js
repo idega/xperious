@@ -3,6 +3,7 @@ define([
    'modules/plan',
    'text!templates/index/index.html',
    'text!templates/index/timeframe.html',
+   'text!templates/index/calendar.html',
    'jquery.fancybox',
    'jquery.hoverIntent',
    'jquery.imagesloaded',
@@ -19,7 +20,8 @@ define([
 	app,
 	Plan,
 	HtmlIndex,
-	HtmlTimeframe) 
+	HtmlTimeframe,
+	HtmlCalendar) 
 {
 	
 	var Index = app.module();
@@ -31,7 +33,6 @@ define([
 	Index.Views.Destination = Backbone.View.extend({
 
 		defaultIcon: '/app/images/map-pin.png',
-
 
 		/**
 		 * Supported countries data.
@@ -107,6 +108,7 @@ define([
 	 * Timeframe period model.
 	 */
 	Index.Timeframe = Backbone.Model.extend({
+
 		addDate: function(date) {
 			if (this.isFrom(date)) {
 				this.unset('from');
@@ -156,13 +158,60 @@ define([
 				: undefined;
 		}
 	});
-
+	
 
 	/**
 	 * Control for timeframe selection.
 	 */
 	Index.Views.Timeframe = Backbone.View.extend({
 		template: _.template(HtmlTimeframe),
+
+		model: Index.Timeframe,
+
+
+		events: {
+			'click .ico-calendar' : 'calendar'
+		},
+
+		initialize: function() {
+			this.model = new Index.Timeframe();
+			app.on('change:timeframe', this.render, this);
+		},
+
+		serialize: function() {
+			return {
+				from : {
+					day: this.model.has('from') 
+						? this.model.get('from').format('DD') 
+						: undefined,
+
+					month: this.model.has('from') 
+						? this.model.get('from').format('MMM') 
+						: undefined
+				},
+				to : {
+					day: this.model.has('to') 
+						? this.model.get('to').format('DD') 
+						: undefined,
+
+					month: this.model.has('to') 
+						? this.model.get('to').format('MMM') 
+						: undefined 
+				}
+			};
+		},
+
+		calendar: function() {
+			this.insertView(new Index.Views.Calendar({model: this.model})).render();
+		}
+	});
+
+
+	/**
+	 * Control for calendar (helps for timeframe selection).
+	 */
+	Index.Views.Calendar = Backbone.View.extend({
+		template: _.template(HtmlCalendar),
 
 		events: {
 			'click .close' : 'empty'
@@ -177,7 +226,7 @@ define([
 		afterRender: function() {
 
 			this.$el.dialog({
-				dialogClass: 'timeframe',
+				dialogClass: 'calendar',
 				modal: true,
 				resizable: false,
 				minWidth: 800,
@@ -190,9 +239,7 @@ define([
 			$('.ui-widget-overlay').bind('click', this.empty);
 
 			// recenter the dialog on window resize
-			$(window).resize(_.debounce(
-					this.updatePosition, 
-					100));
+			$(window).resize(this.updatePosition);
 		},
 		
 		open: function() {
@@ -251,28 +298,39 @@ define([
 			}
 		},
 
-		updatePosition: function() {
+		updatePosition: _.debounce(function() {
 			this.$el.dialog("option", "position", "center");
-		},
+		}, this),
 
 		empty: function() {
+
 			this.$('.datepicker').datepicker('destroy');
 			this.$el.dialog('close');
 			this.$el.remove();
 			$(window).unbind('resize', this.updatePosition);
+			app.trigger('change:timeframe');
 		},
 	});
 	
 
-
+	/**
+	 * Main index window. Mostly imported from CSS guys.
+	 * 
+	 */
 	Index.Views.Model = Backbone.View.extend({
 
 		template: _.template(HtmlIndex),
-		
-		timeframe: new Index.Timeframe(),
 
+		views: {
+			'.timeframe' : new Index.Views.Timeframe()
+		},
+		
 		events: {
 			'click input[value="Plan"]' : 'plan'
+		},
+
+		initialize: function() {
+			_.bindAll(this);
 		},
 
 		plan: function() {
@@ -290,17 +348,12 @@ define([
 		
 
 		_afterRender: function() {
-			$('.ico-calendar').click(_.bind(function() {
-				this.insertView(new Index.Views.Timeframe({
-						model: this.timeframe
-					})).render();
-			}, this));
+			
 		},
 		
 		afterRender: function() {
 
 
-			
 			jQuery.fn.shorten = function(settings) {
 			    var config = {
 			        showChars: 100,
@@ -329,6 +382,7 @@ define([
 
 			    return this.each(function() {
 			        var $this = $(this);
+
 			        var content = $this.html();
 			        if (content.length > config.showChars) {
 			            var c = content.substr(0, config.showChars);
@@ -339,9 +393,10 @@ define([
 			        }
 			    });
 			};
-			
 
-			var $window = $(window),
+
+
+	        var $window = $(window),
             $body = $('body'),
             $bottom = $('#bottom');
         /*Placeholder for old browsers*/
@@ -357,7 +412,7 @@ define([
             }, this)
         });
 
-        /* http://jqueryui.com/autocomplete/ */
+
         $("input.autocomplete-search-input").autocomplete({
         	source: '/api/v1/keywords/suggest?country=is'
         });
@@ -436,9 +491,13 @@ define([
                     });
                 }
 
-                if ($img.width() > windowWidth) {
+                if ($img.width() >= windowWidth) {
                     $img.css({
                         marginLeft: -($img.width() / 2)
+                    });
+                }else{
+                    $img.css({
+                        marginLeft: 0
                     });
                 }
                 $img.css({
@@ -457,18 +516,25 @@ define([
         $(".slider-container").imagesLoaded(centerSliderImages);
 
         /* Calculate Section Height */
-        $window.resize(function() {
-            var windowHeight = $window.height(),
-                windowWidth = $window.width();
-            $('.full-height-section .site-block').height(windowHeight);
-            if (!$body.data('initialized')) {
-                $body.css({
-                    display: 'none',
-                    visibility: 'visible'
-                }).fadeIn(200, onInit);
-            }
-            $body.data('initialized', 'initialized');
-        }).trigger('resize');
+
+        if (!Modernizr.touch) {
+            $window.resize(function() {
+                var windowHeight = $window.height(),
+                    windowWidth = $window.width();
+                $('.full-height-section .site-block').height(windowHeight);
+                if (!$body.data('initialized')) {
+                    $body.css({
+                        display: 'none',
+                        visibility: 'visible'
+                    }).fadeIn(200, onInit);
+                }
+                $('.grid').height(windowHeight-$(".site-header").height());
+
+                $body.data('initialized', 'initialized');
+            }).trigger('resize');
+        }else{
+            onInit();
+        }
 
         function onInit() {
             $('select.selectmenu').selectmenu({
@@ -671,6 +737,12 @@ define([
             });
         }
         initHovers();
+
+        $(".trigger-input-animation").on('focus', function(){
+            $('#plan-inputs-container').animate({
+                width:313
+            }, 500);
+        });
 			
         
         this._afterRender();

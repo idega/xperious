@@ -1,86 +1,88 @@
 /*Responsive layout--------------------------------------*/
 
 @media only screen and (max-width: 1099px) {
-    .home-section .prev, 
-    .home-section .next,
-    .events-section .prev, 
-    .events-section .next,
-    .jcarousel-container .jcarousel-prev, 
-    .jcarousel-container .jcarousel-next {display: none !important;}
+    .touch body {visibility:visible;}
+    .touch .hide-on-mobile {display: none !important;}
+    .touch .touch-only {display: block;}
+    .touch .home-section .grid {display: none;}
+    .touch .site {min-width: 240px;}
+    .touch .home-section .prev, 
+    .touch .home-section .next,
+    .touch .events-section .prev, 
+    .touch .events-section .next,
+    .touch .jcarousel-container .jcarousel-prev, 
+    .touch .jcarousel-container .jcarousel-next {display: none !important;}
+    .touch .bottom-shadow {display: none;}
 }
 
 
 /*980----------------------------------------------------*/
 @media only screen and (max-width: 989px) {
 
-.site {margin-bottom: 0;}
+.touch .site {margin-bottom: 0;}
 
-.site-block,
-.site-block-in,
-.site-bottom-menu .site-block-in {width: auto; padding-left: 5%; padding-right: 5%; overflow: hidden;}
-.site-bottom-menu .site-block-in {overflow: visible;}
+.touch .site-block,
+.touch .site-block-in,
+.touch .site-bottom-menu .site-block-in {width: auto; padding-left: 5%; padding-right: 5%; overflow: hidden;}
+.touch .site-bottom-menu .site-block-in,
+.site-header .site-block-in {overflow: visible;}
 
-.planner {left: 5%; right: 5%;}
+.touch .planner {left: 5%; right: 5%;}
 
-.planner-form .hidden {left: 0 !important;}
-.planner-form .buttoned {display: none;}
+.touch .planner-form .hidden {left: 0 !important;}
+.touch .planner-form .buttoned {display: none;}
 
-.article-content {left: 5%;}
-.article-section .logo {display: none;}
+.touch .article-content {left: 5%;}
+.touch .article-section .logo {display: none;}
 
-.subscribe-form input[type="text"] {width: 82%; margin-bottom: 15px;}
+.touch .subscribe-form input[type="text"] {width: 82%; margin-bottom: 15px;}
 
-.contact-form input[type="text"], 
-.contact-form input[type="password"], 
-.contact-form textarea {width: 90%;}
+.touch .contact-form input[type="text"], 
+.touch .contact-form input[type="password"], 
+.touch .contact-form textarea {width: 90%;}
 
-.contact-form .shorter {margin-bottom: 15px; margin-right: 0;}
-.contact-form .ui-selectmenu {float: none;}
+.touch .contact-form .shorter {margin-bottom: 15px; margin-right: 0;}
+.touch .contact-form .ui-selectmenu {float: none;}
 
-.contact-form .form-controls {text-align: left;}
-.subscribe-form .explain {width: auto;}
+.touch .contact-form .form-controls {text-align: left;}
+.touch .subscribe-form .explain {width: auto;}
 
-.footer-section {word-wrap: break-word;}
+.touch .footer-section {word-wrap: break-word;}
 
-.bottom-section {visibility: visible; position: static; height: auto;}
+.touch .bottom-section {visibility: visible; position: static; height: auto;}
 
 
 }
 
 @media only screen and (max-width: 960px) {
 
-.slider-container {display: none !important;}
-.site-block {height: auto !important;}
+.touch .slider-container {display: none !important;}
+.touch .site-block {height: auto !important;}
 
-.home-section {background: url(../images/home-bg-1.jpg) no-repeat center center;}
-.article-section {background: url(../images/bg-2.jpg) no-repeat center center;}
-.events-section {background: url(../images/bg-3.jpg) no-repeat center center;}
-.contact-form-section {background: #e9e9e9 url(../images/contacts-bg.jpg) no-repeat center center;}
-.help-section {}
-.team-section {background: url(../images/bg-4.jpg) no-repeat center center;}
-.footer-section {}
-.bottom-section {}
+.touch .home-section {background: url(../images/home-bg-1.jpg) no-repeat center center;}
+.touch .article-section {background: url(../images/bg-2.jpg) no-repeat center center;}
+.touch .events-section {background: url(../images/bg-3.jpg) no-repeat center center;}
+.touch .contact-form-section {background: #e9e9e9 url(../images/contacts-bg.jpg) no-repeat center center;}
+.touch .team-section {background: url(../images/bg-4.jpg) no-repeat center center;}
 
-.site-header {height: 65px;}
-.site-header .logo {margin-top: 4px;}
-.site-header .logo img {width: 70%; height: auto;}
-.qtip {display: none !important;}
-.top-menu {display: none;}
+.touch .site-header {height: 65px;}
+.touch .site-header .logo {margin-top: 4px;}
+.touch .site-header .logo img {height: 55px; width: auto;}
+.touch .qtip {display: none !important;}
+.touch .top-menu {display: none;}
 
-.planner {margin-top: 140px; position: static; height: auto; padding-bottom: 25px; padding-bottom: 100px;}
+.touch .planner {margin-top: 140px; position: static; height: auto; padding-bottom: 25px; padding-bottom: 100px;}
 
-.planner-form input[type="text"] {margin-right: 0; width: 94%; margin-bottom: 15px; padding-left: 3%; padding-right: 3%; border-radius: 0; float: none;}
-.planner .button {display: block; border-radius: 0; width: 100%; padding: 0 3%; text-align: center; float: none; background-image: none;}
-.planner .info {display: none;}
+.touch .planner-form input[type="text"] {margin-right: 0; width: 94%; margin-bottom: 15px; padding-left: 3%; padding-right: 3%; border-radius: 0; float: none;}
+.touch .planner .button {display: block; border-radius: 0; width: 100%; padding: 0 3%; text-align: center; float: none; background-image: none;}
+.touch .planner .info {display: none;}
 
-.site-bottom-menu {display: none;}
+.touch .site-bottom-menu {display: none;}
 
-.article-content {position: static; width: auto; margin-top: 40px; padding-bottom: 50px;}
-.article-section .grid {display: none;}
+.touch .article-content {position: static; width: auto; margin-top: 40px; padding-bottom: 50px;}
+.touch .article-section .grid {display: none;}
 
-.team-list {padding-bottom: 30px;}
-
-
+.touch .team-list {padding-bottom: 30px;}
 
 }
 
@@ -88,14 +90,14 @@
 @media only screen and (max-width: 720px) {
 
 
-.team-list .element,
-.team-list .element:nth-child(3n) {width: 47%; margin-right: 6%;}
-.team-list .element:nth-child(2n) {margin-right: 0;}
+.touch .team-list .element,
+.touch .team-list .element:nth-child(3n) {width: 47%; margin-right: 6%;}
+.touch .team-list .element:nth-child(2n) {margin-right: 0;}
 
-.team-section .title h2 {font-size: 52px; line-height: 52px;}
-.team-section .title .subtitle {margin-top: 54px;}
+.touch .team-section .title h2 {font-size: 52px; line-height: 52px;}
+.touch .team-section .title .subtitle {margin-top: 54px;}
 
-.footer-section h4 {font-size: 30px;}
+.touch .footer-section h4 {font-size: 30px;}
 
 }
 /*700----------------------------------------------------*/
@@ -109,35 +111,35 @@
 
 
 
-.footer-section .col {float: none; margin-right: 0; width: auto; margin-bottom: 10px;}
-.footer-section h4 {margin-bottom: 15px;}
-.footer-links {padding-top: 0;}
+.touch .footer-section .col {float: none; margin-right: 0; width: auto; margin-bottom: 10px;}
+.touch .footer-section h4 {margin-bottom: 15px;}
+.touch .footer-links {padding-top: 0;}
 
 }
 
 /*540----------------------------------------------------*/
 @media only screen and (max-width: 539px) { 
 
-.article-section .grid {display: none;}
+.touch .article-section .grid {display: none;}
 
- .subscribe-form input[type="submit"] {clear: left;}
- .subscribe-form .ui-selectmenu {margin-bottom: 15px;}
+.touch .subscribe-form input[type="submit"] {clear: left;}
+.touch .subscribe-form .ui-selectmenu {margin-bottom: 15px;}
 }
 
 /*480----------------------------------------------------*/
 @media only screen and (max-width: 479px) { 
 
-.contact-form-section .contact-form {float: none; width: auto;}
-.contact-form-section .contact-info {float: none; width: auto; padding-right: 0;}
+.touch .contact-form-section .contact-form {float: none; width: auto;}
+.touch .contact-form-section .contact-info {float: none; width: auto; padding-right: 0;}
 
-.join-club-section .lefter {float: none; width: auto; padding-bottom: 25px;}
-.join-club-section .righter {float: none; width: auto;}
+.touch .join-club-section .lefter {float: none; width: auto; padding-bottom: 25px;}
+.touch .join-club-section .righter {float: none; width: auto;}
 
-.team-section .title h2 {font-size: 40px; line-height: 40px;}
-.team-section .title .subtitle {margin-top: 40px;}
+.touch .team-section .title h2 {font-size: 40px; line-height: 40px;}
+.touch .team-section .title .subtitle {margin-top: 40px;}
 
-.team-list .element,
-.team-list .element:nth-child(3n),
-.team-list .element:nth-child(2n) {margin-right: 0; width: 72%; margin-left: auto; margin-right: auto; float: none;}
+.touch .team-list .element,
+.touch .team-list .element:nth-child(3n),
+.touch .team-list .element:nth-child(2n) {margin-right: 0; width: 72%; margin-left: auto; margin-right: auto; float: none;}
 
 }

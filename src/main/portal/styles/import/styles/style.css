@@ -118,6 +118,7 @@ button, input, select, textarea {font-family: 'Ubuntu', sans-serif; font-size: 1
 .vat {vertical-align: top;} 
 .vac {vertical-align: center;}
 .date {color: #ccc;} 
+.touch-only {display: none;}
 
 /*Simple form*/
 input[type="text"],
@@ -131,18 +132,19 @@ input.shorter {width: 295px; margin-right: 17px;}
 
 /*-----------Site structure----------*/
 html {color: #000; font-size: 100%; overflow-y: scroll; -webkit-overflow-scrolling: touch; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
-body {margin: 0; font-family: 'Ubuntu', sans-serif; font-weight: 300; font-size: 12px; overflow: hidden;}
+body {margin: 0; font-family: 'Ubuntu', sans-serif; font-weight: 300; font-size: 12px;}
 
 .site-block,
 .site-block-in {margin: 0 auto; width: 990px; padding: 1px 0;}
 
-.site {margin-bottom: 295px; z-index: 100; position: relative;}
+.site {margin-bottom: 295px; z-index: 100; position: relative; min-width: 1120px;}
+.bottom-shadow {position: absolute; width: 100%; height: 19px; bottom: -19px; background: url(../images/footer-cover-shadow.png) repeat-x left bottom;}
 
 
 /*Sections-------------------------------------------------*/
-.home-section {color: #fff; position: relative; background: url(../images/grid.png); overflow: hidden;}
+.home-section {color: #fff; position: relative; overflow: hidden;}
 .article-section {color: #0d2115; font-size: 25px;
-    background: url(../images/bg-2.jpg) no-repeat center center fixed; 
+    background: url(../images/bg-2.jpg) no-repeat center center; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -158,7 +160,7 @@ body {margin: 0; font-family: 'Ubuntu', sans-serif; font-weight: 300; font-size:
 .join-club-section {background: #e3e2e1; padding: 52px 0; color: #6d6d6d; font-size: 14px;}
 .contact-info-section {background: #fff; padding: 41px 0; font-size: 26px; color: #a8a5a0; padding-bottom: 55px;}
 .contact-form-section {padding-top: 38px; padding-bottom: 25px; color: #a8a5a0;
-background: url(../images/contacts-bg.jpg) no-repeat center center fixed; 
+background: url(../images/contacts-bg.jpg) no-repeat center center; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -173,19 +175,23 @@ background: url(../images/bg-4.jpg) no-repeat center center fixed;
   background-size: cover;
 }
 .footer-section {background: #a8a6a0; padding: 26px 0; font-size: 18px; color: #fff; padding-bottom: 33px;}
-.bottom-section {background: #303030; padding-top: 20px; padding-bottom: 25px; color: #dcdcdc; font-size: 19px; text-align: center;}
+.bottom-section {background: #303030; padding-top: 25px; padding-bottom: 21px; color: #dcdcdc; font-size: 18px; text-align: center;}
 
 
 
 /*Home section ---------------------------------------------*/
 .home-section .site-block-in,
 .home-section .site-block {position: relative;}
+.home-section .grid {position: absolute; left: 0px; top: 123px; width: 100%; background: url(../images/grid.png) repeat scroll 0 0 transparent;}
+
 
 /*Mobile menu*/
-.mobile-menu {position: absolute; left: 10px; top: 10px; width: 25px; height: 25px; display: none;}
-.mobile-menu .menu-items {position: absolute; left: 20px; top: 20px; right: 20px; width: 100%;}
-.mobile-menu li {}
-.mobile-menu a {display: block; padding: 6px 12px;}
+.mobile-menu {position: absolute; left: 0px; top: 0px; display: none; background: url(../images/mobile-menu-ico.png) no-repeat center center; width: 65px; height: 65px; display: none;}
+.mobile-menu .menu-items {position: absolute; left: 0px; top: 65px; width: 240px; background: #366382; /*background: url(../images/mob-submenu-rep.png);*/ display: none;}
+.mobile-menu:hover .menu-items {display: block;}
+.mobile-menu li {text-align: left;border-bottom: 1px solid #294b63;}
+.mobile-menu a {display: block; padding: 6px 12px; white-space: nowrap; color: #fff; font-size: 18px;}
+.mobile-menu a:hover {color: #86C543;}
 
 
 /*Background image*/
@@ -203,7 +209,7 @@ background: url(../images/bg-4.jpg) no-repeat center center fixed;
 
 
 /*Site header*/
-.site-header {background: url(../images/top-nav-cover.png) repeat-x left top; text-align: center; height: 122px; padding-top: 1px; position: absolute; top: 0; right: 0; width: 100%; z-index: 10;}
+.site-header {background: url(../images/bottom-rep.png); text-align: center; height: 122px; padding-top: 1px; position: absolute; top: 0; right: 0; width: 100%; z-index: 10;}
 .site-header .site-block {position: relative;}
 .site-header .logo {margin-top: 19px; display: inline-block;}
 
@@ -223,7 +229,7 @@ background: url(../images/bg-4.jpg) no-repeat center center fixed;
 .chose-destination.hovered {color: #fff;}
 
 /*Planner*/
-.planner {position: absolute; height: 200px; top: 50%; margin-top: -100px; left: 22px; font-weight: 300;}
+.planner {position: absolute; height: 200px; top: 50%; margin-top: -110px; left: 22px; font-weight: 300;}
 .planner h1 {font-size: 36px; margin-top: 0; font-weight: 300; margin-bottom: 3px;} 
 .planner h2 {font-size: 18px; line-height: 22px; font-weight: 300; margin: 3px 0;}
 .planner .info {font-size: 16px; line-height: 22px; padding-left: 16px; font-style: italic; margin: 0;}
@@ -240,7 +246,11 @@ background: url(../images/bg-4.jpg) no-repeat center center fixed;
 
 /*Planer form*/
 .planner-form {padding-top: 27px; padding-bottom: 6px;}
-.planner-form .form-row {overflow: hidden; margin-bottom: 0px;}
+.planner-form .form-row {overflow: hidden; margin-bottom: 0px; position: relative;}
+.planner-form .lang {display: inline-block; position: absolute; bottom: 10px; padding: 2px 0; color: #fff; font-size: 12px; background: #5d760f; width: 28px; text-align: center; right: 10px; z-index: 10;}
+.planner-form .lang-1 {right: 38px; border-radius: 3px 0 0 3px;}
+.planner-form .lang-2 {border-radius: 0 3px 3px 0;}
+.planner-form .active {background: #c3d972;}
 
 /*Planner tooltip*/
 .qtip-dark {padding-top: 16px !important;}
@@ -258,7 +268,7 @@ background: url(../images/bg-4.jpg) no-repeat center center fixed;
 /*Site bottom menu*/
 .site-bottom-menu {position: absolute; bottom: 0px; left: 0; width: 100%; z-index: 10; background: url(../images/bottom-rep.png);}
 .site-bottom-menu .site-block-in {padding: 0;}
-.bottom-menu {padding-bottom: 15px;}
+.bottom-menu {padding-bottom: 50px;}
 .bottom-menu > li {float: left; width: 22%; position: relative;}
 .bottom-menu .special {width: 12%;}
 .bottom-menu .special a {padding-bottom: 35px; font-size: 12px; background: url(../images/icon-down.png) no-repeat center bottom; text-align: center; display: inline-block; margin-left: 28px;}
@@ -274,7 +284,7 @@ background: url(../images/bg-4.jpg) no-repeat center center fixed;
 .bottom-menu .big {display: block; font-size: 19px; font-weight: 400; line-height: 20px;}
 .bottom-menu .small {display: block; font-size: 11px; line-height: 21px; font-weight: 300;}
 
-.bottom-menu .submenu {position: absolute; padding: 0 5px; left: -12px; top: -35px; background: url(../images/bottom-rep.png); display: none;}
+.bottom-menu .submenu {position: absolute; padding: 0 5px; left: -12px; top: -37px; background: url(../images/submenu-rep.png) repeat-x left top; display: none; height: 37px;}
 .no-js li:hover .submenu {display: block; width: 2000px;}
 .submenu li {float: left; padding: 0px 9px;}
 .submenu li a {color: #fff; line-height: 35px; display: inline-block; font-size: 14px;}
@@ -304,9 +314,9 @@ li:hover .convert-form input[type='text'] {zoom: 1;}
 
 /*Article section --------------------------------------------*/
 .article-section {position: relative;}
-.article-section .grid {position: absolute; z-index: 1; left: 0px; top: 0px; width: 100%; height: 100%; right: 0px; bottom: 0px; background: url(../images/grid.png);}
-.article-section .site-block {position: relative; z-index: 2;}
-.article-content {position: absolute; left: 0px; top: 50%; margin-top: -150px; width: 550px;}
+.article-section .grid {position: absolute; z-index: 1; left: 0px; top: 0px; width: 100%; height: 100% !important; right: 0px; bottom: 0px; background: url(../images/grid.png);}
+.article-section .site-block {position: relative; z-index: 2; height: 690px;}
+.article-content {position: absolute; left: 0px; top: 47%; width: 550px;}
 .article-content .brand {font-weight: bold; font-size: 28px; text-transform: uppercase; margin: 0; line-height: 30px;}
 .article-content h2 {font-size: 57px; font-weight: bold; margin: 0; line-height: 50px; text-transform: uppercase;}
 .article-content .subcontent {margin: 0; line-height: 39px; font-weight: 300;}
@@ -356,7 +366,7 @@ li:hover .convert-form input[type='text'] {zoom: 1;}
 .jcarousel-container .jcarousel-prev-horizontal {position: absolute; top: 50%; margin-top: -20px; left: 3%; width: 16px; height: 41px; cursor: pointer; background: transparent url(../images/prev-2.png) no-repeat center center;}
 
 /*Event popup*/
-.event-lightbox {box-shadow: 0 0 8px #ccc;}
+.event-lightbox {box-shadow: 0 0 15px #000; border-radius: 4px; position: relative;}
 .event-popup {width: 440px; background: #fff; border-radius: 4px;}
 
 .popup-gallery-fader {width: 440px; height: 220px; position: relative; border-radius: 4px 4px 0 0; overflow: hidden;}
@@ -465,7 +475,7 @@ li:hover .convert-form input[type='text'] {zoom: 1;}
 .team-list .element {position: relative; width: 30%; /*height: 290px;*/ float: left; margin-right: 3%; margin-bottom: 22px; overflow: hidden;}
 .team-list .element:nth-child(3n) {margin-right: 0;}
 .team-list .element img {width: 100%; height: auto;}
-.team-list .cover {position: absolute; left: 0px; bottom: 0px; width: 270px; padding: 20px 15px; background-repeat: no-repeat; background-position: left top;} 
+.team-list .cover {width: 270px; padding: 20px 15px; background: url(../images/name-bg.png);} 
 
 .team-list .name {font-size: 16px; font-weight: bold;}
 .team-list .position {font-size: 14px;}
@@ -500,10 +510,13 @@ li:hover .convert-form input[type='text'] {zoom: 1;}
 
 .copyrights {font-size: 14px; margin-top: 20px;}
 
+.js body{visibility:hidden;}
+
+#plan-inputs-container{overflow: hidden; width:0px;display:inline-block; float: left; }
+#plan-inputs-container .inner{width:350px;}
 
 /*---Clearfix---*/
 .clearfix:before, .clearfix:after , .form-row:before, .form-row:after {content: ""; display: table;}
 .clearfix:after, .form-row:after {clear: both;}
 .clearfix, .form-row {zoom: 1;}
 
-.js body{visibility:hidden;}

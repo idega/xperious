@@ -1,12 +1,26 @@
-<div>
-    <div class="titlebar">
-        <span class="choose-date">Choose date</span>
-        
-        <span class="selection">
-	        <span class="from">From <strong>February 8</strong><sup>th</sup></span>
-	        <span class="to"> to <strong>February 16</strong><sup>th</sup></span>
-        </span>
-        <a href="javascript:void(0)" class="close">NEXT</a>
-    </div>
-    <div class="datepicker"></div>
-</div>
+<span class="buttoned ico-calendar">
+    <% if (from.day) {%>
+       <span class="day-month">
+        <span class="day"><%= from.day %></span>
+        <span class="month"><%= from.month %></span>
+       </span>
+    <% } %>
+    
+
+    <% if (from.day || to.day) {%>
+       <span class="separator">&#8211;</span>
+    <% } %>
+
+
+    <% if (to.day) {%>
+       <span class="day-month">
+        <span class="day"><%= to.day %></span>
+        <span class="month"><%= to.month %></span>
+       </span>
+    <% } %>
+    
+
+    <% if (!from.day && !to.day) { %>
+        Timeframe
+    <% } %>
+</span>
