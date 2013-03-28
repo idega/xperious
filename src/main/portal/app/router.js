@@ -20,7 +20,6 @@ function(
 	      '*path': 'index'
 	    },
 
-
 	    index: function() {
 	    	var layout = app.layout(_.template(''));
 	    	layout.insertView(new Index.Views.Model());

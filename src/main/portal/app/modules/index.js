@@ -19,9 +19,9 @@ define([
 ],function(
 	app,
 	Plan,
-	HtmlIndex,
-	HtmlTimeframe,
-	HtmlCalendar) 
+	indexHtml,
+	timeframeHtml,
+	calendarHtml) 
 {
 	
 	var Index = app.module();
@@ -164,7 +164,7 @@ define([
 	 * Control for timeframe selection.
 	 */
 	Index.Views.Timeframe = Backbone.View.extend({
-		template: _.template(HtmlTimeframe),
+		template: _.template(timeframeHtml),
 
 		model: Index.Timeframe,
 
@@ -211,7 +211,7 @@ define([
 	 * Control for calendar (helps for timeframe selection).
 	 */
 	Index.Views.Calendar = Backbone.View.extend({
-		template: _.template(HtmlCalendar),
+		template: _.template(calendarHtml),
 
 		events: {
 			'click .close' : 'empty'
@@ -319,7 +319,7 @@ define([
 	 */
 	Index.Views.Model = Backbone.View.extend({
 
-		template: _.template(HtmlIndex),
+		template: _.template(indexHtml),
 
 		views: {
 			'.timeframe' : new Index.Views.Timeframe()
