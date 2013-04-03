@@ -6,10 +6,21 @@ define([
   'backbone.queryparams',
   'backbone.super',
   'moment',
-  'jquery.cookie'
-], function(LayoutManager) 
-{
-
+  'jquery.cookie',
+  'jquery.fancybox',
+  'jquery.hoverIntent',
+  'jquery.imagesloaded',
+  'jquery.jcarousel',
+  'jquery.localScroll',
+  'jquery.placeholder',
+  'jquery.qtip',
+  'jquery.scrollTo',
+  'jquery.ui',
+  'jquery.ui.selectmenu',
+  'jquery.waypoints',
+  'modernizr'
+], function(LayoutManager) {	
+	
 	  LayoutManager.configure({
 	    // allow LayoutManager to augment Backbone.View.prototype.
 	    manage: true

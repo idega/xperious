@@ -1,0 +1,10 @@
+<ul id="events-slider" class="clearfix menu event-skin">
+   <% events.each(function(event, index) { %>
+	   <li class="clearfix event-link" data-id="<%= event.id %>">
+	     <div class="date"><span class="day"><%= event.day %></span><span class="month"><%= event.month %></span><span class="year"><%= event.year %></span></div>
+	     <p class="name"><%= event.title %></p>
+	     <p class="time"><%= event.starthour %> to <%= event.endhour %></p>
+	     <p class="text"><%= event.subtitle %></p>
+	   </li>
+   <% }); %>
+</ul>

@@ -3,8 +3,7 @@ require([
 	"router"
 ], function(
 	app,
-	Router)
-{
+	Router) {
 
   app.router = new Router();
 
