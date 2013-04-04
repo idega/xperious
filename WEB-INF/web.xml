@@ -4,8 +4,6 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" 
 	id="Idega_ePlatform" version="2.5">
 
-  <display-name>Xperious: The Amazing Travel Planning Application</display-name>
-
 	<security-constraint>
 	    <web-resource-collection>
 	        <web-resource-name>
