@@ -18,6 +18,10 @@
           <to type="forward" last="true">/portal/styles/import/images/$1</to>
       </rule>
 
+      <rule>
+          <from>^/app/templates/(.*)$</from>
+          <to type="forward" last="true">/portal/app/templates/$1</to>
+      </rule>
 
       <rule>
           <from>^/app/(.*)$</from>

@@ -1,14 +1,12 @@
 define([
-	'app',
-	'text!templates/index/timeframe/calendar.html'
+	'app'
 ], function(
-	app, 
-	html) {
+	app) {
 
 
 	return Backbone.View.extend({
-
-		template: _.template(html),
+	
+		template: 'index/timeframe/calendar',
 
 		events: {
 			'click .close' : 'empty'

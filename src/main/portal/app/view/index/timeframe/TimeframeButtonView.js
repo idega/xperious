@@ -1,26 +1,83 @@
 define([
 	'app',
-	'model/timeframe/TimeframeModel',
-	'view/index/timeframe/TimeframeCalendarView',
-	'text!templates/index/timeframe/button.html',
+	'view/index/timeframe/TimeframeCalendarView'
 ], function(
 	app, 
-	TimeframeModel,
-	TimeframeCalendarView,
-	html) {
+	TimeframeCalendarView) {
+	
+
+	var Timeframe = Backbone.Model.extend({
+		addDate: function(date) {
+			if (this.isFrom(date)) {
+				this.unset('from');
+				
+			} else  if (this.isTo(date)) {
+				this.unset('to');
+				
+			} else if (!this.has('from')) {
+				this.set('from', moment(date));
+				
+			} else {
+				this.set('to', moment(date));
+			}
+			
+			// user has switched the selection
+			// invert the period so it is correct
+			if (this.get('from') > this.get('to')) {
+				var from = this.get('from');
+				this.set('from', this.get('to'));
+				this.set('to', from);
+			}
+		},
+
+		hasDate: function(date) {
+			return this.isFrom(date) || this.isTo(date);
+		},
+		
+		isFrom: function(date) {
+			return this.has('from') && this.get('from').diff(this.toMoment(date)) == 0;
+		},
+
+		isTo: function(date) {
+			return this.has('to') && this.get('to').diff(this.toMoment(date)) == 0;
+		},
+		
+		toMoment: function(date) {
+			if (_.isString(date)) {
+				return moment(date, 'YYYY-MM-DD');
+			} else {
+				return moment(date);
+			}
+		},
+		
+		toString: function() {
+			return this.has('from') 
+				? moment(this.get('from')).format('YYYY-MM-DD')
+				: undefined;
+		}
+	});
+
 
 
 	return Backbone.View.extend({
-		
-		template: _.template(html),
+
+		template: 'index/timeframe/button',
 
 		events: {
 			'click .ico-calendar' : 'calendar'
 		},
 
-		initialize: function() {
-			this.model = new TimeframeModel();
-			app.on('change:timeframe', this.render, this);
+		initialize: function(options) {
+			this.model = new Timeframe();
+			app.on('change:timeframe', this.change, this);
+		},
+		
+		cleanup: function() {
+			app.off('change:timeframe', this.change, this);
+		},
+		
+		change: function() {
+			this.render();
 		},
 
 		serialize: function() {

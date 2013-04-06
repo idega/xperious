@@ -1,16 +1,12 @@
 define([
-   'app',
-   'view/index/IndexViewCommons',
-   'text!templates/index/event/popup.html'
+   'app'
 ],function(
-	app,
-	IndexViewCommons,
-	html) {
+	app) {
 
 
 	return Backbone.View.extend({
 
-		template: _.template(html),
+		template: 'index/event/popup',
 		
 		serialize: function() {
 			return {
@@ -36,7 +32,7 @@ define([
                 },
 
                 onComplete: function() {
-                	IndexViewCommons.initSlider(
+                	initSlider(
                     	'#fancybox-content .popup-gallery-fader .next',
                         '#fancybox-content .popup-gallery-fader .prev',
                         '#fancybox-content .popup-gallery-fader', 

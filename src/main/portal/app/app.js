@@ -1,6 +1,4 @@
 define([
-  // List required dependencies here. Use 'app' everywhere
-  // so it will include the required libraries.
   'backbone.layoutmanager',
   'backbone.relational',
   'backbone.queryparams',
@@ -18,53 +16,75 @@ define([
   'jquery.ui',
   'jquery.ui.selectmenu',
   'jquery.waypoints',
-  'modernizr'
-], function(LayoutManager) {	
-	
-	  LayoutManager.configure({
-	    // allow LayoutManager to augment Backbone.View.prototype.
-	    manage: true
-	  });
-	
-	
-	  var app = {
-	    root: '/app/'
-	  };
-	
-	  // mix Backbone.Events, modules, and layout management into the app object
-	  return _.extend(app, {
+  'jquery.rating',
+  'modernizr',
+  'common'
+], function(
+   LayoutManager) {	
 
+
+	var JST = window.JST = window.JST || {};
+
+
+  	LayoutManager.configure({
+	  	manage: true,
+
+	  	prefix: "templates/",
+
+	    fetch: function(path) {
+	      path = path + ".html";
+	      
+	      var precompilePath = app.root.substring(1) + path;
+	      if (JST[precompilePath]) {
+	        return JST[precompilePath];
+	      }
+
+	      var done = this.async();
+	      $.get(app.root + path, function(contents) {
+	        done(_.template(contents));
+	      }, "text");
+	    }
+  	});
+
+
+  	var app = {
+  		root: '/app/'
+  	};
+
+
+  	return _.extend(app, {
 
 	    module: function(additionalProps) {
 	      return _.extend({ Views: {} }, additionalProps);
 	    },
-
 	    
 	    country: function(code) {
 	    	if (code) {
-	    		$.cookie('country', code, {expires: 14, path: '/'});
-	    	} else {
-	    		code = $.cookie('country');
-	    		if (!code) code = 'is';
-	    		return code;
-	    	}
+	    		$.cookie(
+	    			'country', 
+	    			code, 
+	    			{expires: 14, path: '/'});
+
+			} else {
+				code = $.cookie('country');
+				if (!code) code = 'is';
+				return code;
+			}
 	    },
 
-	    layout: function(template, options) {
-	
-	    	options = options || {};
-	    	options.template = template;
-	
-	    	if (this.layoutCached && options.template) {
-	    		this.layoutCached.template = options.template;
-	    	} else {
-	    		this.layoutCached = new Backbone.Layout(
-					_.extend({ el: "#content"}, options));
-	    	}
-	
-	    	return this.layoutCached;
-	    }
-	
+		layout: function() {
+			if (this.layoutCached) {
+				return this.layoutCached;
+
+			} else {
+				this.layoutCached = new Backbone.Layout(
+					_.extend({
+						template: 'layout',
+					}));
+				$('body').append(this.layoutCached.el);
+				return this.layoutCached;
+		    }
+		}
 	  }, Backbone.Events);
 
 });

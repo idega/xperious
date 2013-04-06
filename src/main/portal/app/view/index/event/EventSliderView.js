@@ -1,17 +1,15 @@
 define([
    'app',
    'model/event/EventCollection',
-   'view/index/event/EventPopupView',
-   'text!templates/index/event/slider.html'
+   'view/index/event/EventPopupView'
 ],function(
 	app,
 	EventCollection,
-	EventPopupView,
-	html) {
+	EventPopupView) {
 
 	return Backbone.View.extend({
 
-		template: _.template(html),
+		template: 'index/event/slider',
 		
 		events: {
 			'click .event-link' : 'popup'
@@ -42,7 +40,8 @@ define([
 		afterRender: function() {
 	        $("#events-slider").jcarousel({
 	            scroll: 1,
-	            wrap: 'circular'
+	            wrap: 'circular',
+	            itemFallbackDimension: 300
 	        });
 		}
 	});

@@ -3,5 +3,5 @@ target/
 .project
 .classpath
 .DS_Store
-optimized.js
-optimized.css
+dist
+node_modules

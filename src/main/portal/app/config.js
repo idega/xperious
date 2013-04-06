@@ -5,7 +5,6 @@ require.config({
 	deps: ['main'],
 
     shim: {
-
         'underscore': {
             exports: '_'
         },
@@ -118,15 +117,25 @@ require.config({
     	   deps: [
     	          'jquery'
     	  ]
-       }
+       },
        
+       'jquery.rating': {
+    	   deps: [
+    	          'jquery'
+    	   ]
+       },
+       
+       'common': {
+    	   deps: [
+    	          'jquery'
+    	   ]
+       }
    },
 
    paths: {
        'text' : '../lib/require/text',
        'async' : '../lib/require/async',
        'jquery' : '../lib/jquery/jquery',
-       'useyui' : '../lib/require/useyui',
        'jquery.fancybox' : '../lib/jquery/jquery.fancybox',
        'jquery.hoverIntent' : '../lib/jquery/jquery.hoverIntent',
        'jquery.imagesloaded' : '../lib/jquery/jquery.imagesloaded',
@@ -139,6 +148,7 @@ require.config({
        'jquery.ui.selectmenu' : '../lib/jquery/jquery.ui.selectmenu',
        'jquery.waypoints' : '../lib/jquery/jquery.waypoints',
        'jquery.cookie' : '../lib/jquery/jquery.cookie',
+       'jquery.rating' : '../lib/jquery/jquery.rating',
        'modernizr' : '../lib/modernizr/modernizr',
        'underscore' : '../lib/underscore/underscore',
        'backbone' : '../lib/backbone/backbone',

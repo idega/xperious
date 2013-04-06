@@ -1,43 +1,164 @@
 define([
    'app',
-   'view/index/IndexViewCommons',
    'view/index/destination/DestinationPopupView',
    'view/index/timeframe/TimeframeButtonView',
    'view/index/event/EventSliderView',
-   'text!templates/index/index.html'
+   'view/site/FooterView',
+   'view/site/BottomView'
 ],function(
 	app,
-	IndexViewCommons,
 	DestinationPopupView,
 	TimeframeButtonView,
 	EventSliderView,
-	html) {
+	FooterView,
+	BottomView) {
+
+	
+	var SearchPreferences = Backbone.Model.extend({
+
+		initialize: function() {
+			this.on('change:query', this.parse, this);
+			this.set('country', app.country());
+			this.set('guests', 2);
+			this.set('query', '');
+		},
+
+		parse: function() {
+			var numberRegexp = new RegExp('[1-9]+(?= *(month|week|day))', 'gi');
+			var periodRegexp = new RegExp('(months|weeks|days|month|week|day)', 'gi');
+
+			var number = this.get('query').match(numberRegexp);
+			var period = this.get('query').match(periodRegexp);
+
+			if (number || period) {
+				// number not given, assume it's 1
+				if (!number) number = [1]; 
+
+				this.set('from', moment()
+					.startOf('day')
+					.add('days', 1));
+
+				this.set('to', moment()
+					.startOf('day')
+					.add(this.toUnits(period[0]), number[0]));
+
+				this.set({query : 
+					this.reduce(this.get('query')
+							.replace(numberRegexp, '')
+							.replace(periodRegexp, ''))}, 
+					{silent: true});
+
+			} else {
+				// default period is always one
+				// week  starting from tomorrow
+				this.set('from', moment()
+					.startOf('day')
+					.add('days', 1));
+
+				this.set('to', moment()
+					.startOf('day')
+					.add('days', 7));
+
+				this.set(
+					{query : this.reduce(this.get('query'))},
+					{silent: true});
+			}
+		},
+
+		reduce: function(keyword) {
+			if (keyword) {
+				var filtered = _.filter(
+					keyword.split(' '), 
+					function(word) {
+						// filter out shorter than 3
+						return word.length > 3;
+					});
+
+				var reduced = '';
+				if (filtered.length > 0) {
+					reduced = _.reduce(
+						filtered,
+						function(sum, word) {
+							return (sum + ' ' + word).trim();
+						});
+				}
+				return reduced;
+			} else {
+				return '';
+			}
+		},
+
+		toUnits: function(period) {
+			if (period.toLowerCase().indexOf('d') == 0) {
+				return 'days';
+			} else if (period.toLowerCase().indexOf('m') == 0) {
+				return 'months';
+			} else if (period.toLowerCase().indexOf('w') == 0) {
+				return 'weeks';
+			}
+		}
+	});
 
 
 	return Backbone.View.extend({
 
-		template: _.template(html),
-
-		views: {
-			'.timeframe' : new TimeframeButtonView(),
-			'.events-slider .site-block' : new EventSliderView(),
-		},
+		template: 'index/index',
 		
+		preferences: new SearchPreferences(),
+
 		events: {
-			'click a.chose-destination' : 'destination',
-			'click input[value="Plan"]' : 'plan'
+			'click #destination' : 'destination',
+			'click #plan' : 'plan',
 		},
 
 		initialize: function() {
-			_.bindAll(this);
+			this.setViews({
+				'.footer-view' : new FooterView(),
+				'.bottom-view' : new BottomView({hidden: true}),
+				'.timeframe-view' : new TimeframeButtonView(),
+				'.events-slider .site-block' :  new EventSliderView()
+			});
+
+			app.on('change:timeframe', this.timeframe, this);
 		},
 
+		cleanup: function() {
+			app.off('change:timeframe', this.timeframe, this);
+		},
+
+		timeframe: function() {
+			var view = this.getView(function(view) {
+				return view.model 
+					&& view.model.has('from') 
+					&& view.model.has('to');
+			});
+			if (view) {
+				this.preferences.set('to', view.model.get('to'));
+				this.preferences.set('from', view.model.get('from'));
+			}
+		},
+		
+		guests: function() {
+			var guests = this.$('#guests').val();
+			if (guests) this.preferences.set('guests', guests);
+		},
+
+		query: function() {
+			this.preferences.set('query', this.$('#query').val());
+		},
+		
 		plan: function() {
-			Backbone.history.navigate(
-				'search?' + 
-					'query=' + $('input.autocomplete-search-input').val() + '&' +
-					'country=' + app.country(),
-				{trigger: true});
+			this.query();
+			this.timeframe();
+			this.guests();			
+			app.router.go(
+				'search',
+				this.preferences.get('query'),
+				this.preferences.get('country'),
+				this.preferences.get('from').format('YYYYMMDD'),
+				this.preferences.get('to').format('YYYYMMDD'),
+				this.preferences.get('guests')
+			);
 			return false;
 		},
 
@@ -59,49 +180,49 @@ define([
 	        	source: '/api/v1/keywords/suggest?country=is'
 	        });
 	
-	        if (!Modernizr.touch) {
-	            /* http://craigsworks.com/projects/qtip/ */
-	            $(".tooltip").each(function() {
-	                var config = {
-	                    content: {},
-	                    style: {
-	                        name: 'dark',
-	                        width: 285,
-	                        padding: 15,
-	                        border: {
-	                            width: 2,
-	                            radius: 2,
-	                            color: '#000000'
-	                        },
+//	        if (!Modernizr.touch) {
+//	            /* http://craigsworks.com/projects/qtip/ */
+//	            $(".tooltip").each(function() {
+//	                var config = {
+//	                    content: {},
+//	                    style: {
+//	                        name: 'dark',
+//	                        width: 285,
+//	                        padding: 15,
+//	                        border: {
+//	                            width: 2,
+//	                            radius: 2,
+//	                            color: '#000000'
+//	                        },
+//	
+//	                        tip: { // Now an object instead of a string
+//	                            corner: 'topLeft', // We declare our corner within the object using the corner sub-option
+//	                            color: '#000000',
+//	                            size: {
+//	                                x: 20, // Be careful that the x and y values refer to coordinates on screen, not height or width.
+//	                                y: 20 // Depending on which corner your tooltip is at, x and y could mean either height or width!
+//	                            }
+//	                        }
+//	                    },
+//	                    position: {
+//	                        adjust: {
+//	                            x: -350,
+//	                            y: 0
+//	                        }
+//	                    }
+//	                },
+//	                $this = $(this);
+//	                if ($this.data('tooltipcontent')) {
+//	                    config.content.text = $this.data('tooltipcontent');
+//	                }
+//	                if ($this.data('tooltiptitle')) {
+//	                    config.content.title = $this.data('tooltiptitle');
+//	                }
+//	                $this.qtip(config);
+//	            });
+//	        }
 	
-	                        tip: { // Now an object instead of a string
-	                            corner: 'topLeft', // We declare our corner within the object using the corner sub-option
-	                            color: '#000000',
-	                            size: {
-	                                x: 20, // Be careful that the x and y values refer to coordinates on screen, not height or width.
-	                                y: 20 // Depending on which corner your tooltip is at, x and y could mean either height or width!
-	                            }
-	                        }
-	                    },
-	                    position: {
-	                        adjust: {
-	                            x: -350,
-	                            y: 0
-	                        }
-	                    }
-	                },
-	                $this = $(this);
-	                if ($this.data('tooltipcontent')) {
-	                    config.content.text = $this.data('tooltipcontent');
-	                }
-	                if ($this.data('tooltiptitle')) {
-	                    config.content.title = $this.data('tooltiptitle');
-	                }
-	                $this.qtip(config);
-	            });
-	        }
-	
-	        $(".slider-container").imagesLoaded(IndexViewCommons.centerSliderImages);
+	        $(".slider-container").imagesLoaded(centerSliderImages);
 	
 	
 	        /* Calculate Section Height */
@@ -166,7 +287,7 @@ define([
 	
 	
 	        /* Top slider */
-	        IndexViewCommons.initSlider('.home-section .next', '.home-section .prev', '.slider-container');
+	        initSlider('.home-section .next', '.home-section .prev', '.slider-container');
 	
 	
 	        /* First page bottom menus */

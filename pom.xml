@@ -185,10 +185,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 
   <build>
   
-    <!-- 
-    This is required for eclipse maven plugin. It prevents
-    exec plugin execution on each file compilation. 
-    -->
+    <!-- This is required for eclipse maven plugin. It prevents exec plugin execution on each file compilation. -->
     <pluginManagement>
         <plugins>
            <plugin>
@@ -227,37 +224,16 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
           <version>1.2.1</version>
           <executions>
             <execution>
-                <id>optimize-js</id>
+              <id>grunt</id>
               <phase>generate-resources</phase>
               <goals>
                 <goal>exec</goal>
               </goals>
               <configuration>
-	            <executable>node</executable>
+                <workingDirectory>src/main/portal/</workingDirectory>
+	            <executable>grunt</executable>
 	            <skip>${optimize.skip}</skip>
-	            <arguments>
-	              <argument>src/main/portal/lib/require/r.js</argument>
-	              <argument>-o</argument>
-	              <argument>src/main/portal/build.js</argument>
-	            </arguments>
               </configuration>
-            </execution>
-            <execution>
-              <id>optimize-css</id>
-              <phase>generate-resources</phase>
-              <goals>
-                <goal>exec</goal>
-              </goals>
-               <configuration>
-	            <executable>node</executable>
-	            <skip>${optimize.skip}</skip>
-	            <arguments>
-	              <argument>src/main/portal/lib/require/r.js</argument>
-	              <argument>-o</argument>
-	              <argument>cssIn=src/main/portal/styles/main.css</argument>
-	              <argument>out=src/main/portal/styles/optimized.css</argument>
-	            </arguments>
-               </configuration>
             </execution>
           </executions>
         </plugin>
@@ -280,6 +256,11 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			          <resource>
 			            <directory>${project.basedir}/src/main/portal</directory>
 			            <filtering>true</filtering>
+			            <excludes>
+			             <exclude>package.json</exclude>
+			             <exclude>Gruntfile.js</exclude>
+			             <exclude>node_modules/</exclude>
+			            </excludes>
 			          </resource>
 			        </resources>
 			      </configuration>
@@ -347,6 +328,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 		    </execution>
 		  </executions>
 		</plugin>
+
     </plugins>
   </build>
 
@@ -367,8 +349,8 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
           <id>optimize</id>
           <properties>
             <optimize.skip>false</optimize.skip>
-            <js.main.file>/portal/app/optimized.js</js.main.file>
-            <css.main.file>/portal/styles/optimized.css</css.main.file>
+            <js.main.file>/portal/dist/release/out.js</js.main.file>
+            <css.main.file>/portal/dist/release/out.css</css.main.file>
           </properties>
       </profile>
   </profiles>

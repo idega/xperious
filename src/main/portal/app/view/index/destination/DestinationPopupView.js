@@ -1,14 +1,12 @@
 define([
-   'app',
-   'text!templates/index/destination/popup.html',
+   'app'
 ],function(
-	app,
-	html) {
+	app) {
 
 
 	return Backbone.View.extend({
 
-		template: _.template(html),
+		template: 'index/destination/popup',
 
 		defaultIcon: '/app/images/map-pin.png',
 
