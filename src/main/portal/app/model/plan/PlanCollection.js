@@ -5,36 +5,27 @@ function(
 	app, 
 	PlanModel) {
 
-
 	return Backbone.Collection.extend({
-
 		url: '/api/v1/plans/search',
 
 		model: PlanModel,
-
-		initialize: function(models, options) {
-			this.query = options.query;
-			this.country = options.country;
-			this.from = options.from;
-			this.to = options.to;
-			if (!this.from || !this.to) {
-				this.build(this.query);
-			}
+		
+		initialize: function() {
+			app.router.preferences.on('change', this.fetch, this);
 		},
 
 		fetch: function(options) {
-			options = options || {};
-			this._super(_.extend(options, 
+			this._super( 
 				{data: {
-					query: this.query,
-					country: this.country,
-					from: this.from,
-					to: this.to
+					query: app.router.preferences.get('query'),
+					country: app.router.preferences.get('country'),
+					from: app.router.preferences.get('from').format('YYYY-MM-DDT00:00:00'),
+					to: app.router.preferences.get('to').format('YYYY-MM-DDT23:59:59'),
+					guests: app.router.preferences.get('guests')
 				}}
-			));
+			);
 			return this;
 		}
-
 	});
 
 });

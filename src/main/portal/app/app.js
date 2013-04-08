@@ -64,6 +64,7 @@ define([
 	    			'country', 
 	    			code, 
 	    			{expires: 14, path: '/'});
+	    		app.trigger('change:country');
 
 			} else {
 				code = $.cookie('country');

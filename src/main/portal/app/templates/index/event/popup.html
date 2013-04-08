@@ -1,13 +1,14 @@
 <div id="event-popup">
    <div class="event-popup">
      <div class="popup-gallery-fader">
-        <img src="<%= event.images[0] %>">
         <% _.each(event.images, function(image, index) { %>
-            <% if (index > 0) { %>
-                <img src="<%= image %>" style="display:none;">
+            <% if (index == 0) { %>
+                <img src="<%= image %>" />
+            <% } else { %>
+                <img src="<%= image %>" style="display:none;" />
             <% } %>
         <% }); %>
-        <% if (event.images.size > 1) { %>
+        <% if (event.images.length > 1) { %>
 	        <span class="prev"><br/></span>
 	        <span class="next"><br/></span>
         <% } %>

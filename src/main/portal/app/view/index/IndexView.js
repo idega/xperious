@@ -13,55 +13,119 @@ define([
 	FooterView,
 	BottomView) {
 
-	
-	var SearchPreferences = Backbone.Model.extend({
 
-		initialize: function() {
-			this.on('change:query', this.parse, this);
-			this.set('country', app.country());
-			this.set('guests', 2);
-			this.set('query', '');
+	return Backbone.View.extend({
+
+		template: 'index/index',
+
+		events: {
+			'click #destination' : 'destination',
+			'click #plan' : 'plan',
 		},
 
-		parse: function() {
+		initialize: function(options) {
+			this.setViews({
+				'.footer-view' : new FooterView(),
+				'.bottom-view' : new BottomView({hidden: true}),
+				'.timeframe-view' : new TimeframeButtonView(),
+				'.events-slider .site-block' :  new EventSliderView()
+			});
+		},
+
+		timeframe: function() {
+			var view = this.getView(function(view) {
+				return view.model 
+					&& view.model.has('from') 
+					&& view.model.has('to');
+			});
+			if (view) return view.model;
+		},
+		
+		plan: function() {
+			var country = app.country();
+
+
+			/* Try to parse query string and look for period
+			 * in the string. Also, this normalizes query, 
+			 * i.e. removes short keywords that do not have
+			 * any effect.
+			 */
+			var parse = this.parse(this.$('#query').val());
+			var query = parse.query;
+			var from = parse.from;
+			var to = parse.to;
+
+
+			/* Check whether timeframe was provided by the 
+			 * user. Override from/to values if one was provided.
+			 */
+			var timeframe = this.timeframe();
+			if (timeframe) {
+				from = timeframe.get('from');
+				to = timeframe.get('to');
+			}
+
+			
+			/* By default use 2 guests as specified in the
+			 * field placeholder. 
+			 */
+			var guests = this.$('#guests').val();
+			if (!guests) guests = 2; 
+
+
+			app.router.go(
+				'search',
+				query,
+				country,
+				from.format('YYYYMMDD'),
+				to.format('YYYYMMDD'),
+				guests
+			);
+
+			return false;
+		},
+
+		parse: function(query) {
 			var numberRegexp = new RegExp('[1-9]+(?= *(month|week|day))', 'gi');
 			var periodRegexp = new RegExp('(months|weeks|days|month|week|day)', 'gi');
 
-			var number = this.get('query').match(numberRegexp);
-			var period = this.get('query').match(periodRegexp);
+			var number = query.match(numberRegexp);
+			var period = query.match(periodRegexp);
 
 			if (number || period) {
 				// number not given, assume it's 1
 				if (!number) number = [1]; 
 
-				this.set('from', moment()
-					.startOf('day')
-					.add('days', 1));
+				return {
+					from: moment()
+						.startOf('day')
+						.add('days', 1),
 
-				this.set('to', moment()
-					.startOf('day')
-					.add(this.toUnits(period[0]), number[0]));
+					to: moment()
+						.startOf('day')
+						.add(this.toUnits(period[0]), number[0]),
 
-				this.set({query : 
-					this.reduce(this.get('query')
-							.replace(numberRegexp, '')
-							.replace(periodRegexp, ''))}, 
-					{silent: true});
+					query: this.reduce(query
+						.replace(numberRegexp, '')
+						.replace(periodRegexp, ''))
+				};
 
 			} else {
 				// default period is always one
 				// week  starting from tomorrow
-				this.set('from', moment()
-					.startOf('day')
-					.add('days', 1));
+				return {
+					from: moment()
+						.startOf('day')
+						.add('days', 1),
 
-				this.set('to', moment()
-					.startOf('day')
-					.add('days', 7));
+					to: moment()
+						.startOf('day')
+						.add('days', 7),
 
-				this.set(
-					{query : this.reduce(this.get('query'))},
-					{silent: true});
+					query: this.reduce(query
+						.replace(numberRegexp, '')
+						.replace(periodRegexp, ''))
+				};
 			}
 		},
 
@@ -96,70 +160,6 @@ define([
 			} else if (period.toLowerCase().indexOf('w') == 0) {
 				return 'weeks';
 			}
-		}
-	});
-
-
-	return Backbone.View.extend({
-
-		template: 'index/index',
-		
-		preferences: new SearchPreferences(),
-
-		events: {
-			'click #destination' : 'destination',
-			'click #plan' : 'plan',
-		},
-
-		initialize: function() {
-			this.setViews({
-				'.footer-view' : new FooterView(),
-				'.bottom-view' : new BottomView({hidden: true}),
-				'.timeframe-view' : new TimeframeButtonView(),
-				'.events-slider .site-block' :  new EventSliderView()
-			});
-
-			app.on('change:timeframe', this.timeframe, this);
-		},
-
-		cleanup: function() {
-			app.off('change:timeframe', this.timeframe, this);
-		},
-
-		timeframe: function() {
-			var view = this.getView(function(view) {
-				return view.model 
-					&& view.model.has('from') 
-					&& view.model.has('to');
-			});
-			if (view) {
-				this.preferences.set('to', view.model.get('to'));
-				this.preferences.set('from', view.model.get('from'));
-			}
-		},
-		
-		guests: function() {
-			var guests = this.$('#guests').val();
-			if (guests) this.preferences.set('guests', guests);
-		},
-
-		query: function() {
-			this.preferences.set('query', this.$('#query').val());
-		},
-		
-		plan: function() {
-			this.query();
-			this.timeframe();
-			this.guests();			
-			app.router.go(
-				'search',
-				this.preferences.get('query'),
-				this.preferences.get('country'),
-				this.preferences.get('from').format('YYYYMMDD'),
-				this.preferences.get('to').format('YYYYMMDD'),
-				this.preferences.get('guests')
-			);
-			return false;
 		},
 
 		destination: function() {
@@ -168,9 +168,8 @@ define([
 		
 		afterRender: function() {
 
-	        var $window = $(window),
-            $body = $('body'),
-            $bottom = $('#bottom');
+	        var $window = $(window);
+            var $bottom = $('#bottom');
 
 	        /*Placeholder for old browsers*/
 	        $('input[placeholder], textarea[placeholder]').placeholder();
@@ -227,20 +226,20 @@ define([
 	
 	        /* Calculate Section Height */
 	        if (!Modernizr.touch) {
-	            $window.resize(function() {
+	            $window.resize(_.bind(function() {
 	                var windowHeight = $window.height(),
 	                    windowWidth = $window.width();
 	                $('.full-height-section .site-block').height(windowHeight);
-	                if (!$body.data('initialized')) {
-	                    $body.css({
+	                if (!this.$el.data('initialized')) {
+	                    this.$el.css({
 	                        display: 'none',
 	                        visibility: 'visible'
 	                    }).fadeIn(200, onInit);
 	                }
 	                $('.grid').height(windowHeight-$(".site-header").height());
-	
-	                $body.data('initialized', 'initialized');
-	            }).trigger('resize');
+
+	                this.$el.data('initialized', 'initialized');
+	            }, this)).trigger('resize');
 	        }else{
 	            onInit();
 	        }

@@ -15,9 +15,8 @@
 
 #event-popup .popup-gallery-fader img { 
 	width: 440px; 
-	height: auto; 
+	height: 205px; 
 }
-
 
 .ui-widget-overlay {
     opacity: 1;

@@ -1,11 +1,10 @@
 define([
    'app',
-   'model/event/EventCollection',
    'view/index/event/EventPopupView'
 ],function(
 	app,
-	EventCollection,
 	EventPopupView) {
+
 
 	return Backbone.View.extend({
 
@@ -16,13 +15,12 @@ define([
 		},
 
 		initialize: function() {
-			_.bindAll(this);
+			this.collection = app.router.collections.eventTimeline;
+			this.collection.on('reset', this.render, this);
+		},
 
-			this.collection = new EventCollection();
-			this.collection.on('reset', this.render);
-			this.collection.fetch({data: {
-				country : app.country()
-			}});
+		cleanup: function() {
+			app.off('change:country', this.refresh, this);
 		},
 
 		popup: function(e) {
@@ -36,7 +34,6 @@ define([
 			};
 		},
 		
-
 		afterRender: function() {
 	        $("#events-slider").jcarousel({
 	            scroll: 1,

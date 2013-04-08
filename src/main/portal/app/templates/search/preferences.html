@@ -1,0 +1,17 @@
+<div class="site-block">
+     <h2>You have told us so far:</h2>
+     <p>Your type of interest: 
+        <strong> 
+            <%if (pref.query) { %>
+                <%= pref.query %>
+           <%} else { %>
+                Not Specified
+           <% } %>
+       </strong> 
+       - Timeframe: <strong><%= pref.from %></strong> - <strong><%= pref.to %></strong>
+       - Guests: <strong><%= pref.guests %></strong> 
+       - Budget: <strong>&euro;<%= pref.budget.from %> - <%= pref.budget.to %></strong> per person
+       - Type of travel: <strong>On my own</strong>  
+       -  Accommodation: <strong>Hotels</strong>
+      </p>
+</div>

@@ -1,0 +1,54 @@
+<div class="package-elements clearfix">
+    <div class="in clearfix">    
+    <%if (results && results.length > 0) { %>
+
+        <% if (results[0]) {%>
+            <% var result = results[0]; %>
+            <div class="element fl first"><img src="<%= result.previewImage %>" style="width: 475px; height: 500px;" />
+                <div class="title"><span><%= result.durationInDays %> days</span><span class="big">OUR FIRST</span><span class="strong">Suggestion for your vacation</span></div>
+                <div class="price"><span>Total price per person</span><span class="big"><%= result.pricePerPerson.currency %> <%= result.pricePerPerson.price %></span></div>
+                <div class="cover"><br/></div>
+            </div>
+        <% } %>
+
+        <% if (results[1]) {%>
+            <% var result = results[1]; %>
+            <div class="element fl align-middle align-right"><img src="<%= result.previewImage %>" style="width: 241px; height: 243px;" />
+                <div class="title"><span><%= result.durationInDays %> days</span><span class="big">OUR SECOND</span><span class="strong">suggestion</span></div>
+                <div class="price"><span>Total price per person</span><span class="big"><%= result.pricePerPerson.currency %> <%= result.pricePerPerson.price %></span></div>
+                <div class="cover"><br/></div>
+            </div>
+        <% } %>
+
+        <% if (results[2]) {%>
+            <% var result = results[2]; %>
+            <div class="element fl align-middle align-left"><img src="<%= result.previewImage %>" style="width: 241px; height: 243px;" />
+                <div class="title"><span><%= result.durationInDays %> days</span><span class="big">OUR THIRD</span><span class="strong">suggestion</span></div>
+                <div class="price"><span>Total price per person</span><span class="big"><%= result.pricePerPerson.currency %> <%= result.pricePerPerson.price %></span></div>
+                <div class="cover"><br/></div>
+            </div>
+        <% } %>
+
+        <% if (results[4]) {%>
+            <% var result = results[4]; %>
+            <div class="element fr"><img src="<%= result.previewImage %>" style="width: 446px; height: 243px;" />
+                <div class="title"><span><%= result.durationInDays %> days</span><span class="big">OUR FIFTH</span><span class="strong">suggestion</span></div>
+                <div class="price"><span>Total price per person</span><span class="big"><%= result.pricePerPerson.currency %> <%= result.pricePerPerson.price %></span></div>
+                <div class="cover"><br/></div>
+            </div>
+        <% } %>
+
+        <% if (results[3]) {%>
+            <% var result = results[3]; %>
+            <div class="element fr align-middle align-right" style="float: left"><img src="<%= result.previewImage %>" style="width: 241px; height: 269px;" />
+                <div class="title"><span><%= result.durationInDays %> days</span><span class="big">OUR FOURTH</span><span class="strong">suggestion</span></div>
+                <div class="price"><span>Total price per person</span><span class="big"><%= result.pricePerPerson.currency %> <%= result.pricePerPerson.price %></span></div>
+                <div class="cover"><br/></div>
+            </div>
+        <% } %>
+        
+    <% } else { %>
+        
+    <% } %>
+    </div>
+</div>
