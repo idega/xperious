@@ -1,3 +1,51 @@
+.ui-widget-overlay {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.75);
+}
+
+/** Loading dialog */
+.loading {
+	z-index: 1001;
+}
+	
+	.loading .qoute {
+	   font-family: 'Ubuntu';
+	   color: #e58919;
+	   font-size: 31px;
+	   text-align: center;
+	   font-weight: 200;
+	}
+	
+	.loading .author {
+	   width: 100%;
+	   font-family: 'Ubuntu';
+	   font-size: 19px;
+	   text-align: center;
+	   font-weight: 200;
+	   color: #333333;
+	   margin-top: 8px;
+	}
+	
+	.loading .spinner {
+       width: 100%;
+       text-align: center;
+       margin-top: 30px;
+    }
+	
+	.loading .ui-dialog-titlebar {
+		display: none;
+	}
+	
+	.loading.ui-widget-content {
+		background: none;
+		border: 0px;
+	}
+	
+	.loading + .ui-widget-overlay {
+	    background: rgba(255, 255, 255, 0.95);
+	}
+
+
 /** Define map size for the destination map */
 #map-popup .map-holder {
     width: 100%;
@@ -18,13 +66,8 @@
 	height: 205px; 
 }
 
-.ui-widget-overlay {
-    opacity: 1;
-    background: rgba(0, 0, 0, 0.75);
-}
-
 .guest input[type=text] {
-    width: 53px;
+    width: 50px;
     padding-left: 30px;
     background-image: url(../import/images/guest-ico.png); 
     background-repeat: no-repeat; 
@@ -52,7 +95,7 @@
 .ico-calendar {
 	cursor: hand; 
 	cursor: pointer;
-	width: 68px;
+	width: 70px;
 }
 
 	.ico-calendar .day-month {

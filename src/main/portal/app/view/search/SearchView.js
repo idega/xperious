@@ -44,8 +44,8 @@ define([
 			$tooltipRight = $tooltipLeft.clone();
 
 			var $slider = $("#budget-slider"),
-				sliderFrom = app.router.preferences.get('budget').from,
-				sliderTo = app.router.preferences.get('budget').to,
+				sliderFrom = app.router.models.preferences.get('budget').from,
+				sliderTo = app.router.models.preferences.get('budget').to,
 				sliderMin = $slider.data('min'),
 				sliderMax = $slider.data('max');
 
@@ -55,7 +55,7 @@ define([
 					max: sliderMax,
 					values: [sliderFrom, sliderTo],
 					change: function(event, ui) {
-						app.router.preferences.set('budget', {
+						app.router.models.preferences.set('budget', {
 							from: $slider.slider('values')[0],
 							to: $slider.slider('values')[1],
 						});

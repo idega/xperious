@@ -3,6 +3,7 @@ define([
 	'model/search/SearchPreferencesModel',
 	'model/event/EventTimelineCollection',
 	'model/plan/PlanCollection',
+	'view/site/LoadingView',
 	'view/index/IndexView',
 	'view/search/SearchView'],
 function(
@@ -10,6 +11,7 @@ function(
 	SearchPreferencesModel,
 	EventTimelineCollection,
 	PlanCollection,
+	LoadingView,
 	IndexView,
 	SearchView) {
 
@@ -23,8 +25,12 @@ function(
 
 
 	    initialize: function() {
-	    	this.preferences = new SearchPreferencesModel();
+	    	this.models = {};	    	
 	    	this.collections = {};
+	    	this.views = {};
+
+	    	this.models.preferences = new SearchPreferencesModel();
+	    	this.views.loading = new LoadingView();
 	    },
 
 
@@ -32,12 +38,15 @@ function(
 	     * Search plans by given preferences.
 	     */
 	    search: function(query, country, from, to, guests) {
-
 	    	if (!this.collections.plans) {
 	    		this.collections.plans = new PlanCollection();
 	    	}
 
-	    	this.preferences.set({
+	    	
+	    	app.layout().setView('.content-view', new SearchView());
+	    	app.layout().render();
+	    	
+	    	this.models.preferences.set({
     			query: query,
     			country: country,
     			from: moment(from, 'YYYYMMDD'),
@@ -48,9 +57,6 @@ function(
     				to: 1500
     			}
 	    	});
-
-	    	app.layout().setView('#content', new SearchView());
-	    	app.layout().render();
 	    },
 
 
@@ -71,7 +77,7 @@ function(
 	    		this.collections.eventTimeline = new EventTimelineCollection();
 	    		this.collections.eventTimeline.fetch();
 	    	}
-	    	app.layout().setView('#content', new IndexView());
+	    	app.layout().setView('.content-view', new IndexView());
 	    	app.layout().render();
 	    },
 

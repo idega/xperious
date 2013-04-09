@@ -10,16 +10,16 @@ define([
 		template: _.template(html),
 
 		initialize: function() {
-			app.router.preferences.on('change', this.render, this);
+			app.router.models.preferences.on('change', this.render, this);
 		},
 		
 		cleanup: function() {
-			app.router.preferences.off('change', this.render, this);
+			app.router.models.preferences.off('change', this.render, this);
 		},
 
 		serialize: function() {
 			return {
-				pref: app.router.preferences.toJSON()
+				pref: app.router.models.preferences.toJSON()
 			};
 		}
 	});

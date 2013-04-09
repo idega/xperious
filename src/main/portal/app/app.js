@@ -19,8 +19,7 @@ define([
   'jquery.rating',
   'modernizr',
   'common'
-], function(
-   LayoutManager) {	
+], function(LayoutManager) {	
 
 
 	var JST = window.JST = window.JST || {};
@@ -80,7 +79,7 @@ define([
 			} else {
 				this.layoutCached = new Backbone.Layout(
 					_.extend({
-						template: 'layout',
+						template: 'layout'
 					}));
 				$('body').append(this.layoutCached.el);
 				return this.layoutCached;
