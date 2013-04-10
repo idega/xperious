@@ -288,7 +288,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 		  <artifactId>com.idega.maven.webapp</artifactId>
 		  <extensions>true</extensions>
           <configuration>
-            <extractResources>true</extractResources>
+            <extractResources>${extract.bundle.resources}</extractResources>
 		    <archive>
 		      <manifest>
 		        <addExtensions />
@@ -329,6 +329,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
           <id>default</id>
           <properties>
             <optimize.skip>true</optimize.skip>
+			<extract.bundle.resources>false</extract.bundle.resources>
             <js.main.file>/portal/lib/require/require.js</js.main.file>
             <css.main.file>/portal/styles/main.css</css.main.file>
           </properties>
@@ -338,8 +339,9 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
       </profile>
       <profile>
           <id>optimize</id>
-          <properties>
+          <properties>  
             <optimize.skip>false</optimize.skip>
+			<extract.bundle.resources>true</extract.bundle.resources>
             <js.main.file>/portal/dist/release/out.js</js.main.file>
             <css.main.file>/portal/dist/release/out.css</css.main.file>
           </properties>
