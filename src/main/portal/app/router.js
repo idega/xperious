@@ -42,10 +42,6 @@ function(
 	    		this.collections.plans = new PlanCollection();
 	    	}
 
-	    	
-	    	app.layout().setView('.content-view', new SearchView());
-	    	app.layout().render();
-	    	
 	    	this.models.preferences.set({
     			query: query,
     			country: country,
@@ -57,6 +53,9 @@ function(
     				to: 1500
     			}
 	    	});
+
+	    	app.layout().setView('.content-view', new SearchView());
+	    	app.layout().render();
 	    },
 
 
