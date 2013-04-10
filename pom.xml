@@ -217,7 +217,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
   
 
     <plugins>
-
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>exec-maven-plugin</artifactId>
@@ -237,8 +236,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
             </execution>
           </executions>
         </plugin>
-
-
 		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-resources-plugin</artifactId>
@@ -267,8 +264,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			    </execution>
 			  </executions>
 		</plugin>
-
-
 		<plugin>
 		  <groupId>org.codehaus.mojo</groupId>
 		  <artifactId>buildnumber-maven-plugin</artifactId>
@@ -288,13 +283,12 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 		    </execution>
 		  </executions>
 		</plugin>
-
-
 		<plugin>
 		  <groupId>com.idega.maven.plugins</groupId>
 		  <artifactId>com.idega.maven.webapp</artifactId>
 		  <extensions>true</extensions>
-		  <configuration>
+          <configuration>
+            <extractResources>true</extractResources>
 		    <archive>
 		      <manifest>
 		        <addExtensions />
@@ -307,8 +301,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 		    </archive>          
 		  </configuration>
 		</plugin>
-	  
-
 		<plugin>
 		  <artifactId>maven-assembly-plugin</artifactId>
 		  <version>2.4</version>
@@ -328,7 +320,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 		    </execution>
 		  </executions>
 		</plugin>
-
     </plugins>
   </build>
 
