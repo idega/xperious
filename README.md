@@ -71,3 +71,12 @@ permissions to write:
 
 		export JAVA_OPTS=" -Xmx2048M -XX:MaxPermSize=512M -XX:+CMSClassUnloadingEnabled -XX:+CMSPermGenSweepingEnabled -Djava.awt.headless=true -Dfile.encoding=UTF-8 -XX:+HeapDumpOnOutOfMemoryError -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=40 -Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=10008 -Didegaweb.jcr.home=/var/jcr/xperious -Dorg.apache.jackrabbit.version.recovery=true"
 
+
+Performance improvements
+===
+### apache httpd
+1. Enable gzip compression for mod_jk (if using http server). Add the following value to the virtual host configuration file (somewhere under `/etc/httpd/conf.d/`). Make sure the `LoadModule deflate_module modules/mod_deflate.so` is present inside the main http.conf file.
+
+		<IfModule mod_deflate.c>
+			AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/x-javascript application/javascript
+		</IfModule>
