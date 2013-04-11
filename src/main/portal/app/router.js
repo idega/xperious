@@ -43,7 +43,7 @@ function(
 	    	}
 
 	    	this.models.preferences.set({
-    			query: query,
+    			query: decodeURIComponent(query),
     			country: country,
     			from: moment(from, 'YYYYMMDD'),
     			to: moment(to, 'YYYYMMDD'),
