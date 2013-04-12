@@ -1,13 +1,11 @@
 define([
-   'app',
-   'text!templates/site/bottom.html'
-],function(
-	app,
-	html) {
+   'app'
+],function(app) {
 
 
 	return Backbone.View.extend({
-		template: _.template(html),
+
+		template: 'site/bottom',
 
 		initialize: function(options) {
 			if (options && options.hidden) {

@@ -1,0 +1,26 @@
+.details-prices-section .zebra .price-cell {
+	width: 75px;
+}
+
+.rout-on-map-section .map-holder {
+    width: 780px;
+    height: 390px;	
+}
+
+.day-map .map-holder {
+	width: 715px;
+	height: 460px;
+}
+
+.gallery .media-holder img {
+    width: 780px;
+    height: 380px;	
+    background-size: cover;
+}
+
+.gallery .thumbs-holder img {
+	width: 156px; 
+	height: 100px;
+	background-size: cover;
+}
+ 

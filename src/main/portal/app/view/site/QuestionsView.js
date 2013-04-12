@@ -1,12 +1,12 @@
 define([
-   'app',
-   'text!templates/site/questions.html'
+   'app'
 ],function(
-	app,
-	html) {
+	app) {
 
 	return Backbone.View.extend({
-		template: _.template(html),
+
+		template: 'site/questions',
+
 	});
 
 });

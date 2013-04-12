@@ -1,13 +1,11 @@
 define([
-   'app',
-   'text!templates/search/preferences.html'
+   'app'
 ],function(
-	app,
-	html) {
+	app) {
 
 	return Backbone.View.extend({
 
-		template: _.template(html),
+		template: 'search/preferences',
 
 		initialize: function() {
 			app.router.models.preferences.on('change', this.render, this);

@@ -1,12 +1,11 @@
 define([
-   'app',
-   'text!templates/site/loading.html'
+   'app'
 ],function(
-	app,
-	html) {
+	app) {
 
 	return Backbone.View.extend({
-		template: _.template(html),
+
+		template: 'site/loading',
 
 		initialize: function() {
 			app.on('block', this.render, this);

@@ -3,11 +3,25 @@ define([
 ], function(app) {
 
 	return Backbone.RelationalModel.extend({
-		toJSON: function() {
-			var json = Backbone.Model.prototype.toJSON.call(this);
-			json.on = moment(json.on).format('YYYY-MM-DD');
-			return json;
+
+		summary: function() {
+			if (this.has('shortDescription')) {
+				// strip html on shortDescription
+				return this.get('shortDescription')
+					.replace(/<(?:.|\n)*?>/gm, '');
+			}
+		},
+		
+		summaryImage: function() {
+			if (this.has('images')) {
+				return this.get('images')[0];
+
+			} else if (this.has('logo')) {
+				return this.get('logo');
+			}
 		}
+		
+
 	});
 
 });

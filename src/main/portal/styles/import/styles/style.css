@@ -58,8 +58,6 @@ button, input, select, textarea {font-family: 'Ubuntu', sans-serif; font-size: 1
 /*Custom buttons*/
 .button {padding-top: 0; padding-bottom: 0; display: inline-block; border-radius: 4px; background: #ccc url(../images/button-ico.png) no-repeat right center; padding-right: 36px; padding-left: 10px; height: 46px; line-height: 46px; text-transform: uppercase; color: #fff; font-size: 18px; border: none; text-align: left; position: relative; font-weight: 300;}
 
-.button:hover {}
-
 /*Autocomplete*/
 .ui-autocomplete {padding: 0; background: #fff;}
 .ui-menu .ui-menu-item {border: none; background: none !important; margin: 0 !important;}
@@ -203,9 +201,9 @@ background: url(../images/bg-4.jpg) no-repeat center center fixed;
 
 
 /*Prev-next*/
-.prev, .next {display: inline-block; width: 30px; height: 30px; position: absolute; top: 50%; margin-top: -15px; cursor: pointer;}
-.prev {background: url(../images/arrow-left.png) no-repeat center center; left: 3%;}
-.next {background: url(../images/arrow-right.png) no-repeat center center; right: 3%;}
+.home-section .prev, .home-section .next {display: inline-block; width: 30px; height: 30px; position: absolute; top: 50%; margin-top: -15px; cursor: pointer;}
+.home-section .prev {background: url(../images/arrow-left.png) no-repeat center center; left: 3%;}
+.home-section .next {background: url(../images/arrow-right.png) no-repeat center center; right: 3%;}
 
 
 /*Site header*/
@@ -348,7 +346,6 @@ li:hover .convert-form input[type='text'] {zoom: 1;}
 
 /*Slider*/
 .jcarousel-container {
-    position: static !important;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -356,6 +353,7 @@ li:hover .convert-form input[type='text'] {zoom: 1;}
     -ms-user-select: none;
     user-select: none;
 }
+.events-slider .jcarousel-container {position: static !important;}
 .jcarousel-container .jcarousel-container-horizontal {width: 990px;}
 .jcarousel-container .jcarousel-clip {overflow: hidden;}
 .event-skin .jcarousel-clip-horizontal {width: 990px; height: 255px;}
@@ -617,7 +615,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 
 .copyrights {font-size: 14px; margin-top: 20px;}
 
-.js body{visibility:hidden;}
+.js .landing-page {visibility:hidden;}
 
 #plan-inputs-container{overflow: hidden; width:0px;display:inline-block; float: left; }
 #plan-inputs-container .inner{width:350px;}

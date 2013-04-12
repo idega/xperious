@@ -2,40 +2,39 @@ define([
    'app',
    'view/search/SearchPreferencesView',
    'view/search/SearchResultsView',
+   'view/site/HeaderView',
    'view/site/QuestionsView',
    'view/site/FooterView',
-   'view/site/BottomView',
-   'text!templates/search/search.html'
+   'view/site/BottomView'
 ],function(
 	app,
 	SearchPreferencesView,
 	SearchResultsView,
+	HeaderView,
 	QuestionsView,
 	FooterView,
-	BottomView,
-	html) {
+	BottomView) {
 
 
 	return Backbone.View.extend({
-		template: _.template(html),
+
+		template: 'search/search',
 
 		initialize: function() {
 			this.setViews({
 				'.search-preferences-view' : new SearchPreferencesView(),
 				'.search-results-view' : new SearchResultsView(),
+				'.header-view' : new HeaderView(),
 				'.questions-view' : new QuestionsView(),
 				'.footer-view' : new FooterView(),
 				'.bottom-view' : new BottomView()
 			});
+
+			app.trigger('change:title', 'Suggestions - xperious');
 		},
 
 		afterRender: function() {
-
-			var $body = $('body');
-
-			//Package filter UI
 			$(".custom-checkbox").button();
-
 
 			var $tooltipLeft = $('<div class="tooltip"><span class="sp"><br/></span><span class="value"></span></div>').css({
 				position: 'absolute',
@@ -65,12 +64,11 @@ define([
 						changeTooltipValue($tooltipRight, ui.values[1]);
 					}
 				})
-				.find(".ui-slider-handle:first")
-				.append($tooltipLeft)
-				.end()
-				.find('.ui-slider-handle:last')
-				.append($tooltipRight);
-
+			.find(".ui-slider-handle:first")
+			.append($tooltipLeft)
+			.end()
+			.find('.ui-slider-handle:last')
+			.append($tooltipRight);
 
 			changeTooltipValue($tooltipLeft, sliderFrom);
 			changeTooltipValue($tooltipRight, sliderTo);
@@ -81,7 +79,6 @@ define([
 						'margin-left':-$element.outerWidth() / 2
 					});
 			}
-			
 
 			var $rating = $(".star").rating();
 			$rating.rating('readOnly', true);

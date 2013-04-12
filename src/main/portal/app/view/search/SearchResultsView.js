@@ -1,13 +1,16 @@
 define([
-   'app',
-   'text!templates/search/results.html'
+   'app'
 ],function(
-    app,
-    html) {
+    app) {
 
 
     return Backbone.View.extend({
-        template: _.template(html),
+
+        template: 'search/results',
+        
+        events: {
+        	'click .element' : 'plan'
+        },
 
         initialize: function() {
         	this.collection = app.router.collections.plans;
@@ -22,6 +25,19 @@ define([
         	return {
         		results: this.collection.toJSON()
         	};
+        },
+
+        plan: function(event) {
+			app.router.go(
+				'search',
+				app.router.models.preferences.get('query'),
+				app.router.models.preferences.get('country'),
+				app.router.models.preferences.get('from').format('YYYYMMDD'),
+				app.router.models.preferences.get('to').format('YYYYMMDD'),
+				app.router.models.preferences.get('guests'),
+				'plan',
+				$(event.currentTarget).data('index')
+			);
         }
     });
 

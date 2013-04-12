@@ -5,7 +5,8 @@ define([
 	'model/plan/PlanCollection',
 	'view/site/LoadingView',
 	'view/index/IndexView',
-	'view/search/SearchView'],
+	'view/search/SearchView',
+	'view/plan/PlanView'],
 function(
 	app,
 	SearchPreferencesModel,
@@ -13,13 +14,13 @@ function(
 	PlanCollection,
 	LoadingView,
 	IndexView,
-	SearchView) {
+	SearchView,
+	PlanView) {
 
 	return Backbone.Router.extend({
 
 	    routes: {
-	    	'search/:query/:country/:from/:to/:guests' : 'search',
-	    	'search/:country/:from/:to/:guests' : 'searchAll',
+	    	'search(/:query)/:country/:from/:to/:guests(/plan/:index)' : 'search',
 	    	'*path': 'index'
 	    },
 
@@ -37,13 +38,14 @@ function(
 	    /**
 	     * Search plans by given preferences.
 	     */
-	    search: function(query, country, from, to, guests) {
+	    search: function(query, country, from, to, guests, index) {	    	
 	    	if (!this.collections.plans) {
-	    		this.collections.plans = new PlanCollection();
+	    		this.collections.plans = 
+	    			new PlanCollection();
 	    	}
 
 	    	this.models.preferences.set({
-    			query: decodeURIComponent(query),
+    			query: decodeURIComponent(query || ''),
     			country: country,
     			from: moment(from, 'YYYYMMDD'),
     			to: moment(to, 'YYYYMMDD'),
@@ -53,18 +55,21 @@ function(
     				to: 1500
     			}
 	    	});
+	    	
+	    	// Set selected plan silently
+	    	// because we do not want to
+	    	// trigger collection fetch
+	    	this.models.preferences.set(
+    			{index: index}, 
+    			{silent: true});
 
-	    	app.layout().setView('.content-view', new SearchView());
+
+	    	app.layout().setView(
+	    		'.content-view', 
+	    		(index) 
+		    		? new PlanView() 
+		    		: new SearchView());
 	    	app.layout().render();
-	    },
-
-
-	    /**
-	     * Query not provided. Anyway search some default
-	     * plans. Delegate to search without the query.
-	     */
-	    searchAll: function(country, from, to, guests) {
-	    	this.search('', country, from, to, guests);
 	    },
 
 
@@ -73,10 +78,14 @@ function(
 	     */
 	    index: function() {
 	    	if (!this.collections.eventTimeline) {
-	    		this.collections.eventTimeline = new EventTimelineCollection();
+	    		this.collections.eventTimeline = 
+	    			new EventTimelineCollection();
 	    		this.collections.eventTimeline.fetch();
 	    	}
-	    	app.layout().setView('.content-view', new IndexView());
+
+	    	app.layout().setView(
+    			'.content-view', 
+    			new IndexView());
 	    	app.layout().render();
 	    },
 

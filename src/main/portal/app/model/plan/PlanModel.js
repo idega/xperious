@@ -21,20 +21,35 @@ function(
 			parse: true
 		}],
 
-		spatialCenter: function() {
-			if (this.get('items').size() > 0) {
-				return {
-					lat: this.get('items').at(0).get('latitude'),
-					lng: this.get('items').at(0).get('longitude'),
-				};
-			}
+		
+		/* Group plan items by day. This returns days array
+		 * that where each element is an array with items for
+		 * the day.
+		 */
+		itemsByDays: function() {
+			var days = {};
+			this.get('items').each(function(item) {
+				var on = moment(item.get('on')).format('YYYYMMDD');
+				if (!days[on]) {
+					days[on] = [];
+				}
+				days[on].push(item);
+			});
+			return _.chain(_.values(days));
 		},
 
-		toJSON: function() {
-			var json = this._super();
-			json.from = moment(json.from).format('YYYY-MM-DD');
-			json.to = moment(json.to).format('YYYY-MM-DD');
-			return json;
+
+		/* This returns item that should be used for the plan preview.
+		 * This is the most relevant, most important item for the plan.
+		 */
+		preview: function() {
+			if (this.get('items').size() > 0) {
+				for (var i = 0; i < this.get('items').size(); i++) {
+					if (this.get('items').at(i).get('type') === 'PRODUCT') {
+						return this.get('items').at(i);
+					}
+				}
+			}
 		}
 	});
 

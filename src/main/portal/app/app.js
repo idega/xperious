@@ -46,15 +46,16 @@ define([
   	});
 
 
-  	var app = {
-  		root: '/app/'
-  	};
-
-
-  	return _.extend(app, {
-
+  	var app = _.extend({
+  		
+  		root: '/app/',
+  		
 	    module: function(additionalProps) {
 	      return _.extend({ Views: {} }, additionalProps);
+	    },
+
+	    title: function(title) {
+	    	document.title = title;
 	    },
 	    
 	    country: function(code) {
@@ -85,6 +86,12 @@ define([
 				return this.layoutCached;
 		    }
 		}
-	  }, Backbone.Events);
+	}, Backbone.Events);
+
+
+  	app.on('change:title', app.title);
+
+
+  	return app;
 
 });

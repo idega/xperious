@@ -1,10 +1,9 @@
-.js body{visibility: visible;}
-
+.package-list-page {}
 
 .rating-stars {padding-top: 3px; padding-bottom: 1px;}
 /* jQuery.Rating Plugin CSS - http://www.fyneworks.com/jquery/star-rating/ */
 div.rating-cancel,div.star-rating{float:left;width:8px;height:8px;text-indent:-999em;cursor:pointer;display:block;background:transparent;overflow:hidden}
-div.rating-cancel,div.rating-cancel a{background:url(http://apsai.lt:1113/images/delete.gif) no-repeat 0 -16px}
+div.rating-cancel,div.rating-cancel a{}
 div.star-rating,div.star-rating a{background:url(../images/star.png) no-repeat 0 0px; margin-right: 2px;}
 div.rating-cancel a,div.star-rating a{display:block;width:8px;height:100%;background-position:0 0px;border:0}
 div.star-rating-on a{background-position:0 -8px!important}

@@ -1,12 +1,12 @@
 define([
-   'app',
-   'text!templates/site/footer.html'
+   'app'
 ],function(
-	app,
-	html) {
+	app) {
 
 	return Backbone.View.extend({
-		template: _.template(html),
+
+		template: 'site/footer'
+
 	});
 
 });

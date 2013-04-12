@@ -30,6 +30,7 @@ define([
 				'.timeframe-view' : new TimeframeButtonView(),
 				'.events-slider .site-block' :  new EventSliderView()
 			});
+			app.trigger('change:title', 'Welcome - xperious');
 		},
 
 		timeframe: function() {
@@ -48,8 +49,7 @@ define([
 			/* Try to parse query string and look for period
 			 * in the string. Also, this normalizes query, 
 			 * i.e. removes short keywords that do not have
-			 * any effect.
-			 */
+			 * any effect. */
 			var parse = this.parse(this.$('#query').val());
 			var query = parse.query;
 			var from = parse.from;
@@ -57,8 +57,7 @@ define([
 
 
 			/* Check whether timeframe was provided by the 
-			 * user. Override from/to values if one was provided.
-			 */
+			 * user. Override from/to values if one was provided.*/
 			var timeframe = this.timeframe();
 			if (timeframe) {
 				from = timeframe.get('from');
@@ -67,8 +66,7 @@ define([
 
 			
 			/* By default use 2 guests as specified in the
-			 * field placeholder. 
-			 */
+			 * field placeholder. */
 			var guests = this.$('#guests').val();
 			if (!guests) guests = 2; 
 
@@ -230,15 +228,15 @@ define([
 	                var windowHeight = $window.height(),
 	                    windowWidth = $window.width();
 	                $('.full-height-section .site-block').height(windowHeight);
-	                if (!this.$el.data('initialized')) {
-	                    this.$el.css({
+	                if (!this.$el.find('.landing-page').data('initialized')) {
+	                    this.$el.find('.landing-page').css({
 	                        display: 'none',
 	                        visibility: 'visible'
 	                    }).fadeIn(200, onInit);
 	                }
 	                $('.grid').height(windowHeight-$(".site-header").height());
 
-	                this.$el.data('initialized', 'initialized');
+	                this.$el.find('.landing-page').data('initialized', 'initialized');
 	            }, this)).trigger('resize');
 	        }else{
 	            onInit();
