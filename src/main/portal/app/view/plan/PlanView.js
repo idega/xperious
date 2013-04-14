@@ -26,6 +26,8 @@ define([
 		
 
 		initialize: function() {
+			app.trigger('change:title', 'Itinerary - xperious');
+
 			this.setViews({
 				'.header-view' : new HeaderView(),
 				'.questions-view' : new QuestionsView(),
@@ -33,7 +35,6 @@ define([
 				'.bottom-view' : new BottomView()
 			});
 			app.router.collections.plans.on('reset', this.render, this);
-			app.trigger('change:title', 'Itinerary - xperious');
 		},
 
 
@@ -78,6 +79,11 @@ define([
 					days: days
 				};
 			}
+		},
+
+
+		beforeRender: function() {
+			$(window).scrollTop();
 		},
 
 

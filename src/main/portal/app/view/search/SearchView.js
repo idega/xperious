@@ -21,6 +21,8 @@ define([
 		template: 'search/search',
 
 		initialize: function() {
+			app.trigger('change:title', 'Suggestions - xperious');
+
 			this.setViews({
 				'.search-preferences-view' : new SearchPreferencesView(),
 				'.search-results-view' : new SearchResultsView(),
@@ -29,8 +31,6 @@ define([
 				'.footer-view' : new FooterView(),
 				'.bottom-view' : new BottomView()
 			});
-
-			app.trigger('change:title', 'Suggestions - xperious');
 		},
 
 		afterRender: function() {

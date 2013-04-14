@@ -93,7 +93,7 @@ function(
 	    /**
 	     * Comfort method to create URLs more easily.
 	     */
-	    go: function() {
+	    go: function() {	    	
 	    	return this.navigate(
     			_.map(
     				_.toArray(arguments), 

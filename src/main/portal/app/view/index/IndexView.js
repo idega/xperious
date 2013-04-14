@@ -24,13 +24,14 @@ define([
 		},
 
 		initialize: function(options) {
+			app.trigger('change:title', 'Welcome - xperious');
+
 			this.setViews({
 				'.footer-view' : new FooterView(),
 				'.bottom-view' : new BottomView({hidden: true}),
 				'.timeframe-view' : new TimeframeButtonView(),
 				'.events-slider .site-block' :  new EventSliderView()
 			});
-			app.trigger('change:title', 'Welcome - xperious');
 		},
 
 		timeframe: function() {
@@ -340,7 +341,18 @@ define([
 	                });
 	            });
 	        });
-	
+
+
+            $('input[type="submit"], a').hoverIntent({
+                over: function() {
+                	$(this).toggleClass('hovered', 200, 'swing');
+                },
+                out: function() {
+                	$(this).toggleClass('hovered', 200, 'swing');
+                },
+                interval: 25
+            });
+	        
 	
 	        $("#team").waypoint(function(dir) {
 	            if (dir == 'down') {

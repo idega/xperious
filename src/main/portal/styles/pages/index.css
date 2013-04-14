@@ -55,16 +55,42 @@
 
 
 /** Define map size for the event popup map */
-#event-popup .map-holder {
-    width: 100%;
-    height: 150px;
-    background: #c9c9c9;
+#event-popup {
+	
 }
 
-#event-popup .popup-gallery-fader img { 
-	width: 440px; 
-	height: 205px; 
-}
+	#event-popup .map-holder {
+	    width: 100%;
+	    height: 150px;
+	    background: #c9c9c9;
+	}
+	
+	#event-popup .popup-gallery-fader img { 
+		width: 440px; 
+		height: 205px; 
+	}
+	
+    .popup-gallery-fader .prev, .popup-gallery-fader .next {
+	   display: inline-block; 
+	   width: 30px;
+	   height: 30px; 
+	   position: absolute; 
+	   top: 50%;
+	   margin-top: -15px;
+	   cursor: pointer;
+	   z-index: 1105;
+	 }
+
+    .popup-gallery-fader .prev {
+        background: url(../import/images/arrow-left.png) no-repeat center center; 
+        left: 3%;
+     }
+
+    .popup-gallery-fader .next {
+        background: url(../import/images/arrow-right.png) no-repeat center center; 
+        right: 3%;
+    }
+
 
 .guest input[type=text] {
     width: 50px;
