@@ -83,7 +83,7 @@ define([
 
 
 		beforeRender: function() {
-			$(window).scrollTop();
+			$(window).scrollTop(0);
 		},
 
 

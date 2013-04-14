@@ -33,6 +33,10 @@ define([
 			});
 		},
 
+		beforeRender: function() {
+			$(window).scrollTop(0);
+		},
+		
 		afterRender: function() {
 			$(".custom-checkbox").button();
 

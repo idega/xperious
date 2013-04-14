@@ -18,10 +18,12 @@ define([
 
 		template: 'index/index',
 
+
 		events: {
 			'click #destination' : 'destination',
 			'click #plan' : 'plan',
 		},
+
 
 		initialize: function(options) {
 			app.trigger('change:title', 'Welcome - xperious');
@@ -34,6 +36,7 @@ define([
 			});
 		},
 
+
 		timeframe: function() {
 			var view = this.getView(function(view) {
 				return view.model 
@@ -42,7 +45,8 @@ define([
 			});
 			if (view) return view.model;
 		},
-		
+
+
 		plan: function() {
 			var country = app.country();
 
@@ -83,6 +87,7 @@ define([
 
 			return false;
 		},
+
 
 		parse: function(query) {
 			var numberRegexp = new RegExp('[1-9]+(?= *(month|week|day))', 'gi');
@@ -128,6 +133,7 @@ define([
 			}
 		},
 
+
 		reduce: function(keyword) {
 			if (keyword) {
 				var filtered = _.filter(
@@ -151,6 +157,7 @@ define([
 			}
 		},
 
+
 		toUnits: function(period) {
 			if (period.toLowerCase().indexOf('d') == 0) {
 				return 'days';
@@ -161,10 +168,17 @@ define([
 			}
 		},
 
+
 		destination: function() {
             this.insertView(new DestinationPopupView()).render();
 		},
-		
+
+
+		beforeRender: function() {
+			$(window).scrollTop(0);
+		},
+
+
 		afterRender: function() {
 
 	        var $window = $(window);
