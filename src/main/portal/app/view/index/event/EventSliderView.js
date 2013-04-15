@@ -14,8 +14,8 @@ define([
 			'click .event-link' : 'popup'
 		},
 
-		initialize: function() {
-			this.collection = app.router.collections.eventTimeline;
+		beforeRender: function() {
+			this.collection = app.event.timeline;
 			this.collection.on('reset', this.render, this);
 		},
 

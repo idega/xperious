@@ -46,7 +46,7 @@ define([
                 padding: 0,
                 onStart: _.bind(function() {
                     $('#fancybox-close').text('Close');
-                    $("#fancybox-outer").removeClass('event-lightbox');
+                    $("#fancybox-outer").removeClass();
                 }, this)
             });
 

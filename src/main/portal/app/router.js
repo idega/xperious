@@ -1,37 +1,42 @@
-define([
-	'app',
-	'model/search/SearchPreferencesModel',
-	'model/event/EventTimelineCollection',
-	'model/plan/PlanCollection',
+define(['app',
 	'view/site/LoadingView',
+	'view/site/HeaderView',
+	'view/site/QuestionsView',
+	'view/site/BottomView',
+	'view/site/FooterView',
 	'view/index/IndexView',
+	'view/index/timeframe/TimeframeButtonView',
+	'view/index/event/EventSliderView',
 	'view/search/SearchView',
-	'view/plan/PlanView'],
-function(
-	app,
-	SearchPreferencesModel,
-	EventTimelineCollection,
-	PlanCollection,
+	'view/search/SearchPreferencesView',
+	'view/search/SearchResultsView',
+	'view/plan/PlanView'
+], function(app,
 	LoadingView,
-	IndexView,
+	HeaderView,
+	QuestionsView,
+	BottomView,
+	FooterView,
+	IndexView,	
+	TimeframeButtonView,
+	EventSliderView,
 	SearchView,
+	SearchPreferencesView,
+	SearchResultsView,
 	PlanView) {
 
 	return Backbone.Router.extend({
-
+		
 	    routes: {
 	    	'search(/:query)/:country/:from/:to/:guests(/plan/:index)' : 'search',
 	    	'*path': 'index'
 	    },
 
-
 	    initialize: function() {
-	    	this.models = {};	    	
-	    	this.collections = {};
-	    	this.views = {};
-
-	    	this.models.preferences = new SearchPreferencesModel();
-	    	this.views.loading = new LoadingView();
+	    	// no need to call render() explicitly on this view
+	    	// as it listens on special events and blocks ui with
+	    	// the modal dialog when required
+	    	new LoadingView();
 	    },
 
 
@@ -39,12 +44,7 @@ function(
 	     * Search plans by given preferences.
 	     */
 	    search: function(query, country, from, to, guests, index) {	    	
-	    	if (!this.collections.plans) {
-	    		this.collections.plans = 
-	    			new PlanCollection();
-	    	}
-
-	    	this.models.preferences.set({
+	    	app.search.preferences.set({
     			query: decodeURIComponent(query || ''),
     			country: country,
     			from: moment(from, 'YYYYMMDD'),
@@ -55,21 +55,26 @@ function(
     				to: 1500
     			}
 	    	});
+
 	    	
 	    	// Set selected plan silently
 	    	// because we do not want to
 	    	// trigger collection fetch
-	    	this.models.preferences.set(
-    			{index: index}, 
-    			{silent: true});
+	    	if (index) {
+		    	app.search.preferences.set(
+	    			{index: index}, 
+	    			{silent: true});
+	    	} else {
+	    		app.search.preferences.unset(
+	    			'index', 
+	    			{silent: true});
+	    	}
 
 
-	    	app.layout().setView(
-	    		'.content-view', 
-	    		(index) 
-		    		? new PlanView() 
-		    		: new SearchView());
-	    	app.layout().render();
+    		app.layout((index) 
+				? this.layout().plan() 
+				: this.layout().search())
+			.render();
 	    },
 
 
@@ -77,16 +82,10 @@ function(
 	     * Provide index page.
 	     */
 	    index: function() {
-	    	if (!this.collections.eventTimeline) {
-	    		this.collections.eventTimeline = 
-	    			new EventTimelineCollection();
-	    		this.collections.eventTimeline.fetch();
+	    	if (!app.event.timeline.fetched()) {
+	    		app.event.timeline.fetch();
 	    	}
-
-	    	app.layout().setView(
-    			'.content-view', 
-    			new IndexView());
-	    	app.layout().render();
+    		app.layout(this.layout().index()).render();	 
 	    },
 
 
@@ -103,7 +102,68 @@ function(
     			.join("/")
     			.replace('//', '/'), 
 			{trigger: true});
+	    },
+	    
+	    
+	    layout: function() {
+	    	this.layout = this.layout || {};
+
+	    	return {
+	    		index: _.bind(function() {
+	    			if (!this.layout.index) {
+	    		    	this.layout.index = new Backbone.Layout();
+
+	    				this.layout.index.setView(new IndexView({
+	    					views: {
+	    						'.timeframe-view' : new TimeframeButtonView(),
+	    						'.events-slider .site-block' :  new EventSliderView(),
+	    						'.footer-view' : new FooterView(),
+	    						'.bottom-view' : new BottomView({hidden: true})
+	    					}
+	    				}));
+
+	    			}
+	    			return this.layout.index;
+	    		}, this),
+	    		
+	    		search: _.bind(function() {
+	    			if (!this.layout.search) {
+	    		    	this.layout.search = new Backbone.Layout();
+
+	    		    	this.layout.search.setView(new SearchView({
+	    		    		views: {
+	    						'.header-view' : new HeaderView(),
+	    						'.search-preferences-view' : new SearchPreferencesView(),
+	    						'.search-results-view' : new SearchResultsView(),
+	    	    				'.questions-view' : new QuestionsView(),
+	    	    				'.footer-view' : new FooterView(),
+	    	    				'.bottom-view' : new BottomView()
+	    		    		}
+	    		    	}));
+
+	    			}
+	    			return this.layout.search;
+	    		}, this),
+
+	    		plan: _.bind(function() {
+	    			if (!this.layout.plan) {
+	    		    	this.layout.plan = new Backbone.Layout();
+
+	    		    	this.layout.plan.setView(new PlanView({
+	    		    		views: {
+	    						'.header-view' : new HeaderView(),
+	    						'.questions-view' : new QuestionsView(),
+	    						'.footer-view' : new FooterView(),
+	    						'.bottom-view' : new BottomView()
+	    		    		}
+	    		    	}));
+
+	    			}
+	    			return this.layout.plan;
+	    		}, this)
+	    	};
 	    }
+	    
 	});
 
 });

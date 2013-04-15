@@ -27,7 +27,7 @@ define([
                 overlayOpacity: 0.75,
 
                 onStart: function() {
-                    $("#fancybox-outer").addClass('event-lightbox');
+                    $("#fancybox-outer").removeClass().addClass('event-lightbox');
                     $('#fancybox-close').text('Close');
                 },
 

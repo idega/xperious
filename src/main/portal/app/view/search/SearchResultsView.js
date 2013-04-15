@@ -9,11 +9,11 @@ define([
         template: 'search/results',
         
         events: {
-        	'click .element' : 'plan'
+        	'click .element' : 'result'
         },
 
         initialize: function() {
-        	this.collection = app.router.collections.plans;
+        	this.collection = app.search.results;
         	this.collection.on('reset', this.render, this);
         },
 
@@ -27,14 +27,14 @@ define([
         	};
         },
 
-        plan: function(event) {
+        result: function(event) {
 			app.router.go(
 				'search',
-				app.router.models.preferences.get('query'),
-				app.router.models.preferences.get('country'),
-				app.router.models.preferences.get('from').format('YYYYMMDD'),
-				app.router.models.preferences.get('to').format('YYYYMMDD'),
-				app.router.models.preferences.get('guests'),
+				app.search.preferences.get('query'),
+				app.search.preferences.get('country'),
+				app.search.preferences.get('from').format('YYYYMMDD'),
+				app.search.preferences.get('to').format('YYYYMMDD'),
+				app.search.preferences.get('guests'),
 				'plan',
 				$(event.currentTarget).data('index')
 			);

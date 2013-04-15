@@ -7,6 +7,7 @@ define([
 
 		template: 'site/loading',
 
+
 		initialize: function() {
 			app.on('block', this.render, this);
 			app.on('unblock', this.unblock, this);
@@ -22,7 +23,7 @@ define([
 			$(window).off('scroll', this.resize);
 		},
 
-		afterRender: function() {
+		afterRender: function() {		
 			this.$el.dialog({
 				dialogClass: 'loading',
 				closeOnEscape: false,

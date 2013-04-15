@@ -11,7 +11,7 @@ function(
 		model: PlanModel,
 		
 		initialize: function() {
-			app.router.models.preferences.on('change', this.fetch, this);
+			app.search.preferences.on('change', this.fetch, this);
 			this.on('request', this.block, this);
 			this.on('reset', this.unblock, this);
 		},
@@ -27,11 +27,11 @@ function(
 		fetch: function(options) {
 			this._super( 
 				{data: {
-					query: app.router.models.preferences.get('query'),
-					country: app.router.models.preferences.get('country'),
-					from: app.router.models.preferences.get('from').format('YYYY-MM-DDT00:00:00'),
-					to: app.router.models.preferences.get('to').format('YYYY-MM-DDT23:59:59'),
-					guests: app.router.models.preferences.get('guests')
+					query: app.search.preferences.get('query'),
+					country: app.search.preferences.get('country'),
+					from: app.search.preferences.get('from').format('YYYY-MM-DDT00:00:00'),
+					to: app.search.preferences.get('to').format('YYYY-MM-DDT23:59:59'),
+					guests: app.search.preferences.get('guests')
 				}}
 			);
 			return this;

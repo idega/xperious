@@ -73,18 +73,14 @@ define([
 			}
 	    },
 
-		layout: function() {
-			if (this.layoutCached) {
+		layout: function(layout) {
+			if (layout) {
+				this.layoutCached = layout;
+				$('.layout').empty().append(this.layoutCached.el);
 				return this.layoutCached;
-
 			} else {
-				this.layoutCached = new Backbone.Layout(
-					_.extend({
-						template: 'layout'
-					}));
-				$('body').append(this.layoutCached.el);
 				return this.layoutCached;
-		    }
+			}
 		}
 	}, Backbone.Events);
 

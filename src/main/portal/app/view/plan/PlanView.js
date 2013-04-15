@@ -1,17 +1,9 @@
 define([
    'app',
-   'view/plan/PlanDayView',
-   'view/site/HeaderView',
-   'view/site/QuestionsView',
-   'view/site/FooterView',
-   'view/site/BottomView'
+   'view/plan/PlanDayView'
 ],function(
 	app,
-	PlanDayView,
-	HeaderView,
-	QuestionsView,
-	FooterView,
-	BottomView) {
+	PlanDayView) {
 
 
 	return Backbone.View.extend({
@@ -26,20 +18,21 @@ define([
 		
 
 		initialize: function() {
-			app.trigger('change:title', 'Itinerary - xperious');
-
-			this.setViews({
-				'.header-view' : new HeaderView(),
-				'.questions-view' : new QuestionsView(),
-				'.footer-view' : new FooterView(),
-				'.bottom-view' : new BottomView()
-			});
-			app.router.collections.plans.on('reset', this.render, this);
+			app.search.results.on('reset', this.onResults, this);
 		},
 
 
+		onResults: function() {
+			// do not render the view simply because the preferences
+			// have changed. Render only if index is available which
+			// indicates that particular plan was selected.
+			if (app.search.preferences.has('index')) {
+				this.render();
+			}
+		},
+
 		cleanup: function() {
-			app.router.collections.plans.off('reset', this.render, this);
+			app.search.results.off('reset', this.render, this);
 		},
 
 
@@ -51,7 +44,7 @@ define([
 
 
 		plan: function() {
-			return app.router.collections.plans.at(app.router.models.preferences.get('index'));
+			return app.search.results.at(app.search.preferences.get('index'));
 		},
 
 
@@ -74,7 +67,7 @@ define([
 				});
 
 				return {
-					prefs: app.router.models.preferences.toJSON(),
+					prefs: app.search.preferences.toJSON(),
 					plan: this.plan().toJSON(), 
 					days: days
 				};
@@ -83,6 +76,7 @@ define([
 
 
 		beforeRender: function() {
+			app.trigger('change:title', 'Itinerary - xperious');
 			$(window).scrollTop(0);
 		},
 

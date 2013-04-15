@@ -38,7 +38,7 @@ define([
                 overlayOpacity: 0.75,
 				onStart: function() {
 	                $('#fancybox-close').text('Close');
-	                $("#fancybox-outer").addClass('day-lightbox');
+	                $("#fancybox-outer").removeClass().addClass('day-lightbox');
 	            }
 			});
 

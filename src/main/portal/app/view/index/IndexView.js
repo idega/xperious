@@ -1,17 +1,9 @@
 define([
    'app',
-   'view/index/destination/DestinationPopupView',
-   'view/index/timeframe/TimeframeButtonView',
-   'view/index/event/EventSliderView',
-   'view/site/FooterView',
-   'view/site/BottomView'
+   'view/index/destination/DestinationPopupView'
 ],function(
 	app,
-	DestinationPopupView,
-	TimeframeButtonView,
-	EventSliderView,
-	FooterView,
-	BottomView) {
+	DestinationPopupView) {
 
 
 	return Backbone.View.extend({
@@ -22,18 +14,6 @@ define([
 		events: {
 			'click #destination' : 'destination',
 			'click #plan' : 'plan',
-		},
-
-
-		initialize: function(options) {
-			app.trigger('change:title', 'Welcome - xperious');
-
-			this.setViews({
-				'.footer-view' : new FooterView(),
-				'.bottom-view' : new BottomView({hidden: true}),
-				'.timeframe-view' : new TimeframeButtonView(),
-				'.events-slider .site-block' :  new EventSliderView()
-			});
 		},
 
 
@@ -170,16 +150,20 @@ define([
 
 
 		destination: function() {
-            this.insertView(new DestinationPopupView()).render();
+            new DestinationPopupView().render();
 		},
 
 
 		beforeRender: function() {
+			app.trigger('change:title', 'Welcome - xperious');
 			$(window).scrollTop(0);
 		},
 
 
 		afterRender: function() {
+
+			this.$('#guests').val(app.search.preferences.get('guests'));
+			this.$('#query').val(app.search.preferences.get('query'));
 
 	        var $window = $(window);
             var $bottom = $('#bottom');

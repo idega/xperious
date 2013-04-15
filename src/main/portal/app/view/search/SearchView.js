@@ -1,42 +1,20 @@
 define([
-   'app',
-   'view/search/SearchPreferencesView',
-   'view/search/SearchResultsView',
-   'view/site/HeaderView',
-   'view/site/QuestionsView',
-   'view/site/FooterView',
-   'view/site/BottomView'
+   'app'
 ],function(
-	app,
-	SearchPreferencesView,
-	SearchResultsView,
-	HeaderView,
-	QuestionsView,
-	FooterView,
-	BottomView) {
+	app) {
 
 
 	return Backbone.View.extend({
 
 		template: 'search/search',
 
-		initialize: function() {
-			app.trigger('change:title', 'Suggestions - xperious');
-
-			this.setViews({
-				'.search-preferences-view' : new SearchPreferencesView(),
-				'.search-results-view' : new SearchResultsView(),
-				'.header-view' : new HeaderView(),
-				'.questions-view' : new QuestionsView(),
-				'.footer-view' : new FooterView(),
-				'.bottom-view' : new BottomView()
-			});
-		},
 
 		beforeRender: function() {
+			app.trigger('change:title', 'Suggestions - xperious');
 			$(window).scrollTop(0);
 		},
-		
+
+
 		afterRender: function() {
 			$(".custom-checkbox").button();
 
@@ -47,8 +25,8 @@ define([
 			$tooltipRight = $tooltipLeft.clone();
 
 			var $slider = $("#budget-slider"),
-				sliderFrom = app.router.models.preferences.get('budget').from,
-				sliderTo = app.router.models.preferences.get('budget').to,
+				sliderFrom = app.search.preferences.get('budget').from,
+				sliderTo = app.search.preferences.get('budget').to,
 				sliderMin = $slider.data('min'),
 				sliderMax = $slider.data('max');
 
@@ -58,7 +36,7 @@ define([
 					max: sliderMax,
 					values: [sliderFrom, sliderTo],
 					change: function(event, ui) {
-						app.router.models.preferences.set('budget', {
+						app.search.preferences.set('budget', {
 							from: $slider.slider('values')[0],
 							to: $slider.slider('values')[1],
 						});
