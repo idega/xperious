@@ -1,59 +1,40 @@
-<div id="day-popup">
-    <div class="day-popup clearfix">
-     <div class="lefter">
-       <h4>TO ADD ITEM:</h4>
-       <p>Click on what you want to add.</p>
-      <!--  <div class="activities-block">
-         <h4>ACTIVITIES IN HUSAVIK</h4>
-         <ul class="menu">
-           <li><a href="#">Whale watching</a></li>
-           <li><a href="#">Horseback riding</a></li>
-           <li><a href="#">Bird watching</a></li>
-           <li><a href="#">Húsavík theatre company</a></li>
-           <li><a href="#">Húsavík golf club</a></li>
-           <li><a href="#">Húsavík swimming pool</a></li>
-         </ul>
-       </div>
-       <div class="activities-block">
-         <h4>Activities near Húsavík</h4>
-         <ul class="menu">
-           <li><a href="#">Mývatn Nature Baths</a></li>
-           <li><a href="#">Hiking</a></li>
-           <li><a href="#">Bike riding</a></li>
-           <li><a href="#">Horseback riding</a></li>
-         </ul>
-       </div>
-       <div class="activities-block">
-         <h4>INTERESTING PLACES NEAR HUSAVIK</h4>
-         <ul class="menu">
-           <li><a href="#">Askja caldera (115 km)</a></li>
-           <li><a href="#">Ásbyrgi canyon (64 km)</a></li>
-           <li><a href="#">Botnsvatn (3 km)</a></li>
-           <li><a href="#">Dettifoss waterfall (92 km)</a></li>
-           <li><a href="#">Goðafoss waterfall (40 km)</a></li>
-           <li><a href="#">Lake Mývatn (50 km)</a></li>
-           <li><a href="#">Skúlagarður (50 km)</a></li>
-           <li><a href="#">The Arctic Henge at Raufarhöfn (154 km)</a></li>
-         </ul>
-       </div> -->
-     </div>
-     <div class="righter">
-       <div class="top">
-         <h2 class="title">This is how your <span><%= index + 1 %> day</span> in your vacation looks like</h2>
-         <h3 class="subtitle">You can add to it, delete it and change as you like, after all it's your vacation.</h3>
-         <div class="content">
-           <% _.each(items, function(item) { %>
-            <% if (item.type === 'PRODUCT') { %>
-                <h4><%= item.title %></h4>
-                <p><%= item.description %></p>
-            <% } %>
-           <% }) %>
-         </div>
-       </div>
-       <div class="day-map">
-         <h4>DAY ON THE MAP</h4>
-         <div class="map-holder" />
-       </div>
-     </div>
-  </div>
-</div>
+<% if (typeof days !== 'undefined') { %>
+
+	<% function dayHtml(day, index) { %>
+	    <a href="javascript:void(0)" class="day-element" data-index="<%= index %>">
+	        <% if (day.image) { %>
+	           <div style="background-image: url('<%= day.image %>'); background-size: cover; width: 300px; height: 205px; border-radius: 3px 3px 0px 0px;" />
+	        <% } %>
+	        <div class="description">
+	            <div class="day"><%= index + 1 %></div>
+	            <p><%= day.description %></p>
+	        </div>
+	    </a>
+	<% } %>
+
+
+	<div class="days-list clearfix">
+	    <div class="col col-1">
+	       <% _.each(days, function(day, index) { %>  
+	           <% if (index % 3 == 0) { %>
+	                <% dayHtml(day, index) %> 
+	           <% } %>
+	     <% }); %>
+	    </div>
+	    <div class="col col-2">
+	        <% _.each(days, function(day, index) { %>
+	            <% if (index % 3 == 1) { %>
+	                <% dayHtml(day, index) %> 
+	            <% } %>
+	       <% }); %>
+	    </div>
+	    <div class="col col-3">
+	        <% _.each(days, function(day, index) { %>
+	            <% if (index % 3 == 2) { %>
+	                    <% dayHtml(day, index) %> 
+	             <% } %>
+	        <% }); %>
+	    </div>
+	</div>
+
+<% } %>

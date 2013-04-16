@@ -55,14 +55,15 @@ define([
 			var guests = this.$('#guests').val();
 			if (!guests) guests = 2; 
 
-
 			app.router.go(
 				'search',
 				query,
 				country,
 				from.format('YYYYMMDD'),
 				to.format('YYYYMMDD'),
-				guests
+				guests,
+				'0',
+				'1500'
 			);
 
 			return false;

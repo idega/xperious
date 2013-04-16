@@ -11,9 +11,14 @@ function(
 		model: PlanModel,
 		
 		initialize: function() {
-			app.search.preferences.on('change', this.fetch, this);
+			app.search.preferences.on('change', this.refetch, this);
 			this.on('request', this.block, this);
 			this.on('reset', this.unblock, this);
+		},
+		
+		refetch: function() {
+			this.reset([], {silent: true});
+			this.fetch();
 		},
 		
 		block: function() {

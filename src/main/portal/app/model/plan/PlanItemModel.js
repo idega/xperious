@@ -11,7 +11,7 @@ define([
 					.replace(/<(?:.|\n)*?>/gm, '');
 			}
 		},
-		
+
 		summaryImage: function() {
 			if (this.has('images')) {
 				return this.get('images')[0];

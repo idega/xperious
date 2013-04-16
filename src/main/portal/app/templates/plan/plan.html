@@ -14,50 +14,8 @@
   <div class="section day-info-section">
     <div class="site-block">
       <h2>the<strong>ITINERARY</strong></h2>
-      <h3>Each day contains detail information about<br/> what is included in the day.</h3>
-      <div class="days-list clearfix">
-          <% if (typeof days !== 'undefined') { %>
-             <div class="col col-1">
-               <% _.each(days, function(day, index) { %>  
-                   <% if (index % 3 == 0) { %>
-	                <a href="javascript:void(0)" class="day-element" data-index="<%= index %>">
-	                    <div style="background-image: url('<%= day.image %>'); background-size: cover; width: 300px; height: 205px;" />
-	                    <div class="description">
-	                      <div class="day"><%= index + 1 %></div>
-	                      <p><%= day.description %></p>
-	                    </div>
-	                </a>
-                <% } %>
-              <% }); %>
-             </div>
-             <div class="col col-2">
-                 <% _.each(days, function(day, index) { %>
-                     <% if (index % 3 == 1) { %>
-                         <a href="javascript:void(0)" class="day-element" data-index="<%= index %>">
-                             <div style="background-image: url('<%= day.image %>'); background-size: cover; width: 300px; height: 205px;" />    
-                             <div class="description">
-                               <div class="day"><%= index + 1 %></div>
-                               <p><%= day.description %></p>
-                             </div>
-                         </a>
-                     <% } %>
-                <% }); %>
-             </div>
-             <div class="col col-3">
-                 <% _.each(days, function(day, index) { %>
-                     <% if (index % 3 == 2) { %>
-                         <a href="javascript:void(0)" class="day-element" data-index="<%= index %>">
-                             <div style="background-image: url('<%= day.image %>'); background-size: cover; width: 300px; height: 205px;" />
-                             <div class="description">
-                               <div class="day"><%= index + 1 %></div>
-                               <p><%= day.description %></p>
-                             </div>
-                         </a>
-                     <% } %>
-                <% }); %>
-             </div>
-         <% } %>
-      </div>
+      <h3>Each day contains detailed information about<br/> what is included in the day.</h3>
+      <div class="plan-day-view" />
     </div>
   </div>
   <div class="section details-prices-section">
@@ -139,28 +97,7 @@
       <div class="site-block">
         <h2>Image gallery</h2>
         <h3>Use the arrow keys to scroll through the images/videos and click on an image to enlarge it or to watch the video.</h3>
-        <% if (typeof plan !== 'undefined') { %>
-        <div class="gallery">
-          <div class="media-holder">
-            <img style="background-image: url('<%= plan.previewImage %>');" />
-          </div>
-          <div>
-            <div class="thumbs-holder gallery-skin">
-              <ul>
-                  <% _.each(plan.items, function(item) { %>
-	                  <% _.each(item.images, function(img) { %>
-	                      <li><a href="<%= img %>"><img style="background-image: url('<%= img %>');"/></a></li>
-	                  <% }); %>
-                      <% _.each(item.video, function(url) { %>
-                          <li><a href="<%= url %>"><img /></a></li>
-                      <% }); %>
-                   <% }); %>
-              </ul>
-            </div>
-            <div class="controls clearfix"><a href="#" class="prev">Previous image</a><a href="#" class="next">Next image</a></div>
-          </div>
-        </div>
-        <% } %>
+        <div class="plan-gallery-view" />
       </div>
     </div>
     <div class="section rout-on-map-section">

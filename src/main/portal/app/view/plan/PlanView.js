@@ -1,20 +1,17 @@
 define([
    'app',
-   'view/plan/PlanDayView'
+   'view/plan/PlanDayView',
+   'view/plan/PlanGalleryView',
+   
 ],function(
 	app,
-	PlanDayView) {
+	PlanDayView,
+	PlanGalleryView) {
 
 
 	return Backbone.View.extend({
 
 		template: 'plan/plan',
-
-
-		events: {
-			'click a.day-element' : 'popup',
-			'click .thumbs-holder a' : 'thumb'
-		},
 		
 
 		initialize: function() {
@@ -39,7 +36,7 @@ define([
 		popup: function(e) {
 			var index = $(e.currentTarget).data('index');
 			var items = this.plan().itemsByDays().value()[index];
-			new PlanDayView({index: index, items: items}).render(); 
+			new PlanPopup({index: index, items: items}).render(); 
 		},
 
 
@@ -53,23 +50,9 @@ define([
 			// it is possible that view is being rendered when the plan
 			// is not available yet
 			if (this.plan()) {
-				var days = [];
-				this.plan().itemsByDays().each(function(items) {
-					for (var i = 0; i < items.length; i++) {
-						if (items[i].get('type') === 'PRODUCT') {
-							days.push({
-								description: items[i].summary(),
-								image: items[i].summaryImage()
-							});
-							break;
-						}
-					}
-				});
-
 				return {
 					prefs: app.search.preferences.toJSON(),
 					plan: this.plan().toJSON(), 
-					days: days
 				};
 			}
 		},
@@ -82,39 +65,19 @@ define([
 
 
 		afterRender: function() {
+
 			if (this.plan()) {
-				var plan = this.plan();
-	
-				this.$('.thumbs-holder').jcarousel({
-					wrap: 'circular',
-					scroll: 4,
-					buttonNextHTML: null,
-					buttonPrevHTML: null,
-		            itemFallbackDimension: 100,
-		            initCallback: function(carousel) {
-						$(".controls .prev").click(function() {
-							carousel.prev();
-							return false;
-						});
 
-						$(".controls .next").click(function() {
-							carousel.next();
-							return false;
-						});
-					}
-				});
-	
-
-				this.$('.thumbs-holder a').each(_.bind(function(index, e) {
-					if (this.parseVimeo(e.href)) {
-						this.vimeoThumb(e);
-					} else if (this.parseYoutube(e.href)) {
-						this.youtubeThumb(e);
-					} else {
-						$(e).append('<div class="zoom"><br></div>');
-					}
+				// insert views only after the view has been rendered, this helps
+				// to avoid ugly page while browser is loading all the images in 
+				// random order
+				this.findImages('.section').imagesLoaded(_.bind(function() {
+					this.setView('.plan-day-view', new PlanDayView()).render();
+					this.setView('.plan-gallery-view', new PlanGalleryView()).render();
 				}, this));
-	
+
+				
+				var plan = this.plan();	
 	
 				require(['google'], _.bind(function(google) {
 	
@@ -136,84 +99,9 @@ define([
 						 });
 					});
 				}, this));
-			}
-		},
-		
 
-		thumb: function(e) {
-			var media = this.$('.media-holder');
-			var prev = media.find('img, iframe');
-			prev.addClass('current-image');
-
-			var html = this.embed(e.currentTarget.href);
-			media.imagesLoaded(function() {
-				prev.fadeOut(function() {
-					prev.remove();
-					html.removeClass('new-image');
-				});
-			}).prepend(html);
-			return false;
-		},
-
-
-		parseVimeo: function(url) {
-			var regExp = /http(s)?:\/\/(www\.)?vimeo.com\/(.+)($|\/)/;
-			var match = url.match(regExp);
-			if (match) {
-				return match[3];
-			}
-			return false;
-		},
-
-
-		parseYoutube: function(url) {
-			var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
-			var match = url.match(regExp);
-			if (match && match[7].length == 11) {
-				return match[7];
-			}
-			return false;
-		},
-
-
-		vimeoThumb: function(e) {
-			$.ajax({
-				url: 
-					'http://vimeo.com/api/v2/video/' +
-						this.parseVimeo(e.href) + 
-						'.json',
-				dataType: 'jsonp',
-				success: function(data) {
-					$(e).find('img').attr('src', 
-						data[0].thumbnail_medium);
-					$(e).append('<div class="video"><br></div>');
-				}
-			});
-		},
-
-
-		youtubeThumb: function(e) {
-			$(e).find('img').attr(
-				'src', 
-				'http://img.youtube.com/vi/' + 
-					this.parseYoutube(e.href) +
-					'/default.jpg');
-			$(e).append('<div class="video"><br></div>');
-		},
-
-
-		embed: function(href) {
-			if (this.parseVimeo(href)) {
-				return $('<div class="video-wrap vimeo"><iframe src="http://player.vimeo.com/video/' + this.parseVimeo(href) + '?autoplay=1" width="780" height="380" frameborder="0"></iframe></div>');
-
-			} else if (this.parseYoutube(href)) {
-				return $('<div class="video-wrap youtube"><iframe id="ytplayer" type="text/html" width="780" height="380" src="http://www.youtube.com/embed/' + this.parseYoutube(href) +  '?autoplay=1" frameborder="0"/></div>');
-
-			} else {
-				return $('<img class="new-image" src="" style="background-image: url(' + href + ');" />"');
 			}
 		}
-
 	});
 
 });

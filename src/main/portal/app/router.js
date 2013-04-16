@@ -9,7 +9,6 @@ define(['app',
 	'view/index/event/EventSliderView',
 	'view/search/SearchView',
 	'view/search/SearchPreferencesView',
-	'view/search/SearchResultsView',
 	'view/plan/PlanView'
 ], function(app,
 	LoadingView,
@@ -22,15 +21,15 @@ define(['app',
 	EventSliderView,
 	SearchView,
 	SearchPreferencesView,
-	SearchResultsView,
 	PlanView) {
 
 	return Backbone.Router.extend({
 		
 	    routes: {
-	    	'search(/:query)/:country/:from/:to/:guests(/plan/:index)' : 'search',
+	    	'search(/:query)/:country/:from/:to/:guests/:budgetFrom/:budgetTo(/plan/:index)' : 'search',
 	    	'*path': 'index'
 	    },
+
 
 	    initialize: function() {
 	    	// no need to call render() explicitly on this view
@@ -43,7 +42,16 @@ define(['app',
 	    /**
 	     * Search plans by given preferences.
 	     */
-	    search: function(query, country, from, to, guests, index) {	    	
+	    search: function(
+	    		query, 
+	    		country, 
+	    		from, 
+	    		to, 
+	    		guests,
+	    		budgetFrom, 
+	    		budgetTo, 
+	    		index) {
+
 	    	app.search.preferences.set({
     			query: decodeURIComponent(query || ''),
     			country: country,
@@ -51,22 +59,22 @@ define(['app',
     			to: moment(to, 'YYYYMMDD'),
     			guests: guests,
     			budget: {
-    				from: 0,
-    				to: 1500
+    				from: budgetFrom,
+    				to: budgetTo
     			}
 	    	});
 
-	    	
+
 	    	// Set selected plan silently
 	    	// because we do not want to
 	    	// trigger collection fetch
 	    	if (index) {
 		    	app.search.preferences.set(
-	    			{index: index}, 
+	    			'index', index,
 	    			{silent: true});
 	    	} else {
 	    		app.search.preferences.unset(
-	    			'index', 
+	    			'index',  
 	    			{silent: true});
 	    	}
 
@@ -90,21 +98,35 @@ define(['app',
 
 
 	    /**
-	     * Comfort method to create URLs more easily.
+	     * Comfort method to navigate more easily.
 	     */
 	    go: function() {	    	
 	    	return this.navigate(
-    			_.map(
-    				_.toArray(arguments), 
+    			this._url(arguments), 
+    			{trigger: true});
+	    },
+	    
+	    
+	    /**
+	     * Comfort method to update url more easily.
+	     */
+	    url: function() {
+	    	return this.navigate(
+	    			this._url(arguments), 
+	    			{trigger: false});
+	    },
+
+
+	    _url: function(args) {
+	    	return _.map(
+    				_.toArray(args), 
     				function(arg) { 
     					return encodeURIComponent(arg); 
     				})
     			.join("/")
-    			.replace('//', '/'), 
-			{trigger: true});
+    			.replace('//', '/');
 	    },
-	    
-	    
+
 	    layout: function() {
 	    	this.layout = this.layout || {};
 
@@ -134,7 +156,6 @@ define(['app',
 	    		    		views: {
 	    						'.header-view' : new HeaderView(),
 	    						'.search-preferences-view' : new SearchPreferencesView(),
-	    						'.search-results-view' : new SearchResultsView(),
 	    	    				'.questions-view' : new QuestionsView(),
 	    	    				'.footer-view' : new FooterView(),
 	    	    				'.bottom-view' : new BottomView()
