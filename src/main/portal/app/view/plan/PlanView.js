@@ -90,13 +90,15 @@ define([
 					});
 	
 					plan.get('items').each(function(item) {
-						new google.maps.Marker({
-							 position: new google.maps.LatLng(
-								item.get('address').latitude, 
-								item.get('address').longitude),
-							 title: item.get('title'),
-							 map: map
-						 });
+						if (item.get('type') === 'PRODUCT') {
+							new google.maps.Marker({
+								 position: new google.maps.LatLng(
+									item.get('address').latitude, 
+									item.get('address').longitude),
+								 title: item.get('title'),
+								 map: map
+							 });
+						}
 					});
 				}, this));
 
