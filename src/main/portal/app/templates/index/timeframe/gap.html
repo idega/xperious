@@ -1,0 +1,28 @@
+<span class="buttoned ico-event">
+
+    <% if (from.day) {%>
+       <span class="day-month">
+        <span class="day"><%= from.hour %>:<%= from.minute %></span>
+        <span class="month"><%= from.month %> <%= from.day %></span>
+       </span>
+    <% } %>
+    
+
+<!--     <% if (from.day || to.day) {%>
+       <span class="separator">&#8211;</span>
+    <% } %>
+
+
+    <% if (to.day) {%>
+       <span class="day-month">
+        <span class="day"><%= to.hour %>:<%= to.minute %></span>
+        <span class="month"><%= to.month %> <%= to.day %></span>
+       </span>
+    <% } %> -->
+    
+
+    <% if (!from.day && !to.day) { %>
+        Event
+    <% } %>
+
+</span>

@@ -163,7 +163,8 @@ define([
 
 		afterRender: function() {
 
-			this.$('#guests').val(app.search.preferences.get('guests'));
+			var guests = app.search.preferences.get('guests');
+			if (guests != 2) this.$('#guests').val(guests);
 			this.$('#query').val(app.search.preferences.get('query'));
 
 	        var $window = $(window);
@@ -367,7 +368,7 @@ define([
 	
 	        $(".trigger-input-animation").on('focus', function(){
 	            $('#plan-inputs-container').animate({
-	                width:313
+	                width:326
 	            }, 500);
 	        });
 	

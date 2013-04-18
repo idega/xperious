@@ -9,11 +9,12 @@ define([
 		template: 'index/timeframe/calendar',
 
 		events: {
-			'click .close' : 'empty'
+			'click .close' : 'next'
 		},
 
-		initialize: function() {
+		initialize: function(options) {
 			_.bindAll(this);
+			this.model = options.model;
 		},
 
 		afterRender: function() {
@@ -54,7 +55,7 @@ define([
 			this.updateTitlebar();
 			if (this.model.has('from') 
 				&& this.model.has('to')) {
-				this.empty();
+				this.onCompletion();
 			}			
 		},
 
@@ -94,6 +95,14 @@ define([
 		updatePosition: _.debounce(function() {
 			this.$el.dialog("option", "position", "center");
 		}, this),
+
+		onCompletion: function() {
+			this.empty();
+		},
+		
+		next: function() {
+			this.empty();
+		},
 
 		empty: function() {
 			this.$('.datepicker').datepicker('destroy');
