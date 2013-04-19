@@ -7,12 +7,14 @@
     <div class="thumbs-holder gallery-skin">
       <ul>
           <% _.each(plan.items, function(item) { %>
-              <% _.each(item.images, function(img) { %>
-                  <li><a href="<%= img %>"><img style="background-image: url('<%= img %>');"/></a></li>
-              <% }); %>
-              <% _.each(item.video, function(url) { %>
-                  <li><a href="<%= url %>"><img /></a></li>
-              <% }); %>
+              <% if (item.type === 'PRODUCT') { %>
+	              <% _.each(item.images, function(img) { %>
+	                  <li><a href="<%= img %>"><img style="background-image: url('<%= img %>');"/></a></li>
+	              <% }); %>
+	              <% _.each(item.video, function(url) { %>
+	                  <li><a href="<%= url %>"><img /></a></li>
+	              <% }); %>
+	          <% } %>
            <% }); %>
       </ul>
     </div>

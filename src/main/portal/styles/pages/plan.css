@@ -4,7 +4,9 @@
 
 .rout-on-map-section .map-holder {
     width: 780px;
-    height: 390px;	
+    height: 390px;
+    padding: 0px;
+    margin-top: 45px;	
 }
 
 .day-map .map-holder {
@@ -13,14 +15,15 @@
 }
 
 .gallery .media-holder img {
-    width: 780px;
-    height: 380px;	
+    padding-right: 780px;
+    padding-bottom: 380px;
     background-size: cover;
 }
 
 .gallery .thumbs-holder img {
-	width: 156px; 
-	height: 100px;
+	padding-right: 156px;
+    padding-bottom: 100px;
 	background-size: cover;
+	width: 0px;
+	height: 0px;
 }
- 
