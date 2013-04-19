@@ -7,6 +7,7 @@ define([
 	SearchTimeframeModel,
 	TimeframeCalendarView) {
 
+
 	return Backbone.View.extend({
 
 		template: 'index/timeframe/timeframe',
@@ -14,10 +15,9 @@ define([
 		events: {
 			'click .ico-calendar' : 'calendar'
 		},
-		
-		model: new SearchTimeframeModel(),
 
-		initialize: function(options) {
+		initialize: function() {
+			this.model = app.search.timeframe;
 			app.on('change:timeframe', this.change, this);
 		},
 		

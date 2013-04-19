@@ -23,7 +23,7 @@ define([
 
 
 		plan: function() {
-			return app.search.results.at(app.search.preferences.get('index'));
+			return app.search.results.at(app.search.pref.get('index'));
 		},
 
 

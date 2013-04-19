@@ -8,16 +8,16 @@ define([
 		template: 'search/preferences',
 
 		initialize: function() {
-			app.search.preferences.on('change', this.render, this);
+			app.search.pref.on('change', this.render, this);
 		},
 		
 		cleanup: function() {
-			app.search.preferences.off('change', this.render, this);
+			app.search.pref.off('change', this.render, this);
 		},
 		
 		serialize: function() {
 			return {
-				pref: app.search.preferences.toJSON()
+				pref: app.search.pref.toJSON()
 			};
 		}
 	});

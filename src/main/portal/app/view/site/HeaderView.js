@@ -12,7 +12,7 @@ define([
 		},
 		
 		logo: function() {
-			app.router.go('');
+			app.router.go('', {trigger: true});
 		}
 	});
 

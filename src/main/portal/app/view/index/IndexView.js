@@ -17,16 +17,6 @@ define([
 		},
 
 
-		timeframe: function() {
-			var view = this.getView(function(view) {
-				return view.model 
-					&& view.model.has('from') 
-					&& view.model.has('to');
-			});
-			if (view) return view.model;
-		},
-
-
 		plan: function() {
 			var country = app.country();
 
@@ -43,28 +33,46 @@ define([
 
 			/* Check whether timeframe was provided by the 
 			 * user. Override from/to values if one was provided.*/
-			var timeframe = this.timeframe();
-			if (timeframe) {
-				from = timeframe.get('from');
-				to = timeframe.get('to');
+			if (app.search.timeframe.has('from') 
+					&& app.search.timeframe.has('to')) {
+				from = app.search.timeframe.get('from');
+				to = app.search.timeframe.get('to');
+			}
+			
+
+			/* Check whether user provided idle (event) time */
+			var idlefrom;
+			var idleto;
+			if (app.search.idle.has('from')  
+					&& app.search.idle.has('to')) {
+				idlefrom = app.search.idle.get('from');
+				idleto = app.search.idle.get('to');
 			}
 
 			
 			/* By default use 2 guests as specified in the
 			 * field placeholder. */
 			var guests = this.$('#guests').val();
-			if (!guests) guests = 2; 
+			if (!guests) guests = '2'; 
 
-			app.router.go(
-				'search',
-				query,
-				country,
-				from.format('YYYYMMDD'),
-				to.format('YYYYMMDD'),
-				guests,
-				'0',
-				'1500'
-			);
+
+			app.search.pref.set({
+				query: query,
+				country: country,
+				from: from,
+				to: to,
+				guests: guests,
+				budget: {
+					from: undefined,
+					to: undefined
+				},
+				idle: {
+					from: idlefrom,
+					to: idleto
+				},
+			});
+			app.search.pref.unset('index', {silent:true});
+			app.router.gosearch({trigger: true});
 
 			return false;
 		},
@@ -163,9 +171,9 @@ define([
 
 		afterRender: function() {
 
-			var guests = app.search.preferences.get('guests');
+			var guests = app.search.pref.get('guests');
 			if (guests != 2) this.$('#guests').val(guests);
-			this.$('#query').val(app.search.preferences.get('query'));
+			this.$('#query').val(app.search.pref.get('query'));
 
 	        var $window = $(window);
             var $bottom = $('#bottom');

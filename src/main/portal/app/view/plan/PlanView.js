@@ -23,7 +23,7 @@ define([
 			// do not render the view simply because the preferences
 			// have changed. Render only if index is available which
 			// indicates that particular plan was selected.
-			if (app.search.preferences.has('index')) {
+			if (app.search.pref.has('index')) {
 				this.render();
 			}
 		},
@@ -41,7 +41,7 @@ define([
 
 
 		plan: function() {
-			return app.search.results.at(app.search.preferences.get('index'));
+			return app.search.results.at(app.search.pref.get('index'));
 		},
 
 
@@ -51,7 +51,7 @@ define([
 			// is not available yet
 			if (this.plan()) {
 				return {
-					prefs: app.search.preferences.toJSON(),
+					prefs: app.search.pref.toJSON(),
 					plan: this.plan().toJSON(), 
 				};
 			}
@@ -65,7 +65,6 @@ define([
 
 
 		afterRender: function() {
-
 			if (this.plan()) {
 
 				// insert views only after the view has been rendered, this helps
@@ -76,7 +75,7 @@ define([
 					this.setView('.plan-gallery-view', new PlanGalleryView()).render();
 				}, this));
 
-				
+
 				var plan = this.plan();	
 	
 				require(['google'], _.bind(function(google) {

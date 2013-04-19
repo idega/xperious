@@ -33,18 +33,11 @@ define([
 
 
         result: function(event) {
-			app.router.go(
-				'search',
-				app.search.preferences.get('query'),
-				app.search.preferences.get('country'),
-				app.search.preferences.get('from').format('YYYYMMDD'),
-				app.search.preferences.get('to').format('YYYYMMDD'),
-				app.search.preferences.get('guests'),
-				app.search.preferences.get('budget').from,
-				app.search.preferences.get('budget').to,
-				'plan',
-				$(event.currentTarget).data('index')
-			);
+        	app.search.pref.set(
+        		'index', 
+        		$(event.currentTarget).data('index'),
+        		{silent: true});
+        	app.router.gosearch({trigger: true});
         },
         
 

@@ -6,7 +6,7 @@ define(['app',
 	'view/site/FooterView',
 	'view/index/IndexView',
 	'view/index/timeframe/TimeframeView',
-	'view/index/timeframe/TimeframeGapView',
+	'view/index/timeframe/TimeframeIdleView',
 	'view/index/event/EventSliderView',
 	'view/search/SearchView',
 	'view/search/SearchPreferencesView',
@@ -19,16 +19,17 @@ define(['app',
 	FooterView,
 	IndexView,	
 	TimeframeView,
-	TimeframeGapView,
+	TimeframeIdleView,
 	EventSliderView,
 	SearchView,
 	SearchPreferencesView,
 	PlanView) {
 
+
 	return Backbone.Router.extend({
 		
 	    routes: {
-	    	'search(/:query)/:country/:from/:to/:guests/:budgetFrom/:budgetTo(/plan/:index)' : 'search',
+	    	'search(/:query)/:country/:from/:to/:guests(/idle/:idlefrom/:idleto)(/budget/:budgetfrom/:budgetto)(/plan/:index)' : 'search',
 	    	'*path': 'index'
 	    },
 
@@ -50,44 +51,74 @@ define(['app',
 	    		from, 
 	    		to, 
 	    		guests,
-	    		budgetFrom, 
-	    		budgetTo, 
+	    		idlefrom,
+	    		idleto,
+	    		budgetfrom, 
+	    		budgetto, 
 	    		index) {
-
-	    	app.search.preferences.set({
-    			query: decodeURIComponent(query || ''),
-    			country: country,
-    			from: moment(from, 'YYYYMMDD'),
-    			to: moment(to, 'YYYYMMDD'),
+	    		    	
+	    	app.search.pref.set({
+	    		query: decodeURIComponent(query || ''),
+	    		country: country,
     			guests: guests,
     			budget: {
-    				from: budgetFrom,
-    				to: budgetTo
+    				from: budgetfrom,
+    				to: budgetto
+    			},
+
+    			/* Use smart diff before setting the date.
+    			 * We do not want to fire change event 
+    			 * without a serious reason. */
+    			from: this._diff(
+    				app.search.pref.get('from'), 
+    				moment(from, 'YYYYMMDD')),
+    			to: this._diff(
+    				app.search.pref.get('to'), 
+    				moment(to, 'YYYYMMDD')),
+
+    			/* Same with idle. Do not set the date
+    			 * if they are semantically equal. */ 
+    			idle: {
+    				from: this._diff(
+						app.search.pref.has('idle') 
+    						? app.search.pref.get('idle').from 
+    						: undefined, 
+    					idlefrom 
+    						? moment(idlefrom, 'YYYYMMDDHHmm')
+    						: undefined),
+    				to: this._diff(
+						app.search.pref.has('idle') 
+    						? app.search.pref.get('idle').to 
+    						: undefined, 
+    					idleto 
+    						? moment(idleto, 'YYYYMMDDHHmm')
+    						: undefined)
     			}
 	    	});
 
-
+	    	
 	    	// Set selected plan silently
 	    	// because we do not want to
 	    	// trigger collection fetch
 	    	if (index) {
-		    	app.search.preferences.set(
-	    			'index', index,
-	    			{silent: true});
+	    		app.search.pref.set(
+		    		'index', 
+		    		index - 1, 
+		    		{silent: true});
 	    	} else {
-	    		app.search.preferences.unset(
-	    			'index',  
+	    		app.search.pref.unset(
+	    			'index',
 	    			{silent: true});
 	    	}
 
 
     		app.layout((index) 
-				? this.layout().plan() 
-				: this.layout().search())
+				? this._layout().plan() 
+				: this._layout().search())
 			.render();
 	    },
 
-
+	    
 	    /**
 	     * Provide index page.
 	     */
@@ -95,41 +126,62 @@ define(['app',
 	    	if (!app.event.timeline.fetched()) {
 	    		app.event.timeline.fetch();
 	    	}
-    		app.layout(this.layout().index()).render();	 
+    		app.layout(this._layout().index()).render();	 
 	    },
-
+	    
 
 	    /**
 	     * Comfort method to navigate more easily.
 	     */
 	    go: function() {	    	
 	    	return this.navigate(
-    			this._url(arguments), 
-    			{trigger: true});
+    			this._url(_.initial(arguments)), 
+    			_.last(arguments));
 	    },
-	    
-	    
+
+
 	    /**
-	     * Comfort method to update url more easily.
+	     * Follow search preferences and update url.
 	     */
-	    url: function() {
-	    	return this.navigate(
-	    			this._url(arguments), 
-	    			{trigger: false});
+	    gosearch: function(options) {	    	
+	    	this.go(
+				'search',
+				app.search.pref.get('query'),
+				app.search.pref.get('country'),
+				app.search.pref.get('from').format('YYYYMMDD'),
+				app.search.pref.get('to').format('YYYYMMDD'),
+				app.search.pref.get('guests'),
+				app.search.pref.idle(),
+				app.search.pref.idleto(),
+				app.search.pref.idlefrom(),
+				app.search.pref.budget(),
+				app.search.pref.budgetfrom(),
+				app.search.pref.budgetto(),
+				app.search.pref.plan(),
+				app.search.pref.planindex(),
+				options);
 	    },
 
 
 	    _url: function(args) {
 	    	return _.map(
-    				_.toArray(args), 
+	    			_.compact(_.toArray(args)),
     				function(arg) { 
-    					return encodeURIComponent(arg); 
+    					return encodeURIComponent(arg);
     				})
     			.join("/")
     			.replace('//', '/');
 	    },
+	    
 
-	    layout: function() {
+	    _diff: function(curr, next) {
+	    	return (curr && next && curr.diff(next == 0))
+	    		? curr
+	    		: next;
+	    },
+	    
+
+	    _layout: function() {
 	    	this.layout = this.layout || {};
 
 	    	return {
@@ -140,7 +192,7 @@ define(['app',
 	    				this.layout.index.setView(new IndexView({
 	    					views: {
 	    						'.timeframe-view' : new TimeframeView(),
-	    						'.timeframe-gap-view' : new TimeframeGapView(),
+	    						'.timeframe-idle-view' : new TimeframeIdleView(),
 	    						'.events-slider .site-block' :  new EventSliderView(),
 	    						'.footer-view' : new FooterView(),
 	    						'.bottom-view' : new BottomView({hidden: true})

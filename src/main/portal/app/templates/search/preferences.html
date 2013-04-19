@@ -9,8 +9,13 @@
            <% } %>
        </strong> 
        - Timeframe: <strong><%= pref.from %></strong> - <strong><%= pref.to %></strong>
-       - Guests: <strong><%= pref.guests %></strong> 
-       - Budget: <strong>&euro;<%= pref.budget.from %> - <%= pref.budget.to %></strong> per person
+       - Guests: <strong><%= pref.guests %></strong>
+       <%if (pref.idle && pref.idle.from && pref.idle.to) { %>
+          - Event: <strong><%= pref.idle.from %></strong> - <strong><%= pref.idle.to %></strong> 
+       <% } %>
+       <%if (pref.budget && pref.budget.from && pref.budget.to) { %> 
+           - Budget: <strong>&euro;<%= pref.budget.from %> - <%= pref.budget.to %></strong> per person
+       <% } %>
        - Type of travel: <strong>On my own</strong>  
        -  Accommodation: <strong>Hotels</strong>
       </p>

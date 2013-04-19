@@ -18,9 +18,8 @@ define([
 			'click .ico-event' : 'popup'
 		},
 		
-		model: new SearchTimeframeModel(),
-		
-		initialize: function(options) {
+		initialize: function() {
+			this.model = app.search.idle;
 			app.on('change:timeframe', this.change, this);
 		},
 

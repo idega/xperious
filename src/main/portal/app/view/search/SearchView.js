@@ -18,7 +18,7 @@ define([
 
 		serialize: function() {
 			return {
-				prefs: app.search.preferences.toJSON()
+				prefs: app.search.pref.toJSON()
 			};
 		},
 
@@ -40,9 +40,11 @@ define([
 			}),
 			$tooltipRight = $tooltipLeft.clone();
 
+			
+			var budget = app.search.pref.get('budget');
 			var $slider = $("#budget-slider"),
-				sliderFrom = app.search.preferences.get('budget').from,
-				sliderTo = app.search.preferences.get('budget').to,
+				sliderFrom = (budget.from) ? budget.from : '0',
+				sliderTo = (budget.to) ? budget.to : '1500',
 				sliderMin = $slider.data('min'),
 				sliderMax = $slider.data('max');
 
@@ -52,25 +54,13 @@ define([
 					max: sliderMax,
 					values: [sliderFrom, sliderTo],
 					change: function(event, ui) {
-
 						// set new budget preferences
-						app.search.preferences.set('budget', {
+						app.search.pref.set('budget', {
 							from: $slider.slider('values')[0].toString(),
 							to: $slider.slider('values')[1].toString(),
 						});
 
-						// update url to indicate new budget
-						app.router.url(
-							'search',
-							app.search.preferences.get('query'),
-							app.search.preferences.get('country'),
-							app.search.preferences.get('from').format('YYYYMMDD'),
-							app.search.preferences.get('to').format('YYYYMMDD'),
-							app.search.preferences.get('guests'),
-							app.search.preferences.get('budget').from,
-							app.search.preferences.get('budget').to
-						);
-
+						app.router.gosearch({trigger : false});
 					},
 					slide: function(event, ui) {
 						changeTooltipValue($tooltipLeft, ui.values[0]);
