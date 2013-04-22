@@ -57,8 +57,7 @@
 		                        <td><%= item.title %></td>
 		                        <td class="price-cell"><%= item.price.currency %> <%= item.price.price %></td>
 		                    </tr>
-	                    <% } %>
-	                    <% if (item.type === 'LODGING' && item.price.price != '0.00') { %>
+	                    <% } else if (item.type === 'LODGING' && item.price.price != '0.00') { %>
 	                        <tr>
 	                            <td>
 	                               <%= item.title %> 
@@ -75,6 +74,20 @@
 	                               <%= item.price.price %>
 	                            </td>
 	                        </tr>
+	                    <% } else if (item.type === 'HIRE' && item.price.price != '0.00') { %>
+	                        <tr>
+                                <td>
+                                   <%= item.title %> 
+                                   <br />
+                                   <small>
+                                      <%= item.units %> <%= (item.units) == 1 ? 'day' : 'days' %>, <%= item.unitName %>
+                                   </small>
+                                </td>
+                                <td class="price-cell">
+                                   <%= item.price.currency %>
+                                   <%= item.price.price %>
+                                </td>
+                            </tr>
 	                    <% } %>
 	                <% }); %>
 	            </table>

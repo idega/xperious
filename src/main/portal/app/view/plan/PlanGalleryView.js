@@ -111,8 +111,8 @@ define([
                         '.json',
                 dataType: 'jsonp',
                 success: function(data) {
-                    $(e).find('img').attr('src', 
-                        data[0].thumbnail_medium);
+                    $(e).find('img').css('background-image', 
+                    	'url("' + data[0].thumbnail_medium + '")');
                     $(e).append('<div class="video"><br></div>');
                 }
             });
@@ -120,11 +120,11 @@ define([
 
 
         youtubeThumb: function(e) {
-            $(e).find('img').attr(
-                'src', 
-                'http://img.youtube.com/vi/' + 
-                    this.parseYoutube(e.href) +
-                    '/default.jpg');
+            $(e).find('img').css(
+                    'background-image', 
+                    'url("http://img.youtube.com/vi/' + 
+                        this.parseYoutube(e.href) +
+                        '/default.jpg")');
             $(e).append('<div class="video"><br></div>');
         },
 
