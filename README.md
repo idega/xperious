@@ -25,7 +25,9 @@ permissions to write:
 
 2. Create database `xperious`.
 
-2. Make sure your `$TOMCAT/conf/Catalina/localhost/ROOT.xml` is alike:
+### tomcat
+
+1. Make sure your `$TOMCAT/conf/Catalina/localhost/ROOT.xml` is alike:
 
 		<Context path="" docBase="/Users/smac/repo/idega5/xperious/target/xperious-5.0.0-SNAPSHOT/" reloadable="false" debug="0" swallowOutput="true" liveDeploy="false">
 			<Resource name="jdbc/DefaultDS" type="javax.sql.DataSource"
@@ -42,6 +44,13 @@ permissions to write:
 			  testOnBorrow="true"
 			  validationQuery="SELECT 1"/>
 	    </Context>
+
+2. Set tomcat HTTP connector `URIEncoding` to `UTF-8` in `server.xml` file:
+
+		<Connector port="8080" protocol="HTTP/1.1"
+			connectionTimeout="20000"
+			redirectPort="8443"
+			URIEncoding="UTF-8" />
 
 
 ### lucene
