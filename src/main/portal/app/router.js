@@ -10,7 +10,10 @@ define(['app',
 	'view/index/event/EventSliderView',
 	'view/search/SearchView',
 	'view/search/SearchPreferencesView',
-	'view/plan/PlanView'
+	'view/plan/PlanView',
+	'view/event/EventsView',
+	'view/attraction/AttractionsView',
+	'view/attraction/AttractionView',
 ], function(app,
 	LoadingView,
 	HeaderView,
@@ -23,12 +26,18 @@ define(['app',
 	EventSliderView,
 	SearchView,
 	SearchPreferencesView,
-	PlanView) {
+	PlanView,
+	EventsView,
+	AttractionsView,
+	AttractionView) {
 
 
 	return Backbone.Router.extend({
 		
 	    routes: {
+	    	'attractions*path' : 'attractions',
+	    	'attraction*path' : 'attraction',
+	    	'events*path' : 'events',
 	    	'search(/:query)/:country/:from/:to/:guests(/idle/:idlefrom/:idleto)(/budget/:budgetfrom/:budgetto)(/plan/:index)' : 'search',
 	    	'*path': 'index'
 	    },
@@ -41,6 +50,30 @@ define(['app',
 	    	new LoadingView();
 	    },
 
+
+	    /**
+	     * Show attraction based on given id.
+	     */
+	    attraction: function() {
+    		app.layout(this._layout().attraction()).render();
+	    },
+	    
+
+	    /**
+	     * Show a list of attractions.
+	     */
+	    attractions: function() {
+    		app.layout(this._layout().attractions()).render();
+	    },
+
+
+	    /**
+	     * Show events going on.
+	     */
+	    events: function() {
+    		app.layout(this._layout().events()).render();
+	    },
+	    
 
 	    /**
 	     * Search plans by given preferences.
@@ -98,7 +131,7 @@ define(['app',
 
 	    	
 	    	// Set selected plan silently
-	    	// because we do not want to
+	    	// because you do not want to
 	    	// trigger collection fetch
 	    	if (index) {
 	    		app.search.pref.set(
@@ -184,6 +217,7 @@ define(['app',
 	    _layout: function() {
 	    	this.layout = this.layout || {};
 
+
 	    	return {
 	    		index: _.bind(function() {
 	    			if (!this.layout.index) {
@@ -202,7 +236,8 @@ define(['app',
 	    			}
 	    			return this.layout.index;
 	    		}, this),
-	    		
+
+
 	    		search: _.bind(function() {
 	    			if (!this.layout.search) {
 	    		    	this.layout.search = new Backbone.Layout();
@@ -221,6 +256,7 @@ define(['app',
 	    			return this.layout.search;
 	    		}, this),
 
+
 	    		plan: _.bind(function() {
 	    			if (!this.layout.plan) {
 	    		    	this.layout.plan = new Backbone.Layout();
@@ -236,7 +272,58 @@ define(['app',
 
 	    			}
 	    			return this.layout.plan;
-	    		}, this)
+	    		}, this),
+
+
+	    		events: _.bind(function() {
+	    			if (!this.layout.events) {
+	    		    	this.layout.events = new Backbone.Layout();
+
+	    		    	this.layout.events.setView(new EventsView({
+	    		    		views: {
+	    						'.header-view' : new HeaderView(),
+	    						'.footer-view' : new FooterView(),
+	    						'.bottom-view' : new BottomView()
+	    		    		}
+	    		    	}));
+
+	    			}
+	    			return this.layout.events;
+	    		}, this),
+	    		
+
+	    		attractions: _.bind(function() {
+	    			if (!this.layout.attractions) {
+	    		    	this.layout.attractions = new Backbone.Layout();
+
+	    		    	this.layout.attractions.setView(new AttractionsView({
+	    		    		views: {
+	    						'.header-view' : new HeaderView(),
+	    						'.footer-view' : new FooterView(),
+	    						'.bottom-view' : new BottomView()
+	    		    		}
+	    		    	}));
+
+	    			}
+	    			return this.layout.attractions;
+	    		}, this),
+	    		
+	    		
+	    		attraction: _.bind(function() {
+	    			if (!this.layout.attraction) {
+	    		    	this.layout.attraction = new Backbone.Layout();
+
+	    		    	this.layout.attraction.setView(new AttractionView({
+	    		    		views: {
+	    						'.header-view' : new HeaderView(),
+	    						'.footer-view' : new FooterView(),
+	    						'.bottom-view' : new BottomView()
+	    		    		}
+	    		    	}));
+
+	    			}
+	    			return this.layout.attraction;
+	    		}, this),
 	    	};
 	    }
 	    

@@ -1,0 +1,63 @@
+.events-list-page .inner-home-section {background: url(../images/events-list-bg.jpg) no-repeat center center; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.events-list-page .inner-home-section h1 {padding-top: 120px; padding-bottom: 73px;}
+.events-list-page .inner-home-section h1 span {display: inline-block; background: url(../images/bottom-rep.png); color: #559fd3; font-weight: 500; padding-bottom: 6px; padding-left: 12px; padding-right: 12px;}
+
+
+/*Attractions section title -------------------------------------------------------------------------- */
+.events-title-section {background: #559fd3;}
+.events-title-section .site-block {padding-top: 51px; padding-bottom: 38px;}
+.events-title-section h2 {font-size: 47px; color: #333; font-weight: 300; margin: 0; line-height: 38px; width: 225px; float: left; text-transform: uppercase; line-height: 25px;}
+.events-title-section h2 strong {font-weight: 400; color: #e5e5e5; font-size: 31px;}
+.events-title-section h3 {margin: 0; font-size: 38px; color: #fff; padding-top: 19px; float: left; width: 500px; font-weight: 300;}
+.events-title-section h3 strong {font-weight: 400;}
+
+/*Events list section -------------------------------------------------------------------------- */
+.events-list-section {background: #e5e5e5;}
+.events-list-section .site-block {padding-top: 20px; padding-bottom: 81px;}
+
+/*Months list*/
+.events-list-section .month-list {padding-bottom: 21px; border-bottom: 1px solid #fff; margin-bottom: 32px; width: 945px; overflow: hidden;}
+.month-list li {float: left; padding-right: 31px; margin-right: 8px; background: url(../images/month-dots.png) no-repeat right center;}
+.month-list li:last-child {padding-right: 0; margin-right: 0; background: none;}
+.month-list li a {display: inline-block; padding: 0 8px; line-height: 22px; color: #333; font-weight: 500; font-size: 12px; text-transform: uppercase;}
+.month-list li a:hover,
+.month-list li a.active {border-radius: 3px; background: #559fd3; color: #fff;}
+
+/*Events listing*/
+.events-listing {}
+.events-listing .element {width: 189px; height: 185px; float: left; position: relative; background: #86c543; color: #fff;}
+.events-listing .element:hover {background-color: #53762b;}
+.events-listing .element .in {padding: 9px 14px;}
+.events-listing .date {color: #fff; font-size: 28px; font-weight: 600; margin: 0; margin-bottom: 10px;}
+.events-listing .text {margin: 0; font-size: 13px;}
+.events-listing .text strong {display: block; font-weight: 600;}
+.events-listing .element.double {width: 378px;}
+.events-listing .element.empty {background: none;}
+
+.month-title {font-size: 51px; color: #559fd3; font-weight: 300; line-height: 52px; padding: 6px 0 10px 0;}
+.month-title strong {font-weight: 400;}
+
+/*Colors*/
+.events-listing .grey {background-color: #333;}
+.events-listing .grey:hover {background-color: #030300;}
+
+.events-listing .blue {background-color: #559fd3;}
+.events-listing .blue:hover {background-color: #366382;}
+
+.events-listing .orange {background-color: #e58919;}
+.events-listing .orange:hover {background-color: #8a5508;}
+
+.events-listing .light-grey {background-color: #a6a49f;}
+.events-listing .light-grey:hover {background-color: #605f5c;}
+
+.events-listing .brown {background-color: #8a5508;}
+.events-listing .brown:hover {background-color: #734707;}
+
+.events-listing .dark-green {background-color: #53762b;}
+.events-listing .dark-green:hover {background-color: #415c22;}

@@ -5,8 +5,8 @@
   background-size: cover;
 }
 
-.inner-home-section h1 {padding-top: 120px; padding-bottom: 73px;}
-.inner-home-section h1 span {display: inline-block; background: url(../images/bottom-rep.png); color: #559fd3; font-weight: 500; padding-bottom: 6px; padding-left: 12px; padding-right: 12px;}
+.attractions-page .inner-home-section h1 {padding-top: 120px; padding-bottom: 73px;}
+.attractions-page .inner-home-section h1 span {display: inline-block; background: url(../images/bottom-rep.png); color: #559fd3; font-weight: 500; padding-bottom: 6px; padding-left: 12px; padding-right: 12px;}
 
 
 /*Attractions section title -------------------------------------------------------------------------- */

@@ -14,13 +14,13 @@
 	height: 460px;
 }
 
-.gallery .media-holder img {
+.selected-package-page .gallery .media-holder img {
     padding-right: 780px;
     padding-bottom: 380px;
     background-size: cover;
 }
 
-.gallery .thumbs-holder img {
+.selected-package-page .gallery .thumbs-holder img {
 	padding-right: 156px;
     padding-bottom: 100px;
 	background-size: cover;
