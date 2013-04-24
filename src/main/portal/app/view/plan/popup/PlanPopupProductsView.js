@@ -26,28 +26,24 @@ define([
 		
 		product: function(e) {
 			var id = $(e.currentTarget).data('id');
-
-			var product;
 			for (var i = 0; i < app.search.products.size(); i++) {
 				if (app.search.products.at(i).get('product').get('id') === id) {
-					product = app.search.products.at(i).get('product'); 
+					// product found, trigger change product event
+					app.trigger('change:product', {
+						product: app.search.products.at(i).get('product'),
+//						topOffset: e.pageY,
+						topOffset: $(e.currentTarget).offset().top
+					});  
 					break;
 				}
 			}
-
-			app.trigger('change:product', {
-				product: product,
-				topOffset: e.pageY,
-				topOffsetE: $(e.currentTarget).offset().top
-			}); 
 			
 			return false;
 		},
 
+
 		serialize: function() {
-			var activities = [];
-			var attractions = [];
-			var restaurants = [];
+			var activities = [], attractions = [], restaurants = [];
 
 			if (app.search.products.size() > 0) {
 				var plan = app.search.results.at(app.search.pref.get('index'));
@@ -77,11 +73,7 @@ define([
 				}, this));
 			}
 
-			return {
-				activities: activities,
-				attractions: attractions,
-				restaurants: restaurants
-			};
+			return {activities: activities, attractions: attractions, restaurants: restaurants};
 		}
 	});
 

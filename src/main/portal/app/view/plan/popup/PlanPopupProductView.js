@@ -7,102 +7,76 @@ define([
 	return Backbone.View.extend({
 
 		template: 'plan/popup/product',
-		
+
+		/* Amount to offset the popup top location from the click coordinates */
+		offset: 230,
+
+
 		events: {
 			'click .close' : 'hide'
 		},
-		
+
+
 		initialize: function() {
 			app.on('change:product', this.show, this);
+			app.on('change:day', this.hide, this);
 		},
+
 
 		cleanup: function() {
 			app.off('change:product', this.show, this);
+			app.off('change:day', this.hide, this);
 		},
-		
+
+
 		show: function(event) {
-			this.product = event.product;
-			this.offsetTop = event.topOffset;
-			this.offsetTopE = event.topOffsetE;
+			this.event = event;
 			this.render();
 		},
-		
+
+
 		hide: function() {
-			this.$el.hide();
-			this.product = undefined;
+			this.event = undefined;
+			this.render();
 		},
+
 
 		serialize: function() {
 			return {
-				product: (this.product) ? this.product.toJSON() : undefined
+				product: (this.event) 
+					? this.event.product.toJSON() 
+					: undefined
 			};
 		},
 
+
 		afterRender: function() {
-			// become visible only if day has been specified
-			if (typeof this.product === 'undefined') {
+			// become visible only after event was fired
+			if (typeof this.event === 'undefined') {
 				this.$el.hide();
+				return;
+			}	
 
-			} else {
-				var top = $('#fancybox-content').offset().top;
+			this.$('.product-popup').css('top', this.event.topOffset - $('#fancybox-content').offset().top - this.offset);
+			this.$('.product-popup > .nip').css('top', this.offset);
+			this.$el.show();
+		
+		
+        	initSlider(
+            	'#fancybox-content .popup-gallery-fader .next',
+                '#fancybox-content .popup-gallery-fader .prev',
+                '#fancybox-content .popup-gallery-fader', 
+                1103, 
+                false);
 
-				this.$('.product-popup').css(
-					'top', 
-					(this.offsetTop - top) - 200);
-
-				this.$('.product-popup > .nip').css('top', 
-					(this.offsetTopE - top) - 
-					(this.offsetTop - top - 200));
-
-				this.$el.show();
-			}
-			
-			
-            	initSlider(
-                	'#fancybox-content .popup-gallery-fader .next',
-                    '#fancybox-content .popup-gallery-fader .prev',
-                    '#fancybox-content .popup-gallery-fader', 
-                    1103, 
-                    false);
-//
-//            	var hoverCallback = function() {
-//            	    var $this = $(this);
-//            	    $this.toggleClass('hovered', 200, 'swing');
-//            	};
-//
-//
-//        	    $('input[type="submit"], a').hoverIntent({
-//        	        over: hoverCallback,
-//        	        out: hoverCallback,
-//        	        interval: 25
-//        	    });
-			
-			
-
-//			$.fancybox({
-//				content: this.$el,
-//				padding: 0,
-//				modal: false,
-//				overlayShow: false,
-//                hideOnOverlayClick: false,
-//                enableEscapeButton: true,
-//                showCloseButton: true,
-//                overlayColor: '#000',
-//                overlayOpacity: 0.75,
-//				onStart: function() {
-//	                $('#fancybox-close').text('Close');
-//	                $("#fancybox-outer").removeClass().addClass('day-lightbox');
-//	            }
-//			});
-			
 
 			require(['google'], _.bind(function(google) {
 				var map = new google.maps.Map(
 					this.$('.map-holder')[0], {
 						zoom: 10,
 						center: new google.maps.LatLng(
-							this.product.get('address').latitude, 
-							this.product.get('address').longitude),
+							this.event.product.get('address').latitude, 
+							this.event.product.get('address').longitude),
 						mapTypeId: google.maps.MapTypeId.ROADMAP,
 						mapTypeControl: false,
 						streetViewControl: false,
