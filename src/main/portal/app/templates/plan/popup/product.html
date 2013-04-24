@@ -1,0 +1,40 @@
+<% if (product) { %>
+	<div class="event-popup event-tooltip product-popup"><span class="nip"></span>
+		<div class="popup-gallery-fader">
+           <% _.each(product.images, function(image, index) { %>
+            <% if (index == 0) { %>
+                <img style="background-image: url('<%= image %>'); background-size: cover; width: 440px; height: 205px;" />
+            <% } else { %>
+                <img style="background-image: url('<%= image %>'); background-size: cover; width: 440px; height: 205px; display: none;" />
+            <% } %>
+           <% }); %>
+           <% if (product.images.length > 1) { %>
+               <span class="prev"><br/></span>
+               <span class="next"><br/></span>
+		   <% } %>
+		</div>
+		<div class="inner">
+		  <h5><%= product.title %></h5>
+		  <h6><%= product.subtitle %></h6>
+		  <div class="place-description">
+		    <p><%= product.description %></p>
+		  </div>
+		</div>
+        <div class="map-wrap">
+            <div class="map-holder"></div>
+            <div class="map-tooltip">
+            <p class="title">
+                <% if (product.address.street) { %>
+                    <%= product.address.street %> <%= product.address.streetNumber %>
+                <% } else { %>
+                    <%= product.title %>
+                <% } %>
+            </p>
+            <p>View map &#8901; Get Directions</p><span class="nip"></br></span>
+       </div>
+		<div class="popup-bottom">
+		  <a href="javascript:void(0)" class="button">ADD TO TRIP</a>
+		</div>
+		<div class="close">Close</div>
+	</div>
+<% } %>

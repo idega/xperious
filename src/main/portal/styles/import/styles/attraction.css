@@ -1,4 +1,4 @@
-.attractions-place-page .inner-home-section {background: url(../images/attractions-bg-2.jpg) no-repeat center center; 
+.attractions-place-page .inner-home-section {background: url(../images/attractions-bg-2.jpg) no-repeat fixed center center; position: relative;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -12,7 +12,7 @@
 
 /*Attractions section title -------------------------------------------------------------------------- */
 .attractions-place-page .gallery-section .site-block {background: url(../images/frame-bg.png); padding-top: 50px; padding-bottom: 26px;}
-.attractions-place-page .gallery-section {background: url(../images/gallery-bg-2.jpg) no-repeat center center; 
+.attractions-place-page .gallery-section {background: url(../images/gallery-bg-2.jpg) no-repeat fixed center center; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

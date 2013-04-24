@@ -1,9 +1,9 @@
 define([
    'app',
-   'view/plan/PlanPopup'
+   'view/plan/popup/PlanPopupView'
 ],function(
 	app,
-	PlanPopup) {
+	PlanPopupView) {
 
 
 	return Backbone.View.extend({
@@ -16,9 +16,7 @@ define([
 		},
 
 		popup: function(e) {
-			var index = $(e.currentTarget).data('index');
-			var items = this.plan().itemsByDays().value()[index];
-			new PlanPopup({index: index, items: items}).render(); 
+			app.trigger('change:day', $(e.currentTarget).data('index')); 
 		},
 
 
@@ -33,7 +31,7 @@ define([
 			// is not available yet
 			if (this.plan()) {
 				var days = [];
-				this.plan().itemsByDays().each(function(items) {
+				_.each(this.plan().days(), function(items) {
 					for (var i = 0; i < items.length; i++) {
 						if (items[i].get('type') === 'PRODUCT') {
 							days.push({

@@ -3,15 +3,17 @@ require([
 	"router",
 	'model/search/SearchPreferencesModel',
 	'model/search/SearchTimeframeModel',
-	'model/event/EventTimelineCollection',
-	'model/plan/PlanCollection'
+	'model/event/EventTimeline',
+	'model/plan/PlanCollection',
+	'model/product/ProductSearchResults'
 ], function(
 	app,
 	Router,
 	SearchPreferencesModel,
 	SearchTimeframeModel,
-	EventTimelineCollection,
-	PlanCollection) {
+	EventTimeline,
+	PlanCollection,
+	ProductSearchResults) {
 
 
 	app.search = {};
@@ -19,10 +21,11 @@ require([
 	app.search.timeframe = new SearchTimeframeModel();
 	app.search.idle = new SearchTimeframeModel();
 	app.search.results = new PlanCollection();
+	app.search.products = new ProductSearchResults();
 
 
 	app.event = {};
-	app.event.timeline = new EventTimelineCollection();
+	app.event.timeline = new EventTimeline();
 
 	
 	app.router = new Router();

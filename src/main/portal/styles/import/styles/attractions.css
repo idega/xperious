@@ -1,4 +1,4 @@
-.attractions-page .inner-home-section {background: url(../images/attractions-bg.jpg) no-repeat center center; 
+.attractions-page .inner-home-section {background: url(../images/attractions-bg.jpg) no-repeat fixed center center;  position: relative;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -24,7 +24,7 @@
 .region-select li a:hover {color: #e5e5e5;}
 
 /*Attractions section -------------------------------------------------------------------------- */
-.attractions-section {background: url(../images/attractions-pattern.png);}
+.attractions-section {background: #fff;}
 .attractions-section .site-block {padding-top: 45px; padding-bottom: 25px;}
 .attractions-section .col {width: 226px; float: left; margin-right: 13px;}
 .attractions-section .col.last {margin-right: 0;}

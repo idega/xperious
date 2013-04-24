@@ -6,27 +6,38 @@ define([
 
 	return Backbone.View.extend({
 
-		template: 'plan/popup',
+		template: 'plan/popup/popup',
 		
-
-		initialize: function(options) {
-			this.index = options.index;
-			this.items = options.items;
+		initialize: function() {
+			app.on('change:day', this.show, this);
 		},
 
+		cleanup: function() {
+			app.off('change:day', this.show, this);
+		},
+		
+		show: function(day) {
+			var plan = app.search.results.at(app.search.pref.get('index'));
+			this.items = plan.days()[day];
+			this.day = day;
+			this.render();
+		},
 
 		serialize: function() {
 			return {
+				day: this.day,
 				items: _.map(
 					this.items, function(item) { 
 						return item.toJSON();
-					}),
-				index: this.index
+					}
+				),
 			};
 		},
 		
 
 		afterRender: function() {
+			// become visible only if day has been specified
+			if (typeof this.day === 'undefined') return;
 
 			$.fancybox({
 				content: this.$el,
@@ -36,6 +47,8 @@ define([
                 showCloseButton: true,
                 overlayColor: '#000',
                 overlayOpacity: 0.75,
+                autoScale: false,
+                autoDimensions: true,
 				onStart: function() {
 	                $('#fancybox-close').text('Close');
 	                $("#fancybox-outer").removeClass().addClass('day-lightbox');

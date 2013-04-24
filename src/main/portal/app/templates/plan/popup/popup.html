@@ -1,0 +1,26 @@
+<div id="day-popup">
+    <div class="day-popup clearfix">
+     <div class="lefter">
+        <div class="popup-products-view"></div>
+     </div>
+     <div class="righter">
+       <div class="top">
+         <h2 class="title">This is how your <span><%= day + 1 %> day</span> in your vacation looks like</h2>
+         <h3 class="subtitle">You can add to it, delete it and change as you like, after all it's your vacation.</h3>
+         <div class="content">
+           <% _.each(items, function(item) { %>
+            <% if (item.type === 'PRODUCT') { %>
+                <h4><%= item.title %></h4>
+                <p><%= item.description %></p>
+            <% } %>
+           <% }) %>
+         </div>
+       </div>
+       <div class="day-map">
+         <h4>DAY ON THE MAP</h4>
+         <div class="map-holder" />
+       </div>
+     </div>
+    <div class="popup-product-view"></div>
+  </div>
+</div>

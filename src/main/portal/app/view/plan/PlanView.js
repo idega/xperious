@@ -33,13 +33,6 @@ define([
 		},
 
 
-		popup: function(e) {
-			var index = $(e.currentTarget).data('index');
-			var items = this.plan().itemsByDays().value()[index];
-			new PlanPopup({index: index, items: items}).render(); 
-		},
-
-
 		plan: function() {
 			return app.search.results.at(app.search.pref.get('index'));
 		},

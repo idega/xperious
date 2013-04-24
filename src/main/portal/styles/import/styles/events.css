@@ -1,4 +1,5 @@
-.events-list-page .inner-home-section {background: url(../images/events-list-bg.jpg) no-repeat center center; 
+
+.events-list-page .inner-home-section {background: url(../images/events-list-bg.jpg) no-repeat fixed center center; position: relative;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -32,32 +33,109 @@
 /*Events listing*/
 .events-listing {}
 .events-listing .element {width: 189px; height: 185px; float: left; position: relative; background: #86c543; color: #fff;}
-.events-listing .element:hover {background-color: #53762b;}
 .events-listing .element .in {padding: 9px 14px;}
 .events-listing .date {color: #fff; font-size: 28px; font-weight: 600; margin: 0; margin-bottom: 10px;}
 .events-listing .text {margin: 0; font-size: 13px;}
 .events-listing .text strong {display: block; font-weight: 600;}
 .events-listing .element.double {width: 378px;}
-.events-listing .element.empty {background: none;}
+.events-listing .element.empty, .events-listing .element.empty:hover {background: none;}
 
 .month-title {font-size: 51px; color: #559fd3; font-weight: 300; line-height: 52px; padding: 6px 0 10px 0;}
 .month-title strong {font-weight: 400;}
 
+/*Nips*/
+.events-listing .element .nip {display: inline-block; position: absolute; z-index: 10;}
+.events-listing .nip-left .nip,
+.events-listing .nip-right .nip {width: 11px; height: 22px;}
+.events-listing .nip-top .nip,
+.events-listing .nip-bottom .nip {width: 22px; height: 11px;}
+.events-listing .nip-top .nip {background: url(../images/arrows-top.png) no-repeat left top; top: -11px; left: 20px;}
+.events-listing .nip-left .nip {background: url(../images/arrows-left.png) no-repeat left top; left: -11px; top: 20px;}
+.events-listing .nip-bottom .nip {background: url(../images/arrows-down.png) no-repeat left top; bottom: -11px; right: 20px;}
+.events-listing .nip-right .nip {background: url(../images/arrows-right.png) no-repeat left top; top: 20px; right: -11px;}
+
 /*Colors*/
+.events-listing .element {background: #86c543;} /*Green*/
+.events-listing .element:hover {background-color: #53762b;}
+.events-listing .nip-top.element:hover .nip {background-position: left -11px;}
+.events-listing .nip-left.element:hover .nip {background-position: -11px top;}
+.events-listing .nip-bottom.element:hover .nip {background-position: left -11px;}
+.events-listing .nip-right.element:hover .nip {background-position: -11px top;}
+
+
 .events-listing .grey {background-color: #333;}
+.events-listing .nip-top.grey .nip {background-position: -22px top}
+.events-listing .nip-left.grey .nip {background-position: left -22px;}
+.events-listing .nip-bottom.grey .nip {background-position: -22px top}
+.events-listing .nip-right.grey .nip {background-position: left -22px;}
+
 .events-listing .grey:hover {background-color: #030300;}
+.events-listing .nip-top.grey:hover .nip {background-position: -22px bottom;}
+.events-listing .nip-left.grey:hover .nip {background-position: right -22px;}
+.events-listing .nip-bottom.grey:hover .nip {background-position: -22px bottom;}
+.events-listing .nip-right.grey:hover .nip {background-position: right -22px;}
+
 
 .events-listing .blue {background-color: #559fd3;}
+.events-listing .nip-top.blue .nip {background-position: -44px top}
+.events-listing .nip-left.blue .nip {background-position: left -44px;}
+.events-listing .nip-bottom.blue .nip {background-position: -44px top}
+.events-listing .nip-right.blue .nip {background-position: left -44px;}
+
 .events-listing .blue:hover {background-color: #366382;}
+.events-listing .nip-top.blue:hover .nip {background-position: -44px bottom;}
+.events-listing .nip-left.blue:hover .nip {background-position: right -44px;}
+.events-listing .nip-bottom.blue:hover .nip {background-position: -44px bottom;}
+.events-listing .nip-right.blue:hover .nip {background-position: right -44px;}
+
 
 .events-listing .orange {background-color: #e58919;}
+.events-listing .nip-top.orange .nip {background-position: -66px top}
+.events-listing .nip-left.orange .nip {background-position: left -66px;}
+.events-listing .nip-bottom.orange .nip {background-position: -66px top}
+.events-listing .nip-right.orange .nip {background-position: left -66px;}
+
 .events-listing .orange:hover {background-color: #8a5508;}
+.events-listing .nip-top.orange:hover .nip {background-position: -66px bottom;}
+.events-listing .nip-left.orange:hover .nip {background-position: right -66px;}
+.events-listing .nip-bottom.orange:hover .nip {background-position: -66px bottom;}
+.events-listing .nip-right.orange:hover .nip {background-position: right -66px;}
+
 
 .events-listing .light-grey {background-color: #a6a49f;}
+.events-listing .nip-top.light-grey .nip {background-position: -88px top}
+.events-listing .nip-left.light-grey .nip {background-position: left -88px;}
+.events-listing .nip-bottom.light-grey .nip {background-position: -88px top}
+.events-listing .nip-right.light-grey .nip {background-position: left -88px;}
+
 .events-listing .light-grey:hover {background-color: #605f5c;}
+.events-listing .nip-top.light-grey:hover .nip {background-position: -88px bottom;}
+.events-listing .nip-left.light-grey:hover .nip {background-position: right -88px;}
+.events-listing .nip-bottom.light-grey:hover .nip {background-position: -88px bottom;}
+.events-listing .nip-right.light-grey:hover .nip {background-position: right -88px;}
+
 
 .events-listing .brown {background-color: #8a5508;}
+.events-listing .nip-top.brown .nip {background-position: -110px top}
+.events-listing .nip-left.brown .nip {background-position: left -110px;}
+.events-listing .nip-bottom.brown .nip {background-position: -110px top}
+.events-listing .nip-right.brown .nip {background-position: left -110px;}
+
 .events-listing .brown:hover {background-color: #734707;}
+.events-listing .nip-top.brown:hover .nip {background-position: -110px bottom;}
+.events-listing .nip-left.brown:hover .nip {background-position: right -110px;}
+.events-listing .nip-bottom.brown:hover .nip {background-position: -110px bottom;}
+.events-listing .nip-right.brown:hover .nip {background-position: right -110px;}
+
 
 .events-listing .dark-green {background-color: #53762b;}
+.events-listing .nip-top.dark-green .nip {background-position: -132px top}
+.events-listing .nip-left.dark-green .nip {background-position: left -132px;}
+.events-listing .nip-bottom.dark-green .nip {background-position: -132px top}
+.events-listing .nip-right.dark-green .nip {background-position: left -132px;}
+
 .events-listing .dark-green:hover {background-color: #415c22;}
+.events-listing .nip-top.dark-green:hover .nip {background-position: -132px bottom;}
+.events-listing .nip-left.dark-green:hover .nip {background-position: right -132px;}
+.events-listing .nip-bottom.dark-green:hover .nip {background-position: -132px bottom;}
+.events-listing .nip-right.dark-green:hover .nip {background-position: right -132px;}

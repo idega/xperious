@@ -26,16 +26,19 @@ function(
 		 * that where each element is an array with items for
 		 * the day.
 		 */
-		itemsByDays: function() {
-			var days = {};
-			this.get('items').each(function(item) {
-				var on = moment(item.get('on')).format('YYYYMMDD');
-				if (!days[on]) {
-					days[on] = [];
-				}
-				days[on].push(item);
-			});
-			return _.chain(_.values(days));
+		days: function() {
+			if (!this.daysCached) {
+				var days = {};
+				this.get('items').each(function(item) {
+					var on = moment(item.get('on')).format('YYYYMMDD');
+					if (!days[on]) {
+						days[on] = [];
+					}
+					days[on].push(item);
+				});
+				this.daysCached = _.values(days);
+			}
+			return this.daysCached;
 		},
 
 
