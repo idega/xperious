@@ -1,12 +1,12 @@
 define([
 	'app',
 	'model/search/SearchTimeframeModel',
-	'view/index/timeframe/TimeframeCalendarView',
+	'view/index/timeframe/TimeframeDoubleCalendarView',
 	'view/index/timeframe/TimeframeTimeView'
 ], function(
 	app, 
 	SearchTimeframeModel,
-	TimeframeCalendarView,
+	TimeframeDoubleCalendarView,
 	TimeframeTimeView) {
 
 
@@ -72,7 +72,8 @@ define([
 		},
 
 		popup: function() {
-			var CalendarView = TimeframeCalendarView.extend({
+			var CalendarView = TimeframeDoubleCalendarView.extend({
+				
 				onCompletion: function() {
 					this.empty();
 					new TimeframeTimeView({model: this.model}).render();

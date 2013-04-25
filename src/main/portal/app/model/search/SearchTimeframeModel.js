@@ -6,6 +6,9 @@ define([
 
 	return Backbone.Model.extend({
 		
+		/* TODO remove this, this is legacy stuff
+		 * to support double calendar
+		 */
 		addDate: function(date) {
 			if (this.isFrom(date)) {
 				this.unset('from');
@@ -29,8 +32,25 @@ define([
 			}
 		},
 
-		hasDate: function(date) {
-			return this.isFrom(date) || this.isTo(date);
+		setDate: function(date, property) {
+			this.set(property, moment(date));
+			if (property === 'from' 
+					&& this.has('to') 
+					&& this.get('from').isAfter(this.get('to'))) {
+				this.unset('to');
+			}
+		},
+
+		hasDate: function(date, property) {
+			if (!property) { 
+				// TODO remove this, this is legacy stuff 
+				// to support double calendar
+				return this.isFrom(date) || this.isTo(date);
+			} else {
+				return (property === 'from') 
+					? this.isFrom(date) 
+					: this.isTo(date);
+			}
 		},
 		
 		isFrom: function(date) {

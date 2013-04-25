@@ -63,7 +63,7 @@ define([
 		afterRender: function() {
 
 			this.$el.dialog({
-				dialogClass: 'calendar',
+				dialogClass: 'calendar-double',
 				modal: true,
 				resizable: false,
 				minWidth: 580

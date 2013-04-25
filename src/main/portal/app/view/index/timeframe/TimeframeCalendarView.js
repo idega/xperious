@@ -4,29 +4,31 @@ define([
 	app) {
 
 
-	return Backbone.View.extend({
+	var CalendarView =  Backbone.View.extend({
 	
 		template: 'index/timeframe/calendar',
 
-		events: {
-			'click .close' : 'next'
-		},
 
 		initialize: function(options) {
 			_.bindAll(this);
 			this.model = options.model;
 		},
 
-		afterRender: function() {
 
+		afterRender: function() {
 			this.$el.dialog({
 				dialogClass: 'calendar',
 				modal: true,
 				resizable: false,
-				minWidth: 800,
-				minHeight: 400,
+				width: 270,
+				minHeight: 200,
 				open: this.open,
-				close: this.empty
+				close: this.empty,
+				position: {
+					my: 'top',
+					at: 'bottom',
+					of: $('.ico-calendar')
+				}
 			});
 			
 			// a click outside calendar will close the window
@@ -36,12 +38,13 @@ define([
 			$(window).resize(this.updatePosition);
 		},
 		
+		
 		open: function() {
 			this.$('.datepicker').datepicker({
 				dateFormat: 'yy-mm-dd',
-				numberOfMonths: 2,
+				numberOfMonths: 1,
 				firstDay: 1,
-				modal: true,
+				modal: false,
 				defaultDate: this.model.toString(),
 				onSelect: this.onDateSelect,
                 beforeShowDay: this.beforeShowDay
@@ -50,60 +53,63 @@ define([
 			this.updateTitlebar();
 		},
 
-		onDateSelect: function(dateText) {
-			this.model.addDate(dateText); 
+		
+		onDateSelect: function(day) {
+			this.model.setDate(day, this.property);
 			this.updateTitlebar();
-			if (this.model.has('from') 
-				&& this.model.has('to')) {
-				this.onCompletion();
-			}			
+			if (this.model.has(this.property)) {
+				this.close();
+			}
 		},
 
+
 		beforeShowDay: function(day) {
-    		if (moment(day).isBefore(moment(), 'day')) {
+    		if (this.disable(day)) {
     			return [false, ""]; 
     		}
-		  	if (this.model.hasDate(day)) {
+		  	if (this.model.hasDate(day, this.property)) {
 		  		return [true, "ui-state-highlight"]; 
 		  	}
 		  	return [true, ""];
 		},
+		
 
 		updateTitlebar: function() {
-			if (this.model.has('from')) {
-				this.$('.from').show();
-				this.$('.from strong')
-					.text(this.model
-						.get('from')
-						.format('MMMM D'));
+			this.$('.arrival-departure').text(this.title);
+			if (this.model.has(this.property)) {
+				this.$('.titlebar .selection').show();
+				this.$('.titlebar .selection strong').text(
+					this.model
+						.get(this.property)
+						.format('MMMM D'));	
 			} else {
-				this.$('.from').hide();
+				this.$('.titlebar .selection').hide();
 			}
 
-
-			if (this.model.has('to')) {
-				this.$('.to').show();
-				this.$('.to strong')
-					.text(this.model
-						.get('to')
-						.format('MMMM D'));
-			} else {
-				this.$('.to').hide();
-			}
 		},
+
 
 		updatePosition: _.debounce(function() {
-			this.$el.dialog("option", "position", "center");
+			this.$el.dialog(
+				"option", 
+				"position", {
+					my: 'top',
+					at: 'bottom',
+					of: $('.ico-calendar')
+			});
 		}, this),
 
-		onCompletion: function() {
-			this.empty();
+
+		disable: function(day) {
+			return moment(day).isBefore(moment(), 'day');
 		},
 		
-		next: function() {
+
+		close: function() {
 			this.empty();
 		},
 
+		
 		empty: function() {
 			this.$('.datepicker').datepicker('destroy');
 			this.$el.dialog('close');
@@ -113,4 +119,28 @@ define([
 		},
 	});
 
+
+	var CalendarViewForToField = CalendarView.extend({
+		property: 'to',
+		title: 'Deprature Date',
+		disable: function(day) {
+			return this.model.get('from').isAfter(moment(day));
+		}
+	});
+
+	
+	var CalendarViewForFromField = CalendarView.extend({
+		property: 'from',
+		title: 'Arrival Date',
+		close: function() {
+			this.empty();
+			new CalendarViewForToField({
+				model: this.model		
+			}).render();
+		}
+
+	});
+
+
+	return CalendarViewForFromField;
 });
