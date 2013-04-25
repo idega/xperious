@@ -6,7 +6,7 @@
    <% if (!_.isEmpty(attractions)) { %>
    <ul class="menu">
 	    <% _.each(_.first(attractions, 10), function(pd) { %>
-	        <li><a href="javascript:void(0)" data-id="<%= pd.product.id %>"><%= pd.product.title %></a></li>
+	        <li><a href="javascript:void(0)" data-id="<%= pd.product.id %>"><%= pd.product.title %> (<%= pd.distance %>KM)</a></li>
 	    <% }) %>
     <% } else { %>
         <li style="height: 10px;"><p>No nearby attractions found</p></li>
@@ -20,7 +20,7 @@
    <ul class="menu">
    <% if (!_.isEmpty(activities)) { %>
         <% _.each(_.first(activities, 10), function(pd) { %>
-           <li><a href="javascript:void(0)" data-id="<%= pd.product.id %>"><%= pd.product.title %></a></li>
+           <li><a href="javascript:void(0)" data-id="<%= pd.product.id %>"><%= pd.product.title %> (<%= pd.distance %>KM)</a></li>
         <% }) %>
     <% } else { %>
        <li style="height: 10px;"><p>No nearby activities found</p></li>
@@ -33,7 +33,7 @@
    <ul class="menu">
    <% if (!_.isEmpty(restaurants)) { %>
         <% _.each(_.first(restaurants, 10), function(pd) { %>
-           <li><a href="javascript:void(0)" data-id="<%= pd.product.id %>"><%= pd.product.title %></a></li>
+           <li><a href="javascript:void(0)" data-id="<%= pd.product.id %>"><%= pd.product.title %> (<%= pd.distance %>KM)</a></li>
         <% }) %>
     <% } else { %>
        <li style="height: 10px;"><p>No nearby restaurants found</p></li>
