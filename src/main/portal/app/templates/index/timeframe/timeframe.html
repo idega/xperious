@@ -1,6 +1,6 @@
 <span class="buttoned ico-calendar">
     <% if (from.day) {%>
-       <span class="day-month">
+       <span class="day-month from">
         <span class="day"><%= from.day %></span>
         <span class="month"><%= from.month %></span>
        </span>
@@ -13,7 +13,7 @@
 
 
     <% if (to.day) {%>
-       <span class="day-month">
+       <span class="day-month to">
         <span class="day"><%= to.day %></span>
         <span class="month"><%= to.month %></span>
        </span>
@@ -21,6 +21,6 @@
     
 
     <% if (!from.day && !to.day) { %>
-        Timeframe
+        <span class="placeholder">Timeframe</span>
     <% } %>
 </span>

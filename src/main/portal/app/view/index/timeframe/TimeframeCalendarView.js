@@ -4,7 +4,7 @@ define([
 	app) {
 
 
-	var CalendarView =  Backbone.View.extend({
+	var CalendarViewBase =  Backbone.View.extend({
 	
 		template: 'index/timeframe/calendar',
 
@@ -18,7 +18,7 @@ define([
 		afterRender: function() {
 			this.$el.dialog({
 				dialogClass: 'calendar',
-				modal: true,
+				modal: false,
 				resizable: false,
 				width: 270,
 				minHeight: 200,
@@ -30,22 +30,36 @@ define([
 					of: $('.ico-calendar')
 				}
 			});
-			
-			// a click outside calendar will close the window
-			$('.ui-widget-overlay').bind('click', this.empty);
+
+			// clicking on anything else except the 
+			// dialog itself should close it
+			$('html').bind('click', this.empty);
+			this.$el.bind('click', function(e) {
+				e.stopPropagation();
+			});
 
 			// recenter the dialog on window resize
 			$(window).resize(this.updatePosition);
+
+			// nip has to follow the field that is being selected
+			if (this.property && this.property === 'from') {
+				$('.calendar .ui-dialog-content')
+					.css('background-position', '115px 0px');
+
+			} else if (this.property && this.property === 'to') {
+				$('.calendar .ui-dialog-content')
+					.css('background-position', '158px 0px');
+			}
 		},
-		
-		
+	
+
 		open: function() {
 			this.$('.datepicker').datepicker({
 				dateFormat: 'yy-mm-dd',
 				numberOfMonths: 1,
 				firstDay: 1,
 				modal: false,
-				defaultDate: this.model.toString(),
+				defaultDate: this.model.asString(this.property),
 				onSelect: this.onDateSelect,
                 beforeShowDay: this.beforeShowDay
 			});
@@ -115,12 +129,13 @@ define([
 			this.$el.dialog('close');
 			this.$el.remove();
 			$(window).unbind('resize', this.updatePosition);
+			$('html').unbind('click', this.empty);
 			app.trigger('change:timeframe');
 		},
 	});
 
-
-	var CalendarViewForToField = CalendarView.extend({
+	
+	var CalendarViewForToField = CalendarViewBase.extend({
 		property: 'to',
 		title: 'Deprature Date',
 		disable: function(day) {
@@ -128,19 +143,36 @@ define([
 		}
 	});
 
-	
-	var CalendarViewForFromField = CalendarView.extend({
+
+	var CalendarViewForFromField = CalendarViewBase.extend({
 		property: 'from',
 		title: 'Arrival Date',
 		close: function() {
 			this.empty();
+			if (!this.model.has('to')) {
+				new CalendarViewForToField({
+					model: this.model
+				}).render();
+			}
+		}
+	});
+
+
+	var CalendarView = CalendarViewForFromField.extend({
+		close: function() {
+			this.empty();
 			new CalendarViewForToField({
-				model: this.model		
+				model: this.model
 			}).render();
 		}
 
 	});
 
 
-	return CalendarViewForFromField;
+	return {
+		from: CalendarViewForFromField,
+		to: CalendarViewForToField,
+		init: CalendarView
+	};
+
 });

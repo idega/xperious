@@ -34,10 +34,11 @@ define([
 
 		setDate: function(date, property) {
 			this.set(property, moment(date));
-			if (property === 'from' 
-					&& this.has('to') 
-					&& this.get('from').isAfter(this.get('to'))) {
-				this.unset('to');
+			if (property === 'from') {
+				// if from is after the to change to make the period valid
+				if (this.has('to') && this.get('from').isAfter(this.get('to'))) {
+					this.set('to', this.get('from'));
+				}
 			}
 		},
 
@@ -53,6 +54,12 @@ define([
 			}
 		},
 		
+		asString: function(property) {
+			if (this.has(property)) {
+				return this.get(property).format('YYYY-MM-DD');
+			}
+		},
+
 		isFrom: function(date) {
 			return this.has('from') && 
 				moment(this.get('from'))
@@ -74,7 +81,7 @@ define([
 				return moment(date);
 			}
 		},
-		
+
 		toString: function() {
 			return this.has('from') 
 				? moment(this.get('from')).format('YYYY-MM-DD')

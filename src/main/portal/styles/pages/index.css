@@ -82,9 +82,10 @@
 	    background: #c9c9c9;
 	}
 	
-	#event-popup .popup-gallery-fader img { 
-		width: 440px; 
-		height: 205px; 
+    #event-popup .popup-gallery-fader img { 
+		background-size: cover; 
+		padding-right: 440px;
+        padding-bottom: 205px; 
 	}
 	
     .popup-gallery-fader .prev, .popup-gallery-fader .next {
@@ -130,8 +131,6 @@
 
 
 .ico-calendar {
-	cursor: hand; 
-	cursor: pointer;
 	width: 70px;
 }
 
@@ -141,10 +140,21 @@
     width: 45px;
 }
 
+	    .ico-calendar .placeholder {
+	        cursor: hand; 
+	        cursor: pointer;
+	        color: #a6a49f;
+	    }
 
-	.ico-calendar .day-month, .ico-event .day-month {
-	    display: inline-block;
-	}
+		.ico-calendar .day-month, .ico-event .day-month {
+		    display: inline-block;
+		}
+	
+		.ico-calendar .day-month:hover {
+		   color: #333333;
+	       cursor: hand; 
+	       cursor: pointer;
+		}
 	
 		.ico-calendar .day-month .month, .ico-event .day-month .month {
 			display: block;
@@ -153,7 +163,7 @@
 		}
 		
 		.ico-event .day-month .month {
-		margin-left: 3px;
+            margin-left: 3px;
 		}
 		
 		.ico-calendar .day-month .day, .ico-event .day-month .day {
@@ -524,6 +534,10 @@
 
 
 
+
+/* .calendar + .ui-widget-overlay {
+	opacity: 0;
+} */
 
 
 /*

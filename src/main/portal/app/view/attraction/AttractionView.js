@@ -10,6 +10,22 @@ define([
 
 
 		afterRender: function() {
+			require(['google'], _.bind(function(google) {
+				var map = new google.maps.Map(
+					this.$('.map-holder')[0], {
+						zoom: 6,
+						center: new google.maps.LatLng(64.942160, -18.544922),
+						mapTypeId: google.maps.MapTypeId.ROADMAP,
+						streetViewControl: false
+				});
+
+				new google.maps.Marker({
+					 position: new google.maps.LatLng(64.767522, -23.628373),
+					 title: 'Arnarstapi',
+					 map: map
+				 });
+			}, this));
+
 
 			var $mediaHolder = $('.media-holder'),
 			$thumbsHolder = $('.thumbs-holder'),
@@ -27,7 +43,7 @@ define([
 				} else if (youtubeId) {
 					$newImg = $('<div class="video-wrap youtube"><iframe id="ytplayer" type="text/html" width="780" height="380" src="http://www.youtube.com/embed/' + youtubeId + '?autoplay=1" frameborder="0"/></div>');
 				} else {
-					$newImg = $('<img class="new-image" src="' + this.href + '"/>"');
+					$newImg = $('<img class="new-image" style="background-image: url(' + this.href + ')" />');
 				}
 	
 				$mediaHolder.imagesLoaded(function() {
@@ -40,7 +56,7 @@ define([
 			});
 
 			$thumbsHolder.jcarousel({
-				scroll: 1,
+				scroll: 4,
 				wrap: 'circular',
 				initCallback: mycarouselInitCallback,
 				buttonNextHTML: null,

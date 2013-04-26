@@ -13,10 +13,12 @@ define([
 		template: 'index/timeframe/timeframe',
 
 		events: {
-			'click .ico-calendar' : 'calendar'
+			'click .ico-calendar .placeholder' : 'init'
 		},
 
 		initialize: function() {
+			_.bindAll(this);
+
 			this.model = app.search.timeframe;
 			app.on('change:timeframe', this.change, this);
 		},
@@ -52,8 +54,30 @@ define([
 			};
 		},
 
-		calendar: function() {
-			new TimeframeCalendarView({model: this.model}).render();
+		afterRender: function() {
+			this.$('.day-month.from').click(this.from);
+			this.$('.day-month.to').click(this.to);
+		},
+
+		init: function(e) {
+			// stop event propagation because calendar
+			// closes on any click outside the dialog
+			e.stopPropagation();
+			new TimeframeCalendarView.init({model: this.model}).render();
+		},
+		
+		to: function(e) {
+			// stop event propagation because calendar
+			// closes on any click outside the dialog
+			e.stopPropagation();
+			new TimeframeCalendarView.to({model: this.model}).render();
+		},
+		
+		from: function(e) {
+			// stop event propagation because calendar
+			// closes on any click outside the dialog
+			e.stopPropagation();
+			new TimeframeCalendarView.from({model: this.model}).render();
 		}
 	});
 

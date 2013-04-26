@@ -71,7 +71,7 @@ define([
 			};
 		},
 
-		popup: function() {
+		popup: function(e) {
 			var CalendarView = TimeframeDoubleCalendarView.extend({
 				
 				onCompletion: function() {
@@ -88,6 +88,9 @@ define([
 				}
 			});
 
+			// stop event propagation because calendar
+			// closes on any click outside the dialog
+			e.stopPropagation();
 			new CalendarView({model: this.model}).render();
 		}
 	});

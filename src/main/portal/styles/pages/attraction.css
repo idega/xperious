@@ -1,0 +1,19 @@
+.rout-on-map-section .map-holder {
+    width: 780px;
+    height: 390px;
+    padding: 0px;
+    margin-top: 45px;   
+}
+
+
+.attractions-place-page .gallery .media-holder img {
+    padding-right: 780px;
+    padding-bottom: 380px;
+    background-size: cover;
+}
+
+.attractions-place-page .gallery .thumbs-holder img {
+    padding-right: 156px;
+    padding-bottom: 100px;
+    background-size: cover;
+}

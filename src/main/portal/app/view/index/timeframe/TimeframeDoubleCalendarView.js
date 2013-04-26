@@ -8,33 +8,40 @@ define([
 	
 		template: 'index/timeframe/calendar-double',
 
+		
 		events: {
 			'click .close' : 'next'
 		},
+
 
 		initialize: function(options) {
 			_.bindAll(this);
 			this.model = options.model;
 		},
 
-		afterRender: function() {
 
+		afterRender: function() {
 			this.$el.dialog({
 				dialogClass: 'calendar-double',
-				modal: true,
+				modal: false,
 				resizable: false,
 				minWidth: 800,
-				minHeight: 400,
+				minHeight: 200,
 				open: this.open,
 				close: this.empty
 			});
 			
-			// a click outside calendar will close the window
-			$('.ui-widget-overlay').bind('click', this.empty);
+			// clicking on anything else except the 
+			// dialog itself should close it
+			$('html').bind('click', this.empty);
+			this.$el.bind('click', function(e) {
+				e.stopPropagation();
+			});
 
 			// recenter the dialog on window resize
 			$(window).resize(this.updatePosition);
 		},
+		
 		
 		open: function() {
 			this.$('.datepicker').datepicker({
@@ -50,6 +57,7 @@ define([
 			this.updateTitlebar();
 		},
 
+
 		onDateSelect: function(dateText) {
 			this.model.addDate(dateText); 
 			this.updateTitlebar();
@@ -59,6 +67,7 @@ define([
 			}			
 		},
 
+		
 		beforeShowDay: function(day) {
     		if (moment(day).isBefore(moment(), 'day')) {
     			return [false, ""]; 
@@ -69,6 +78,7 @@ define([
 		  	return [true, ""];
 		},
 
+		
 		updateTitlebar: function() {
 			if (this.model.has('from')) {
 				this.$('.from').show();
@@ -92,23 +102,28 @@ define([
 			}
 		},
 
+		
 		updatePosition: _.debounce(function() {
 			this.$el.dialog("option", "position", "center");
 		}, this),
 
+		
 		onCompletion: function() {
 			this.empty();
 		},
+		
 		
 		next: function() {
 			this.empty();
 		},
 
+		
 		empty: function() {
 			this.$('.datepicker').datepicker('destroy');
 			this.$el.dialog('close');
 			this.$el.remove();
 			$(window).unbind('resize', this.updatePosition);
+			$('html').unbind('click', this.empty);
 			app.trigger('change:timeframe');
 		},
 	});

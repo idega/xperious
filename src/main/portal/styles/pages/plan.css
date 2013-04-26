@@ -49,3 +49,9 @@
         height: 150px;
         background: #c9c9c9;
     }
+    
+    .product-popup .popup-gallery-fader img {
+        background-size: cover; 
+        padding-right: 440px; 
+        padding-bottom: 205px;
+    }
