@@ -14,6 +14,8 @@ define([
 		events: {
 			'click #destination' : 'destination',
 			'click #plan' : 'plan',
+			'keypress #guests' : 'numeric',
+			'keypress #budget' : 'numeric',
 		},
 
 
@@ -53,7 +55,16 @@ define([
 			/* By default use 2 guests as specified in the
 			 * field placeholder. */
 			var guests = this.$('#guests').val();
-			if (!guests) guests = '2'; 
+			if (!guests) guests = '2';
+			
+
+			/* Use no budget filter if not provided by the user */
+			var budgetfrom = '0';
+			var budgetto = this.$('#budget').val();
+			if (!budgetto) {
+				budgetfrom = undefined;
+				budgetto = undefined;
+			}
 
 
 			app.search.pref.set({
@@ -63,8 +74,8 @@ define([
 				to: to,
 				guests: guests,
 				budget: {
-					from: undefined,
-					to: undefined
+					from: budgetfrom,
+					to: budgetto
 				},
 				idle: {
 					from: idlefrom,
@@ -162,6 +173,11 @@ define([
             new DestinationPopupView().render();
 		},
 
+		serialize: function() {
+			return {
+				pref: app.search.pref.toJSON()
+			};
+		},
 
 		beforeRender: function() {
 			app.trigger('change:title', 'Welcome - xperious');
@@ -236,15 +252,15 @@ define([
 	            $window.resize(_.bind(function() {
 	                var windowHeight = $window.height(),
 	                    windowWidth = $window.width();
-	                $('.full-height-section .site-block').height(windowHeight);
+	                this.$('#article').height(windowHeight);
+	                this.$('.full-height-section .site-block').height(windowHeight);
 	                if (!this.$el.find('.landing-page').data('initialized')) {
 	                    this.$el.find('.landing-page').css({
 	                        display: 'none',
 	                        visibility: 'visible'
 	                    }).fadeIn(200, onInit);
 	                }
-	                $('.grid').height(windowHeight-$(".site-header").height());
-
+	                this.$el.find('.grid').height(windowHeight-$(".site-header").height());
 	                this.$el.find('.landing-page').data('initialized', 'initialized');
 	            }, this)).trigger('resize');
 	        }else{
@@ -380,7 +396,14 @@ define([
 	            }, 500);
 	        });
 	
+		},
+		
+
+		numeric: function(e) {
+		    var char = (e.which) ? e.which : e.keyCode;
+		    return !(char > 31 && (char < 48 || char > 57));
 		}
+
 	});
 
 });

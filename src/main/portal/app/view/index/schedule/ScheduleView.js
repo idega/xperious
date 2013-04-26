@@ -1,16 +1,16 @@
 define([
 	'app',
-	'view/index/timeframe/TimeframeDoubleCalendarView',
-	'view/index/timeframe/TimeframeTimeView'
+	'view/index/schedule/ScheduleCalendarView',
+	'view/index/schedule/ScheduleTimeView'
 ], function(
 	app, 
-	TimeframeDoubleCalendarView,
-	TimeframeTimeView) {
+	ScheduleCalendarView,
+	ScheduleTimeView) {
 
 
 	return Backbone.View.extend({
 
-		template: 'index/timeframe/idle',
+		template: 'index/schedule/schedule',
 
 		events: {
 			'click .attending-event' : 'popup'
@@ -21,11 +21,11 @@ define([
 		},
 
 		popup: function(e) {
-			var CalendarView = TimeframeDoubleCalendarView.extend({
+			var CalendarView = ScheduleCalendarView.extend({
 				
 				onCompletion: function() {
 					this.empty();
-					new TimeframeTimeView({model: this.model}).render();
+					new ScheduleTimeView({model: this.model}).render();
 				},
 
 				next: function() {

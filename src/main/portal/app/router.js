@@ -6,8 +6,7 @@ define(['app',
 	'view/site/FooterView',
 	'view/index/IndexView',
 	'view/index/timeframe/TimeframeView',
-	'view/index/timeframe/TimeframeIdleView',
-	'view/index/timeframe/TimeframeIdleLinkView',
+	'view/index/schedule/ScheduleView',
 	'view/index/event/EventSliderView',
 	'view/search/SearchView',
 	'view/search/SearchPreferencesView',
@@ -26,8 +25,7 @@ define(['app',
 	FooterView,
 	IndexView,	
 	TimeframeView,
-	TimeframeIdleView,
-	TimeframeIdleLinkView,
+	ScheduleView,
 	EventSliderView,
 	SearchView,
 	SearchPreferencesView,
@@ -206,7 +204,7 @@ define(['app',
 
 	    _url: function(args) {
 	    	return _.map(
-	    			_.compact(_.toArray(args)),
+	    			_.without(_.toArray(args), undefined, ''),
     				function(arg) { 
     					return encodeURIComponent(arg);
     				})
@@ -234,8 +232,7 @@ define(['app',
 	    				this.layout.index.setView(new IndexView({
 	    					views: {
 	    						'.timeframe-view' : new TimeframeView(),
-	    						'.timeframe-idle-view' : new TimeframeIdleView(),
-	    						'.timeframe-idle-link-view' : new TimeframeIdleLinkView(),
+	    						'.schedule-view' : new ScheduleView(),
 	    						'.events-slider .site-block' :  new EventSliderView(),
 	    						'.footer-view' : new FooterView(),
 	    						'.bottom-view' : new BottomView({hidden: true})

@@ -6,7 +6,7 @@ define([
 
 	return Backbone.View.extend({
 	
-		template: 'index/timeframe/time',
+		template: 'index/schedule/time',
 
 
 		events: {

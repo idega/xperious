@@ -44,7 +44,7 @@ define([
 			var budget = app.search.pref.get('budget');
 			var $slider = $("#budget-slider"),
 				sliderFrom = (budget.from) ? budget.from : '0',
-				sliderTo = (budget.to) ? budget.to : '1500',
+				sliderTo = (budget.to) ? budget.to : '5000',
 				sliderMin = $slider.data('min'),
 				sliderMax = $slider.data('max');
 

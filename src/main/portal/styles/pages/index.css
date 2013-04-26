@@ -130,14 +130,29 @@
     }
 
 
-.ico-calendar {
-	width: 70px;
+.budget input[type=text] {
+    width: 45px;
+    padding-left: 27px;
+    background-image: url(../import/images/budget-ico.png); 
+    background-repeat: no-repeat; 
+    background-position: 9px 10px;
+    color: #A6A49F;
+    font-weight: 300;
 }
 
-.ico-event {
-    cursor: hand; 
-    cursor: pointer;
-    width: 45px;
+    .budget input::-webkit-input-placeholder {
+        color: #A6A49F;
+        font-weight: 300;
+    }
+    
+    .budget input::-moz-placeholder {
+        color: #444;
+    }
+
+
+
+.ico-calendar {
+	width: 70px;
 }
 
 	    .ico-calendar .placeholder {
@@ -146,7 +161,7 @@
 	        color: #a6a49f;
 	    }
 
-		.ico-calendar .day-month, .ico-event .day-month {
+		.ico-calendar .day-month {
 		    display: inline-block;
 		}
 	
@@ -156,17 +171,13 @@
 	       cursor: pointer;
 		}
 	
-		.ico-calendar .day-month .month, .ico-event .day-month .month {
+		.ico-calendar .day-month .month {
 			display: block;
 			text-transform: uppercase;
 			font-size: 10px;
 		}
 		
-		.ico-event .day-month .month {
-            margin-left: 3px;
-		}
-		
-		.ico-calendar .day-month .day, .ico-event .day-month .day {
+		.ico-calendar .day-month .day {
 			display: block;
 			font-weight: 500;
 			font-size: 16px;
@@ -176,7 +187,7 @@
 		}
 		
 	
-	.ico-calendar .separator, .ico-event .separator {
+	.ico-calendar .separator {
 		font-weight: 500;
 		font-size: 16px;
 		margin-right: 7px;

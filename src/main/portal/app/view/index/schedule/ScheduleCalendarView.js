@@ -6,7 +6,7 @@ define([
 
 	return Backbone.View.extend({
 	
-		template: 'index/timeframe/calendar-double',
+		template: 'index/schedule/calendar',
 
 		
 		events: {

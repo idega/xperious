@@ -7,17 +7,26 @@ define([
 
 		toJSON: function() {
 			var json = this._super();
-			json.from = this.get('from').format('YYYY-MM-DD');
-			json.to = this.get('to').format('YYYY-MM-DD');
+
+			if (this.has('from')) {
+				json.from = this.get('from').format('YYYY-MM-DD');
+			}
+
+			if (this.has('to')) {
+				json.to = this.get('to').format('YYYY-MM-DD');
+			}
+
 			if (this.has('idle') && this.get('idle').from && this.get('idle').to) {
 				json.idle = {
 					from: this.get('idle').from.format('YYYY-MM-DD HH:mm'),
 					to: this.get('idle').to.format('YYYY-MM-DD HH:mm')
 				};
 			}
+			
 			return json;
 		},
 		
+
 		diff: function(attr, value) {
 			attr = attr.split('.');
 			if (this.has(attr[0])) {
@@ -32,22 +41,22 @@ define([
 			return value;
 		},
 
-		/* Comfort methods to pass optional url parameters to router */
-		
+
+		/* Comfort methods to pass optional url parameters to router */		
 		budget: function() {
-			return (this.has('budget') && this.get('budget').from && this.get('budget').to) 
+			return (this.has('budget') && this.get('budget').to) 
 				? 'budget' 
 				: undefined;
 		},
 
 		budgetfrom: function() {
-			return (this.has('budget') && this.get('budget').from) 
+			return this.has('budget') 
 				? this.get('budget').from 
 				: undefined;  
 		},
 		
 		budgetto: function() {
-			return (this.has('budget') && this.get('budget').to) 
+			return this.has('budget') 
 				? this.get('budget').to 
 				: undefined;  
 		},
