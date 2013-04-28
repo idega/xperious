@@ -39,13 +39,13 @@ define(['app',
 
 
 	return Backbone.Router.extend({
-		
+
 	    routes: {
 	    	'attractions*path' : 'attractions',
 	    	'attraction*path' : 'attraction',
 	    	'events*path' : 'events',
 	    	'search(/:query)/:country/:from/:to/:guests(/idle/:idlefrom/:idleto)(/budget/:budgetfrom/:budgetto)(/plan/:index)' : 'search',
-	    	'*path': 'index'
+	    	'' : 'index'
 	    },
 
 
@@ -161,7 +161,8 @@ define(['app',
 	    /**
 	     * Provide index page.
 	     */
-	    index: function() {
+	    index: function(path) {
+	    	alert(path);
 	    	if (!app.event.timeline.fetched()) {
 	    		app.event.timeline.fetch();
 	    	}

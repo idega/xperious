@@ -1,6 +1,12 @@
 module.exports = function(grunt) {
   grunt.initConfig({
 
+	/* Validate javascript files syntax */
+	jsvalidate: {
+	    files: ['app/**/*.js', 'test/**/*.js', 'lib/**/*.js']
+	},
+	  
+	  
 	/* Precompile HTML templates.*/
     jst: {
       "dist/debug/templates.js": [
@@ -98,10 +104,12 @@ module.exports = function(grunt) {
 
 
   grunt.loadNpmTasks('grunt-contrib');
+  grunt.loadNpmTasks('grunt-jsvalidate');
 
 
   grunt.registerTask("default", [
       "clean",
+      "jsvalidate",
       "jst", 
       "requirejs",
       "concat", 
