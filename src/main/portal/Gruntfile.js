@@ -13,6 +13,29 @@ module.exports = function(grunt) {
         "app/templates/**/*.html"
       ]
     },
+    
+    
+    /* Start server for jasmine unit tests */
+    connect: {
+    	test: {
+    		options: {
+    			port: 8000,
+    			base: '../'
+    		}
+    	}
+    },
+    
+
+    /* Run jasmine unit tests */
+    jasmine: {
+    	src: ['app/config.js'],
+	    options: {
+	        specs: 'test/spec/**/*.spec.js',
+	        helpers: 'test/spec/**/*.helper.js',
+	        host: 'http://127.0.0.1:8000/portal',
+	        template: require('grunt-template-jasmine-requirejs'),
+	    }
+    },
 
 
     /* Use requirejs optimization tool to merge all 
@@ -110,6 +133,8 @@ module.exports = function(grunt) {
   grunt.registerTask("default", [
       "clean",
       "jsvalidate",
+      "connect",
+      "jasmine",
       "jst", 
       "requirejs",
       "concat", 

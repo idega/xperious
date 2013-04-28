@@ -6,5 +6,6 @@
     "grunt": "~0.4.1",
     "grunt-contrib": "~0.6.1",
     "grunt-jsvalidate": "~0.2.1",
+    "grunt-template-jasmine-requirejs": "~0.1.1"
   }
 }
