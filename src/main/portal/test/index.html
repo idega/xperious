@@ -14,6 +14,8 @@
   <!-- Testing libs -->
   <script src="lib/jasmine/jasmine.js"></script>
   <script src="lib/jasmine/jasmine-html.js"></script>
+  <script src="lib/sinon/sinon.js"></script>
+  <script src="helper/responses.helper.js"></script>
   
   <!-- Load application -->
   <script data-main="../../portal/app/config"
@@ -25,9 +27,9 @@
       // which is why ../test is necessary
       require({ paths: { spec: "../test/spec" } }, 
       [
-
-      // Load the example spec, replace this and add your own spec
-      "spec/model/search/SearchTimeframeModel.spec"
+	      // Load the example spec, replace this and add your own spec
+	      "spec/Plan.spec",
+	      "spec/Search.spec"
 
       ], function() {
       // Set up the jasmine reporters once each spec has been loaded

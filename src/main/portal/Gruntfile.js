@@ -24,16 +24,16 @@ module.exports = function(grunt) {
     		}
     	}
     },
-    
+
 
     /* Run jasmine unit tests */
     jasmine: {
     	src: ['app/config.js'],
 	    options: {
 	        specs: 'test/spec/**/*.spec.js',
-	        helpers: 'test/spec/**/*.helper.js',
+	        helpers: ['test/helper/responses.helper.js', 'test/lib/sinon/sinon.js'],
 	        host: 'http://127.0.0.1:8000/portal',
-	        template: require('grunt-template-jasmine-requirejs'),
+	        template: require('grunt-template-jasmine-requirejs')
 	    }
     },
 

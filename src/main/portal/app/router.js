@@ -162,7 +162,6 @@ define(['app',
 	     * Provide index page.
 	     */
 	    index: function(path) {
-	    	alert(path);
 	    	if (!app.event.timeline.fetched()) {
 	    		app.event.timeline.fetch();
 	    	}

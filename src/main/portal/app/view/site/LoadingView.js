@@ -9,13 +9,13 @@ define([
 
 
 		initialize: function() {
-			app.on('block', this.render, this);
-			app.on('unblock', this.unblock, this);
+			app.search.results.on('request', this.render, this);
+			app.search.results.on('reset', this.unblock, this);
 		},
 
 		cleanup: function() {
-			app.off('block', this.render, this);
-			app.off('unblock', this.unblock, this);
+			app.search.results.off('request', this.render, this);
+			app.search.results.off('reset', this.unblock, this);
 		},
 		
 		unblock: function() {
