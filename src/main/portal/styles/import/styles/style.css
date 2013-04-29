@@ -172,7 +172,7 @@ background: url(../images/bg-4.jpg) no-repeat center center fixed;
   -o-background-size: cover;
   background-size: cover;
 }
-.footer-section {background: #a8a6a0; padding: 26px 0; font-size: 18px; color: #fff; padding-bottom: 33px;}
+.footer-section {background: #a8a6a0; padding: 26px 0; font-size: 16px; color: #fff; padding-bottom: 33px;}
 .bottom-section {background: #303030; padding-top: 25px; padding-bottom: 21px; color: #dcdcdc; font-size: 18px; text-align: center;}
 
 
@@ -588,19 +588,31 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 .double-buttons .or {position: absolute; width: 20px; line-height: 16px; height: 20px; border-radius: 10px; color: #333333; background: #fff; left: 50%; margin-left: -10px; top: 50%; margin-top: -10px;}
 
 /*Footer section --------------------------------------------*/
-.footer-section h4 {font-size: 51px; font-weight: normal; margin-top: 0; margin-bottom: 30px;}
-.footer-section .col {width: 36%; float: left; margin-right: 1%;}
-.footer-section .col-2 {width: 32%;}
-.footer-section .col-3 {width: 30%; text-align: left; margin-right: 0;}
-.footer-section p {font-weight: 300;}
+.footer-section h4 {font-size: 51px; font-weight: normal; margin-top: 0; margin-bottom: 14px;}
+.footer-section .col {width: 37%; float: left; margin-right: 1%;}
+.footer-section .col-2 {width: 40%;}
+.footer-section .col-2 a {color: #333;}
+.footer-section .col-2 a:hover {color: #fff;}
+.footer-section .col-3 {width: 18%; text-align: left; margin-right: 0;}
+.footer-section p {font-weight: 300; line-height: 18px;}
 .footer-section a {color: #fff;}
 .no-js .footer-section a:hover, .footer-section a.hovered {color: #ccc;}
 
-.footer-links {padding-top: 15px;}
-.footer-links a {width: 50%; display: block; float: left; font-size: 18px; color: #fff; margin-bottom: 12px;}
+.footer-section strong {font-weight: 500;}
+.footer-section sup {font-size: 12px;}
+.footer-section p .grey {font-weight: 400; color: #333;}
+.footer-section .chat-ico {display: block; padding-left: 40px; font-size: 18px; padding-top: 16px; padding-bottom: 13px; background: url(../images/chat-ico.png) no-repeat left center;}
 
-.partners {padding-top: 8px;}
-.partners a {display: inline-block; margin-right: 34px;}
+
+.footer-links {padding-top: 9px; width: 280px;}
+.footer-links a {width: 44%; display: block; float: left; font-size: 16px; color: #fff; margin-bottom: 9px;}
+.footer-links a:nth-child(2n) {width: 56%;}
+.footer-links a:hover {color: #333;}
+
+.partners {padding-top: 15px; width: 170px; text-align: center; padding-left: 6px;}
+.partners p {margin-top: 0; margin-bottom: 32px;}
+.partners .payments {padding-top: 17px; margin-bottom: 0;}
+.partners a {display: inline-block; margin-right: 15px}
 .partners a img {vertical-align: top;}
 
 /*Bottom section --------------------------------------------*/
