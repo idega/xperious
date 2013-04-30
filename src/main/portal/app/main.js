@@ -5,7 +5,8 @@ require([
 	'model/search/SearchTimeframeModel',
 	'model/event/EventTimeline',
 	'model/plan/PlanCollection',
-	'model/product/ProductSearchResults'
+	'model/product/ProductSearchResults',
+	'model/terminal/TerminalCollection'
 ], function(
 	app,
 	Router,
@@ -13,7 +14,8 @@ require([
 	SearchTimeframeModel,
 	EventTimeline,
 	PlanCollection,
-	ProductSearchResults) {
+	ProductSearchResults,
+	TerminalCollection) {
 
 
 	app.search = {};
@@ -22,6 +24,7 @@ require([
 	app.search.idle = new SearchTimeframeModel();
 	app.search.results = new PlanCollection();
 	app.search.products = new ProductSearchResults();
+	app.search.terminals = new TerminalCollection();
 
 
 	app.event = {};

@@ -165,6 +165,9 @@ define(['app',
 	    	if (!app.event.timeline.fetched()) {
 	    		app.event.timeline.fetch();
 	    	}
+	    	if (!app.search.terminals.fetched()) {
+	    		app.search.terminals.fetch();
+	    	}
     		app.layout(this._layout().index()).render();	 
 	    },
 	    

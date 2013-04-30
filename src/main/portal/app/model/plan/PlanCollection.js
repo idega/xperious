@@ -24,9 +24,10 @@ function(
 				data: {
 					query: app.search.pref.get('query'),
 					country: app.search.pref.get('country'),
+					terminal: 'keflavik',
 					from: app.search.pref.get('from').format('YYYY-MM-DDT00:00:00'),
 					to: app.search.pref.get('to').format('YYYY-MM-DDT23:59:59'),
-					guests: app.search.pref.get('guests')
+					guests: app.search.pref.get('guests'),
 				}
 			});
 			this._super(options);
