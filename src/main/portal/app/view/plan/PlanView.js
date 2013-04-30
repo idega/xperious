@@ -1,11 +1,11 @@
 define([
    'app',
-   'view/plan/PlanDayView',
+   'view/plan/PlanDaysView',
    'view/plan/PlanGalleryView',
    
 ],function(
 	app,
-	PlanDayView,
+	PlanDaysView,
 	PlanGalleryView) {
 
 
@@ -64,7 +64,7 @@ define([
 				// to avoid ugly page while browser is loading all the images in 
 				// random order
 				this.findImages('.section').imagesLoaded(_.bind(function() {
-					this.setView('.plan-day-view', new PlanDayView()).render();
+					this.setView('.plan-days-view', new PlanDaysView()).render();
 					this.setView('.plan-gallery-view', new PlanGalleryView()).render();
 				}, this));
 

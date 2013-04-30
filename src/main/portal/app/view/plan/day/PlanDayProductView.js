@@ -6,7 +6,7 @@ define([
 
 	return Backbone.View.extend({
 
-		template: 'plan/popup/product',
+		template: 'plan/day/product',
 
 		/* Amount to offset the popup top location from the click coordinates */
 		offset: 230,

@@ -6,7 +6,7 @@ define([
 
 	return Backbone.View.extend({
 
-		template: 'plan/popup/products',
+		template: 'plan/day/products',
 		
 
 		events: {
@@ -28,10 +28,9 @@ define([
 			var id = $(e.currentTarget).data('id');
 			for (var i = 0; i < app.search.products.size(); i++) {
 				if (app.search.products.at(i).get('product').get('id') === id) {
-					// product found, trigger change product event
+					// product found, trigger product change event
 					app.trigger('change:product', {
 						product: app.search.products.at(i).get('product'),
-//						topOffset: e.pageY,
 						topOffset: $(e.currentTarget).offset().top
 					});  
 					break;

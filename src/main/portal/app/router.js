@@ -11,12 +11,12 @@ define(['app',
 	'view/search/SearchView',
 	'view/search/SearchPreferencesView',
 	'view/plan/PlanView',
+	'view/plan/day/PlanDayView',
+	'view/plan/day/PlanDayProductsView',
+	'view/plan/day/PlanDayProductView',
 	'view/event/EventsView',
 	'view/attraction/AttractionsView',
 	'view/attraction/AttractionView',
-	'view/plan/popup/PlanPopupView',
-	'view/plan/popup/PlanPopupProductsView',
-	'view/plan/popup/PlanPopupProductView',
 ], function(app,
 	LoadingView,
 	HeaderView,
@@ -30,12 +30,12 @@ define(['app',
 	SearchView,
 	SearchPreferencesView,
 	PlanView,
+	PlanDayView,
+	PlanDayProductsView,
+	PlanDayProductView,
 	EventsView,
 	AttractionsView,
-	AttractionView,
-	PlanPopupView,
-	PlanPopupProductsView,
-	PlanPopupProductView) {
+	AttractionView) {
 
 
 	return Backbone.Router.extend({
@@ -273,11 +273,11 @@ define(['app',
 	    						'.questions-view' : new QuestionsView(),
 	    						'.footer-view' : new FooterView(),
 	    						'.bottom-view' : new BottomView(),
-	    						'.popup-view' : new PlanPopupView(
+	    						'.day-view' : new PlanDayView(
     							{
     								views: {
-    									'.popup-product-view' : new PlanPopupProductView(),
-    									'.popup-products-view' : new PlanPopupProductsView()
+    									'.day-product-view' : new PlanDayProductView(),
+    									'.day-products-view' : new PlanDayProductsView()
     								}
     							})
 	    		    		}

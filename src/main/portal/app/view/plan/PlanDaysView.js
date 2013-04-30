@@ -1,14 +1,12 @@
 define([
-   'app',
-   'view/plan/popup/PlanPopupView'
+   'app'
 ],function(
-	app,
-	PlanPopupView) {
+	app) {
 
 
 	return Backbone.View.extend({
 
-		template: 'plan/day',
+		template: 'plan/days',
 
 
 		events: {

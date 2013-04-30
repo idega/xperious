@@ -6,7 +6,7 @@ define([
 
 	return Backbone.View.extend({
 
-		template: 'plan/popup/popup',
+		template: 'plan/day/day',
 		
 		initialize: function() {
 			app.on('change:day', this.show, this);
@@ -21,6 +21,10 @@ define([
 			this.items = plan.days()[day];
 			this.day = day;
 			this.render();
+		},
+		
+		hide: function() {
+			this.day = undefined;
 		},
 
 		serialize: function() {
@@ -52,7 +56,8 @@ define([
 				onStart: function() {
 	                $('#fancybox-close').text('Close');
 	                $("#fancybox-outer").removeClass().addClass('day-lightbox');
-	            }
+	            },
+	            onClosed: this.hide()
 			});
 
 			require(['google'], _.bind(function(google) {
