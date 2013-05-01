@@ -9,15 +9,21 @@ define([
 
 		initialize: function() {
 			app.search.pref.on('change', this.render, this);
+			app.search.terminals.on('reset', this.render, this);
 		},
 		
 		cleanup: function() {
 			app.search.pref.off('change', this.render, this);
+			app.search.terminals.off('reset', this.render, this);
 		},
 		
 		serialize: function() {
 			return {
-				pref: app.search.pref.toJSON()
+				pref: app.search.pref.toJSON(),
+				arrival: {
+					time: moment(parseInt(app.search.pref.get('arrival').time)).format('HH:mm'),
+					terminal: app.search.terminals.get(app.search.pref.get('arrival').terminal).toJSON()
+				}
 			};
 		}
 	});

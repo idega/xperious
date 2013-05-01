@@ -44,7 +44,7 @@ define(['app',
 	    	'attractions*path' : 'attractions',
 	    	'attraction*path' : 'attraction',
 	    	'events*path' : 'events',
-	    	'search(/:query)/:country/:from/:to/:guests(/idle/:idlefrom/:idleto)(/budget/:budgetfrom/:budgetto)(/plan/:index)' : 'search',
+	    	'search(/:query)/:country/:from/:to/:arrivalterminal/:arrivaltime/:guests(/budget/:budgetfrom/:budgetto)(/plan/:index)' : 'search',
 	    	'' : 'index'
 	    },
 
@@ -89,17 +89,27 @@ define(['app',
 	    		country, 
 	    		from, 
 	    		to, 
+	    		arrivalterminal,
+	    		arrivaltime,
 	    		guests,
 	    		idlefrom,
 	    		idleto,
 	    		budgetfrom, 
 	    		budgetto, 
 	    		index) {
-	    		    	
+	    	
+	    	if (!app.search.terminals.fetched()) {
+	    		app.search.terminals.fetch();
+	    	}
+
+
 	    	app.search.pref.set({
 	    		query: decodeURIComponent(query || ''),
+
 	    		country: country,
+
     			guests: guests,
+
     			budget: {
     				from: budgetfrom,
     				to: budgetto
@@ -115,23 +125,9 @@ define(['app',
     				app.search.pref.get('to'), 
     				moment(to, 'YYYYMMDD')),
 
-    			/* Same with idle. Do not set the date
-    			 * if they are semantically equal. */ 
-    			idle: {
-    				from: this._diff(
-						app.search.pref.has('idle') 
-    						? app.search.pref.get('idle').from 
-    						: undefined, 
-    					idlefrom 
-    						? moment(idlefrom, 'YYYYMMDDHHmm')
-    						: undefined),
-    				to: this._diff(
-						app.search.pref.has('idle') 
-    						? app.search.pref.get('idle').to 
-    						: undefined, 
-    					idleto 
-    						? moment(idleto, 'YYYYMMDDHHmm')
-    						: undefined)
+    			arrival: {
+    				time: arrivaltime,
+    				terminal: arrivalterminal
     			}
 	    	});
 
@@ -192,10 +188,9 @@ define(['app',
 				app.search.pref.get('country'),
 				app.search.pref.get('from').format('YYYYMMDD'),
 				app.search.pref.get('to').format('YYYYMMDD'),
+				app.search.pref.get('arrival').terminal,
+				app.search.pref.get('arrival').time,
 				app.search.pref.get('guests'),
-				app.search.pref.idle(),
-				app.search.pref.idleto(),
-				app.search.pref.idlefrom(),
 				app.search.pref.budget(),
 				app.search.pref.budgetfrom(),
 				app.search.pref.budgetto(),

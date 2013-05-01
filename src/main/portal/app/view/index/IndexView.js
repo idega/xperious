@@ -40,16 +40,6 @@ define([
 				from = app.search.timeframe.get('from');
 				to = app.search.timeframe.get('to');
 			}
-			
-
-			/* Check whether user provided idle (event) time */
-			var idlefrom;
-			var idleto;
-			if (app.search.idle.has('from')  
-					&& app.search.idle.has('to')) {
-				idlefrom = app.search.idle.get('from');
-				idleto = app.search.idle.get('to');
-			}
 
 			
 			/* By default use 2 guests as specified in the
@@ -66,6 +56,15 @@ define([
 				budgetto = undefined;
 			}
 
+			
+			/* Default terminal if not provided by the user */
+			var arrivalterminal = app.search.terminals.at(0).get('code');
+			var arrivaltime = moment.duration(10, 'hours').asMilliseconds().toString();
+			if (app.search.timeframe.has('arrival')) {
+				arrivalterminal = app.search.timeframe.get('arrival').terminal;
+				arrivaltime = app.search.timeframe.get('arrival').time.toString();
+			}
+
 
 			app.search.pref.set({
 				query: query,
@@ -77,10 +76,10 @@ define([
 					from: budgetfrom,
 					to: budgetto
 				},
-				idle: {
-					from: idlefrom,
-					to: idleto
-				},
+				arrival: {
+					time: arrivaltime,
+					terminal: arrivalterminal
+				}
 			});
 			app.search.pref.unset('index', {silent:true});
 			app.router.gosearch({trigger: true});

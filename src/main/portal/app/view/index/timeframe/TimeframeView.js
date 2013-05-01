@@ -1,11 +1,33 @@
 define([
 	'app',
 	'model/search/SearchTimeframeModel',
-	'view/index/timeframe/TimeframeCalendarView'
+	'view/index/timeframe/TimeframeCalendarView',
+	'view/index/timeframe/TimeframeTerminalView'
 ], function(
 	app, 
 	SearchTimeframeModel,
-	TimeframeCalendarView) {
+	TimeframeCalendarView,
+	TimeframeTerminalView) {
+	
+
+	/* 
+	 * Customized calendar views that have chained close() callbacks
+	 * to raise terminal view on the end.
+	 */
+	var CalendarToView = TimeframeCalendarView.to.extend({
+		close: function() {
+			this.empty();
+			new TimeframeTerminalView({model: this.model}).render();
+		}
+	}); 
+	
+
+	var CalendarFromView = TimeframeCalendarView.from.extend({
+		close: function() {
+			this.empty();
+			new CalendarToView({model: this.model}).render();
+		}
+	});
 
 
 	return Backbone.View.extend({
@@ -63,7 +85,7 @@ define([
 			// stop event propagation because calendar
 			// closes on any click outside the dialog
 			e.stopPropagation();
-			new TimeframeCalendarView.init({model: this.model}).render();
+			new CalendarFromView({model: this.model}).render();
 		},
 		
 		to: function(e) {

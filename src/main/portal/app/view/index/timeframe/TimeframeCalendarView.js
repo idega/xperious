@@ -111,7 +111,7 @@ define([
 					at: 'bottom',
 					of: $('.ico-calendar')
 			});
-		}, this),
+		}, 100, false),
 
 
 		disable: function(day) {
@@ -165,14 +165,12 @@ define([
 				model: this.model
 			}).render();
 		}
-
 	});
 
 
 	return {
 		from: CalendarViewForFromField,
 		to: CalendarViewForToField,
-		init: CalendarView
 	};
 
 });

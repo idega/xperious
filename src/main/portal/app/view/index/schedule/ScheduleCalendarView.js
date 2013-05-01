@@ -105,7 +105,7 @@ define([
 		
 		updatePosition: _.debounce(function() {
 			this.$el.dialog("option", "position", "center");
-		}, this),
+		}, 100, false),
 
 		
 		onCompletion: function() {

@@ -15,14 +15,14 @@ define([
 			if (this.has('to')) {
 				json.to = this.get('to').format('YYYY-MM-DD');
 			}
-
-			if (this.has('idle') && this.get('idle').from && this.get('idle').to) {
-				json.idle = {
-					from: this.get('idle').from.format('YYYY-MM-DD HH:mm'),
-					to: this.get('idle').to.format('YYYY-MM-DD HH:mm')
+			
+			if (this.has('arrival')) {
+				json.arrival = {
+					time: moment(this.get('arrival').time).format('HH:mm'),
+					terminal: this.get('arrival').terminal
 				};
 			}
-			
+
 			return json;
 		},
 		
@@ -58,24 +58,6 @@ define([
 		budgetto: function() {
 			return this.has('budget') 
 				? this.get('budget').to 
-				: undefined;  
-		},
-
-		idle: function() {
-			return (this.has('idle') && this.get('idle').from && this.get('idle').to)
-				? 'idle'
-				: undefined;
-		},
-
-		idlefrom: function() {
-			return (this.has('idle') && this.get('idle').from) 
-				? this.get('idle').from.format('YYYYMMDDHHmm') 
-				: undefined;  
-		},
-		
-		idleto: function() {
-			return (this.has('idle') && this.get('idle').to) 
-				? this.get('idle').to.format('YYYYMMDDHHmm') 
 				: undefined;  
 		},
 		
