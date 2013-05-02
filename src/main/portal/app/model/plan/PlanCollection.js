@@ -49,12 +49,13 @@ function(
 		},
 
 		fetch: function(options) {
+			var arrival = app.search.pref.get('arrival');
 			options = _.extend(options || {}, {
 				data: {
 					query: app.search.pref.get('query'),
 					country: app.search.pref.get('country'),
-					terminal: app.search.pref.get('arrival').terminal,
-					from: app.search.pref.get('from').format('YYYY-MM-DDT00:00:00'),
+					terminal: arrival.terminal,
+					from: app.search.pref.get('from').format('YYYY-MM-DD') + moment.utc(parseInt(arrival.time)).format('THH:mm:00'),
 					to: app.search.pref.get('to').format('YYYY-MM-DDT23:59:59'),
 					guests: app.search.pref.get('guests'),
 				}
