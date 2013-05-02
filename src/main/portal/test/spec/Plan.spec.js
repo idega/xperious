@@ -18,6 +18,10 @@ define([
 				'budget' : {
 					'from': 0,
 					'to' : 1000
+				},
+				'arrival' : {
+					time: 0,
+					terminal: 'reykjavik'
 				}
 			}, {silent: true});
 
