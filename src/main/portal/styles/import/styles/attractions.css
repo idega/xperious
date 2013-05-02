@@ -1,11 +1,12 @@
-.attractions-page .inner-home-section {background: url(../images/attractions-bg.jpg) no-repeat fixed center center;  position: relative;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+
+.attractions-page .inner-home-section {background: url(../images/attractions-bg.jpg) no-repeat fixed center top;  position: relative;
+  -webkit-background-size: auto 250px;
+  -moz-background-size: auto 250px;
+  -o-background-size: auto 250px;
+  background-size: auto 250px;
 }
 
-.attractions-page .inner-home-section h1 {padding-top: 120px; padding-bottom: 73px;}
+.attractions-page .inner-home-section h1 {padding-top: 117px; padding-bottom: 69px;}
 .attractions-page .inner-home-section h1 span {display: inline-block; background: url(../images/bottom-rep.png); color: #559fd3; font-weight: 500; padding-bottom: 6px; padding-left: 12px; padding-right: 12px;}
 
 

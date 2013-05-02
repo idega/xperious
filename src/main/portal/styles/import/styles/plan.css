@@ -1,11 +1,11 @@
-.selected-package-page .inner-home-section {background: url(../images/selected-bg.jpg) no-repeat fixed center center; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+.selected-package-page .inner-home-section {background: url(../images/selected-bg.jpg) no-repeat fixed center top; 
+  -webkit-background-size: auto 250px;
+  -moz-background-size: auto 250px;
+  -o-background-size: auto 250px;
+  background-size: auto 250px;
 }
 
-.selected-package-page .inner-home-section h1 {padding-top: 120px; padding-bottom: 79px;}
+.selected-package-page .inner-home-section h1 {padding-top: 120px; padding-bottom: 72px;}
 
 
 

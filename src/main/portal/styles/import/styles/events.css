@@ -1,9 +1,9 @@
 
-.events-list-page .inner-home-section {background: url(../images/events-list-bg.jpg) no-repeat fixed center center; position: relative;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+.events-list-page .inner-home-section {background: url(../images/events-list-bg.jpg) no-repeat fixed center top; position: relative;
+  -webkit-background-size: auto 250px;
+  -moz-background-size: auto 250px;
+  -o-background-size: auto 250px;
+  background-size: auto 250px;
 }
 
 .events-list-page .inner-home-section h1 {padding-top: 120px; padding-bottom: 73px;}

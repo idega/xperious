@@ -489,14 +489,18 @@ li:hover .convert-form input[type='text'] {zoom: 1;}
 .inner-top-menu a {color: #fff; font-size: 16px;}
 .inner-top-menu a:hover {color: #86C543;}
 
-.package-list-page .inner-home-section {background: url(../images/inner-header-1.jpg) no-repeat fixed center center; position: relative; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+.package-list-page .inner-home-section {background: url(../images/inner-header-1.jpg) no-repeat fixed center top; position: relative; 
+  -webkit-background-size: auto 250px;
+  -moz-background-size: auto 250px;
+  -o-background-size: auto 250px;
+  background-size: auto 250px;
 }
-.inner-home-section {position: relative;}
-.inner-home-section h1 {color: #fff; font-size: 51px; line-height: 55px; font-weight: 300; text-align: center; padding-top: 124px; padding-bottom: 21px; margin: 0; position: relative; z-index: 9;}
+.inner-home-section {position: relative; height: 250px; overflow: hidden; background: url(../images/content-bg.jpg) no-repeat fixed center top; position: relative; 
+  -webkit-background-size: auto 250px;
+  -moz-background-size: auto 250px;
+  -o-background-size: auto 250px;
+  background-size: auto 250px;}
+.inner-home-section h1 {color: #fff; font-size: 51px; line-height: 55px; font-weight: 300; text-align: center; padding-top: 116px; padding-bottom: 21px; margin: 0; position: relative; z-index: 9;}
 .inner-home-section h1 strong {font-weight: 400;}
 .inner-home-section .grid {background: url(../images/grid.png); width: 100%; height: 100%; position: absolute; left: 0; top: 0; right: 0; bottom: 0;}
 
@@ -586,6 +590,91 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 .double-buttons .button-orange {background: #e58919; color: #fff;}
 .double-buttons .button-grey {background: #e5e5e5; color: #333333;}
 .double-buttons .or {position: absolute; width: 20px; line-height: 16px; height: 20px; border-radius: 10px; color: #333333; background: #fff; left: 50%; margin-left: -10px; top: 50%; margin-top: -10px;}
+
+/*Simple section --------------------------------------------*/
+.simple-section {background: #fff; border-bottom: 1px solid #ddd;}
+.simple-section .site-block {padding: 65px 0;}
+.simple-section img.fr {margin-left: 53px;}
+.simple-section h2 {margin-top: 0; margin-bottom: 15px; font-size: 48px; color: #86c543; font-weight: 300;}
+.simple-section p, .post-content p {font-size: 14px; color: #333; line-height: 22px; margin-bottom: 25px;}
+.simple-section p:last-child {margin-bottom: 0px;}
+
+.content-page .inner-home-section {}
+.content-page .inner-home-section h1 {padding-bottom: 73px; padding-top: 120px;}
+
+
+/*Testimonials*/
+.testimonials-list .element {width: 300px; float: left; margin-right: 22px; margin-bottom: 35px;}
+.testimonials-list .baloon {height: 118px; padding: 0 15px; background: #e5e5e5; border-radius: 4px; font-family: Georgia; font-style: italic; font-weight: bold;position: relative; margin-bottom: 23px;}
+.testimonials-list .nip {display: inline-block; position: absolute; background: url(../images/testimonials-nip.png) no-repeat left top; width: 20px; height: 13px; bottom: -13px; left: 29px;}
+.testimonials-list .avatar {float: left; border: 3px solid #e5e5e5; margin-right: 12px;}
+.testimonials-list .name {font-size: 14px; color: #86c543; margin: 0; margin-bottom: 0px; font-weight: 400; margin-bottom: 5px;}
+.testimonials-list .company {font-size: 14px; color: #333333; line-height: 22px; margin: 0; line-height: 16px;}
+
+.testimonials h2 {color: #333; margin-bottom: 40px;}
+.testimonials h2 strong {color: #86c543; font-weight: 400;}
+.testimonials .centering {width: 100%;}
+.testimonials .centering td {vertical-align: middle; height: 118px; color: #333; font-size: 14px;}
+
+
+
+
+/*blog section --------------------------------------------*/
+.blog-section {background: #fff;}
+.blog-section .site-block {padding: 80px 0;}
+
+.blog-page .inner-home-section {}
+.blog-page .inner-home-section h1 {padding-bottom: 73px; padding-top: 120px;}
+
+
+.blog-left {width: 670px; float: left;}
+.blog-side {width: 254px; float: right; padding-top: 10px; padding-right: 43px;}
+
+.blog-search {border: 1px solid #a6a49f; border-radius: 3px; margin-bottom: 28px;}
+.blog-search input[type="text"] {float: left; font-size: 16px; color: #a6a49f; padding-left: 19px; width: 180px; float: left;}
+.blog-search input[type="submit"] {width: 36px; background: url(../images/search-ico.png) no-repeat center center; border: none; height: 38px; float: right; }
+
+
+.blog-left .article {padding-bottom: 40px; margin-bottom: 60px; border-bottom: 1px solid #ddd;}
+.blog-left .article.last {margin-bottom: 30px;}
+.article h2 {margin-top: 0; margin-bottom: 6px; font-size: 48px; color: #86c543; font-weight: 300;}
+.article .post-info {color: #a6a49f; margin-bottom: 18px;}
+.article .post-info strong {color: #333333; font-weight: 400;}
+.article .post-info a {}
+.article .post-content {}
+
+.blog-left .paginator {font-size: 14px; color: #a6a49f;}
+.paginator p {margin-right: 150px; margin-left: 150px;} 
+.paginator .button {font-size: 14px; height: 40px; line-height: 40px; background-color: #86c543; font-weight: 400; width: 90px;} 
+.paginator .button:hover {background-color: #53762b;}
+
+/*Social widget*/
+.blog-side .social-block {padding-left: 68px; background: url(../images/xp-ico.png) no-repeat left top; min-height: 57px;}
+.blog-side .social-block .name {font-size: 16px; font-weight: 400; color: #333333; margin-bottom: 11px; padding-top: 2px;}
+.blog-side .links a {display: inline-block; float: left; margin-right: 11px;}
+.blog-side h3 {font-size: 24px; color: #a6a49f; font-weight: 300; margin-top: 0; padding-bottom: 15px; border-bottom: 1px solid #a6a49f; margin-bottom: 10px; margin-top: 31px;}
+.blog-side h3 strong {font-weight: 400;}
+
+/*Recent widget*/
+.block-recent {}
+.block-recent li {margin-bottom: 15px; font-size: 14px;}
+.block-recent .comments {color: #a6a49f; font-size: 12px; display: inline-block; padding-left: 4px;}
+
+/*Topics widget*/
+.block-topics h3 {margin-top: 22px;}
+.block-topics li {font-size: 14px; margin-bottom: 2px;}
+
+/*Photo widget*/
+.block-photo {}
+.block-photo h3 {margin-top: 21px;}
+.block-photo a {float: left;}
+
+
+/*Video widget*/
+.block-video h3 {margin-top: 21px;}
+.video-wrap {display: inline-block; position: relative;}
+.video-wrap .play {display: inline-block; position: absolute; width: 76px; height: 50px; background: url(../images/widget-play.png) no-repeat left top; left: 50%; top: 50%; margin-left: -38px; margin-top: -25px;}
+
 
 /*Footer section --------------------------------------------*/
 .footer-section h4 {font-size: 51px; font-weight: normal; margin-top: 0; margin-bottom: 14px;}
