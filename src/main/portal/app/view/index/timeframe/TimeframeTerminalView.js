@@ -12,6 +12,7 @@ define([
 		events: {
 			'change .time .picker' : 'change',
 			'change .location .picker' : 'change',
+			'click .buttons .idontknow' : 'idontknow',
 			'click .buttons .button' : 'empty'
 		},
 
@@ -25,6 +26,18 @@ define([
 					}).asMilliseconds(),
 				terminal: this.$('.location .picker').val()
 			});
+		},
+		
+
+		idontknow: function() {
+			this.model.set('arrival', {
+				time: moment.duration({
+						hours: 10, 
+						minutes: 0
+					}).asMilliseconds(),
+				terminal: app.search.terminals.at(0).get('code')
+			});
+			this.empty();
 		},
 
 

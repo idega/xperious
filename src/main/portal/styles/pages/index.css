@@ -1058,22 +1058,35 @@
     }
 
     .terminal .buttons {
-        margin-left: 130px;
+        
     }
 
-	    .terminal .buttons .button {
-	        line-height: 30px; 
-	        height: 30px;
-	        background-color: #86c543; 
-	        width: 120px;
-	        text-align: left; 
-	        padding-bottom: 1px;
-	        font-size: 14px;
+	    .terminal .buttons .idontknow {
+	       margin-left: 5px;
+	       font-size: 14px;
+	       color: #6D6D6D;
 	    }
+	    
+        .terminal .buttons .idontknow:hover {
+           color: #333;
+        }
+        
 
-	    .terminal .button:hover {
-	        background-color: #53762b;
-	    }
+        .terminal .buttons .button {
+            margin-left: 44px;
+            line-height: 30px; 
+            height: 30px;
+            background-color: #86c543; 
+            width: 120px;
+            text-align: left;
+            padding-bottom: 1px;
+            font-size: 14px;
+        }
+
+        .terminal .button:hover {
+            background-color: #53762b;
+        }
+        
     
     .terminal .picker {
         width: 100%;
