@@ -84,8 +84,17 @@ permissions to write:
 Performance improvements
 ===
 ### apache httpd
-1. Enable gzip compression for mod_jk (if using http server). Add the following value to the virtual host configuration file (somewhere under `/etc/httpd/conf.d/`). Make sure the `LoadModule deflate_module modules/mod_deflate.so` is present inside the main http.conf file.
+1. Enable gzip compression for mod_jk. Add the following value to the virtual host configuration file (somewhere under `/etc/httpd/conf.d/`). Make sure the `LoadModule deflate_module modules/mod_deflate.so` is present inside the main http.conf file. To verify that deflation works check headers in browser. You should see `Content-Encoding:gzip` in response.
 
 		<IfModule mod_deflate.c>
 			AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/x-javascript application/javascript
 		</IfModule>
+
+2. Make sure `Keep-Alive` connections are enabled. Set the following settings under `/etc/httpd/conf/httpd.conf`. To verify that `Keep-Alive` works check headers in browser. You should see `Connection:Keep-Alive` in response.
+
+		KeepAlive On
+		MaxKeepAliveRequests 100
+		KeepAliveTimeout 15
+		
+
+
