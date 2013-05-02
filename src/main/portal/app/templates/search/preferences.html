@@ -9,7 +9,7 @@
            <% } %>
        </strong> 
        - Timeframe: <strong><%= pref.from %></strong> - <strong><%= pref.to %></strong>
-       - Arrival: <strong><%= arrival.terminal.title %></strong> at <strong><%= arrival.time %></strong> 
+       - Arrival: <strong><%= arrival.terminal %></strong> at <strong><%= arrival.time %></strong> 
        - Guests: <strong><%= pref.guests %></strong>
        <%if (pref.idle && pref.idle.from && pref.idle.to) { %>
           - Event: <strong><%= pref.idle.from %></strong> - <strong><%= pref.idle.to %></strong> 

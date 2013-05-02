@@ -21,8 +21,10 @@ define([
 			return {
 				pref: app.search.pref.toJSON(),
 				arrival: {
-					time: moment(parseInt(app.search.pref.get('arrival').time)).format('HH:mm'),
-					terminal: app.search.terminals.get(app.search.pref.get('arrival').terminal).toJSON()
+					time: moment.utc(parseInt(app.search.pref.get('arrival').time)).format('HH:mm'),
+					terminal: !_.isEmpty(app.search.terminals) 
+						? app.search.terminals.get(app.search.pref.get('arrival').terminal).get('title')
+						: undefined
 				}
 			};
 		}

@@ -92,8 +92,6 @@ define(['app',
 	    		arrivalterminal,
 	    		arrivaltime,
 	    		guests,
-	    		idlefrom,
-	    		idleto,
 	    		budgetfrom, 
 	    		budgetto, 
 	    		index) {

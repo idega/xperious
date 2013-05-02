@@ -1,7 +1,12 @@
 <% if (typeof plan !== 'undefined') { %>
 <div class="gallery">
   <div class="media-holder">
-    <img style="background-image: url('<%= plan.previewImage %>');" />
+    <% for (var i = 0; i < plan.items.length; i++) { %>
+        <% if (plan.items[i].type === 'PRODUCT' && plan.items[i].images.length > 0) { %>
+            <img style="background-image: url('<%= plan.items[i].images[0] %>');" />
+            <% break %>
+        <% } %>
+    <%  } %>
   </div>
   <div>
     <div class="thumbs-holder gallery-skin">
