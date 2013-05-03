@@ -25,7 +25,7 @@ define([
 		
 
 		cleanup: function() {
-			app.off('change:coutry');
+			app.off('change:country', this.render, this);
 		},
 
 
