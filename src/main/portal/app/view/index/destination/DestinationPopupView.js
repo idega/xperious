@@ -10,26 +10,10 @@ define([
 
 		defaultIcon: '/app/images/map-pin.png',
 
-		/**
-		 * Supported countries data.
-		 */
-		markers: _.chain([
-	        {
-	        	code: 'uk',
-	        	title: 'United Kingdom',
-	        	icon: '/app/images/map-uk.png',
-	        	lat: 51.5171,
-	        	lng: -0.1062
-	        },
-	        {
-	        	code: 'is',
-	        	title: 'Iceland',
-	        	icon: '/app/images/map-is.png',
-	        	lat: 64.787583,
-	        	lng: -18.413086  
-	        }
-        ]),
-
+		
+		initialize: function() {
+			this.markers = _.chain(app.countries.toJSON());
+		},
 
 		afterRender: function() {
 			

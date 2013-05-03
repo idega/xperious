@@ -63,6 +63,61 @@
 	}
 
 
+/* Header submenu style */
+.site-header .submenu {
+    position: absolute; 
+    padding: 0 5px; 
+    left: 120px; 
+    top: 32px;
+    background: url(../import/images/submenu-rep.png) repeat-x left top; 
+    display: none; 
+    height: 37px;
+    margin-top: 2px;
+}
+
+    .site-header .submenu li {
+        float: left; 
+        padding: 0px 9px;
+    }
+
+    .site-header .submenu li a {
+        color: #fff; 
+        line-height: 35px; 
+        display: inline-block;
+        font-size: 14px;
+    }
+    
+    .site-header .submenu li a:hover {
+        color: #a0c436;
+    }
+
+
+/* Change bottom menu proportions so longer country names have space */
+.bottom-menu {}
+
+	.bottom-menu > li:first-child {
+		width: 25%;
+	}
+
+	.bottom-menu > li:nth-child(2) {
+	    width: 20%;
+	}
+	
+	.bottom-menu > li:nth-child(3) {
+	    width: 10%;
+	}
+	
+	.bottom-menu > li:nth-child(4) {
+	    width: 20%;
+	}
+	
+	.bottom-menu > li:nth-child(5) {
+	    width: 25%;
+	}
+
+
+
+
 /** Define map size for the destination map */
 #map-popup .map-holder {
     width: 100%;

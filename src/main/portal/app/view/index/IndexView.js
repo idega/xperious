@@ -17,6 +17,16 @@ define([
 			'keypress #guests' : 'numeric',
 			'keypress #budget' : 'numeric',
 		},
+		
+
+		initialize: function() {
+			app.on('change:country', this.render, this);
+		},
+		
+
+		cleanup: function() {
+			app.off('change:coutry');
+		},
 
 
 		plan: function() {
@@ -174,7 +184,8 @@ define([
 
 		serialize: function() {
 			return {
-				pref: app.search.pref.toJSON()
+				pref: app.search.pref.toJSON(),
+				country: app.countries.get(app.country()).get('title')
 			};
 		},
 
@@ -301,7 +312,7 @@ define([
 	        }
 	
 	        /* Slide down */
-	        $('.site-bottom-menu').localScroll({
+	        this.$('.site-bottom-menu').localScroll({
 	            duration: 300,
 	            easing: "swing"
 	        });
@@ -313,7 +324,7 @@ define([
 	
 	        /* First page bottom menus */
 	        var menuAnimationTime = 100;
-	        $(".site-bottom-menu li:has('.convert-form')").hoverIntent({
+	        this.$(".site-bottom-menu li:has('.convert-form')").hoverIntent({
 	            over: function showHovered() {
 	                $(this).find('.convert-form').css({
 	                    opacity: 0.0,
@@ -344,7 +355,7 @@ define([
 	            }
 	        });
 	
-	        $(".site-bottom-menu li:has('.submenu')").hoverIntent(function() {
+	        this.$(".site-bottom-menu li:has('.submenu')").hoverIntent(function() {
 	            $(this).find('.submenu').css({
 	                opacity: 0.0,
 	                display: 'block',
@@ -365,19 +376,17 @@ define([
 	            });
 	        });
 
-
-            $('input[type="submit"], a').hoverIntent({
+            this.$('input[type="submit"], a').hoverIntent({
                 over: function() {
-                	$(this).toggleClass('hovered', 200, 'swing');
+                	$(this).toggleClass('hovered', 0, 'swing');
                 },
                 out: function() {
-                	$(this).toggleClass('hovered', 200, 'swing');
+                	$(this).toggleClass('hovered', 0, 'swing');
                 },
-                interval: 25
+                interval: 0
             });
-	        
 	
-	        $("#team").waypoint(function(dir) {
+	        this.$("#team").waypoint(function(dir) {
 	            if (dir == 'down') {
 	                $bottom.css({
 	                    visibility: 'visible'
@@ -389,7 +398,7 @@ define([
 	            }
 	        });
 	
-	        $(".trigger-input-animation").on('focus', function(){
+	        this.$(".trigger-input-animation").on('focus', function(){
 	            $('#plan-inputs-container').animate({
 	                width:326
 	            }, 500);

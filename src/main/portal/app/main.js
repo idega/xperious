@@ -1,6 +1,7 @@
 require([
-	"app",
-	"router",
+	'app',
+	'router',
+	'model/country/CountryCollection',
 	'model/search/SearchPreferencesModel',
 	'model/search/SearchTimeframeModel',
 	'model/event/EventTimeline',
@@ -10,6 +11,7 @@ require([
 ], function(
 	app,
 	Router,
+	CountryCollection,
 	SearchPreferencesModel,
 	SearchTimeframeModel,
 	EventTimeline,
@@ -17,14 +19,15 @@ require([
 	ProductSearchResults,
 	TerminalCollection) {
 
+	app.countries = new CountryCollection();
 
 	app.search = {};
-	app.search.pref = new SearchPreferencesModel();
 	app.search.timeframe = new SearchTimeframeModel();
+	app.search.terminals = new TerminalCollection();
 	app.search.idle = new SearchTimeframeModel();
+	app.search.pref = new SearchPreferencesModel();
 	app.search.results = new PlanCollection();
 	app.search.products = new ProductSearchResults();
-	app.search.terminals = new TerminalCollection();
 
 
 	app.event = {};

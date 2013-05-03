@@ -5,6 +5,21 @@ define([
 
 	return Backbone.Model.extend({
 
+		initialize: function() {
+			app.search.terminals.on('reset', this.onNewTerminals, this);
+		},
+
+		onNewTerminals: function() {
+			// reset terminal so it does not have the old reference
+			if (this.has('arrival')) {
+				var arrival = this.get('arrival');
+				this.set('arrival', {
+					terminal: app.search.terminals.at(0), 
+					time: arrival.time
+				}, {silent: true});
+			}
+		},
+
 		toJSON: function() {
 			var json = this._super();
 
