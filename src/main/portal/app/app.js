@@ -141,6 +141,9 @@ define([
 
 		layout: function(layout) {
 			if (layout) {
+				if (this.layoutCached) {
+					this.layoutCached.remove();
+				}
 				this.layoutCached = layout;
 				$('.layout').empty().append(this.layoutCached.el);
 				return this.layoutCached;

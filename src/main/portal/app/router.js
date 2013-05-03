@@ -222,90 +222,81 @@ define(['app',
 
 	    	return {
 	    		index: _.bind(function() {
-	    			if (!this.layout.index) {
-	    		    	this.layout.index = new Backbone.Layout();
+    		    	var layout = new Backbone.Layout();
 
-	    				this.layout.index.setView(new IndexView({
-	    					views: {
-	    						'.timeframe-view' : new TimeframeView(),
-	    						'.schedule-view' : new ScheduleView(),
-	    						'.events-slider .site-block' :  new EventSliderView(),
-	    						'.footer-view' : new FooterView(),
-	    						'.bottom-view' : new BottomView({hidden: true})
-	    					}
-	    				}));
+    				layout.setView(new IndexView({
+    					views: {
+    						'.timeframe-view' : new TimeframeView(),
+    						'.schedule-view' : new ScheduleView(),
+    						'.events-slider .site-block' :  new EventSliderView(),
+    						'.footer-view' : new FooterView(),
+    						'.bottom-view' : new BottomView({hidden: true})
+    					}
+    				}));
 
-	    			}
-	    			return this.layout.index;
+	    			return layout;
 	    		}, this),
 
 
 	    		search: _.bind(function() {
-	    			if (!this.layout.search) {
-	    		    	this.layout.search = new Backbone.Layout();
+	    			var layout = new Backbone.Layout();
 
-	    		    	this.layout.search.setView(new SearchView({
-	    		    		views: {
-	    						'.header-view' : new HeaderView(),
-	    						'.search-preferences-view' : new SearchPreferencesView(),
-	    	    				'.questions-view' : new QuestionsView(),
-	    	    				'.footer-view' : new FooterView(),
-	    	    				'.bottom-view' : new BottomView()
-	    		    		}
-	    		    	}));
+    		    	layout.setView(new SearchView({
+    		    		views: {
+    						'.header-view' : new HeaderView(),
+    						'.search-preferences-view' : new SearchPreferencesView(),
+    	    				'.questions-view' : new QuestionsView(),
+    	    				'.footer-view' : new FooterView(),
+    	    				'.bottom-view' : new BottomView()
+    		    		}
+    		    	}));
 
-	    			}
-	    			return this.layout.search;
+	    			return layout;
 	    		}, this),
 
 
 	    		plan: _.bind(function() {
-	    			if (!this.layout.plan) {
-	    		    	this.layout.plan = new Backbone.Layout();
+    		    	var layout = new Backbone.Layout();
 
-	    		    	this.layout.plan.setView(new PlanView({
-	    		    		views: {
-	    						'.header-view' : new HeaderView(),
-	    						'.questions-view' : new QuestionsView(),
-	    						'.footer-view' : new FooterView(),
-	    						'.bottom-view' : new BottomView(),
-	    						'.day-view' : new PlanDayView(
-    							{
-    								views: {
-    									'.day-product-view' : new PlanDayProductView(),
-    									'.day-products-view' : new PlanDayProductsView()
-    								}
-    							})
-	    		    		}
-	    		    	}));
+    		    	layout.setView(new PlanView({
+    		    		views: {
+    						'.header-view' : new HeaderView(),
+    						'.questions-view' : new QuestionsView(),
+    						'.footer-view' : new FooterView(),
+    						'.bottom-view' : new BottomView(),
+    						'.day-view' : new PlanDayView(
+							{
+								views: {
+									'.day-product-view' : new PlanDayProductView(),
+									'.day-products-view' : new PlanDayProductsView()
+								}
+							})
+    		    		}
+    		    	}));
 
-	    			}
-	    			return this.layout.plan;
+	    			return layout;
 	    		}, this),
 
 
 	    		events: _.bind(function() {
-	    			if (!this.layout.events) {
-	    		    	this.layout.events = new Backbone.Layout();
+    		    	var layout = new Backbone.Layout();
 
-	    		    	this.layout.events.setView(new EventsView({
-	    		    		views: {
-	    						'.header-view' : new HeaderView(),
-	    						'.footer-view' : new FooterView(),
-	    						'.bottom-view' : new BottomView()
-	    		    		}
-	    		    	}));
+    		    	layout.setView(new EventsView({
+    		    		views: {
+    						'.header-view' : new HeaderView(),
+    						'.footer-view' : new FooterView(),
+    						'.bottom-view' : new BottomView()
+    		    		}
+    		    	}));
 
-	    			}
-	    			return this.layout.events;
+	    			return layout;
 	    		}, this),
 	    		
 
 	    		attractions: _.bind(function() {
-	    			if (!this.layout.attractions) {
-	    		    	this.layout.attractions = new Backbone.Layout();
+	    		    	var layout = new Backbone.Layout();
 
-	    		    	this.layout.attractions.setView(new AttractionsView({
+	    		    	layout.setView(new AttractionsView({
 	    		    		views: {
 	    						'.header-view' : new HeaderView(),
 	    						'.footer-view' : new FooterView(),
@@ -313,16 +304,14 @@ define(['app',
 	    		    		}
 	    		    	}));
 
-	    			}
-	    			return this.layout.attractions;
+	    			return layout;
 	    		}, this),
 	    		
 	    		
 	    		attraction: _.bind(function() {
-	    			if (!this.layout.attraction) {
-	    		    	this.layout.attraction = new Backbone.Layout();
+	    		    	var layout = new Backbone.Layout();
 
-	    		    	this.layout.attraction.setView(new AttractionView({
+	    		    	layout.setView(new AttractionView({
 	    		    		views: {
 	    						'.header-view' : new HeaderView(),
 	    						'.footer-view' : new FooterView(),
@@ -330,8 +319,7 @@ define(['app',
 	    		    		}
 	    		    	}));
 
-	    			}
-	    			return this.layout.attraction;
+	    			return layout;
 	    		}, this),
 	    	};
 	    }
