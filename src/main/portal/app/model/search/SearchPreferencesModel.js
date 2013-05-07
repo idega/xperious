@@ -5,10 +5,6 @@ define([
 
 	return Backbone.Model.extend({
 
-		initialize: function() {
-			app.search.terminals.on('reset', this.onNewTerminals, this);
-		},
-
 		onNewTerminals: function() {
 			// reset terminal so it does not have the old reference
 			if (this.has('arrival')) {

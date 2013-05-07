@@ -1,0 +1,13 @@
+.attractions-page .attractions-list .element .img {
+    width: 226px;
+    height: 155px;
+    background-size: cover;
+}
+
+.attractions-page .attractions-title-section .site-block h2 {
+	width: auto;
+}
+
+.attractions-page .attractions-title-section .region-select {
+	padding-left: 0px;
+}

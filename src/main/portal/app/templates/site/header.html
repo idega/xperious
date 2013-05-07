@@ -2,17 +2,13 @@
 <div class="site-header inner-site-header">
   <div class="site-block-in"><a href="javascript:void(0)" id="logo"><span class="logo"><img src="images/logo-inner.png"></span></a>
     <ul class="menu inner-top-menu">
-      <li><a href="javascript:void(0)">Discover <%= country %></a></li>
+      <li><a href="javascript:void(0)">Discover <%= country.title %></a></li>
       <li>
         <a href="javascript:void(0)">Attractions</a>
         <ul class="menu submenu">
-	        <li><a href="/app/attractions">For the Children</a></li>
-	        <li><a href="/app/attractions">Highlights</a></li>
-	        <li><a href="/app/attractions">National Parks</a></li>
-	        <li><a href="/app/attractions">Nature</a></li>
-	        <li><a href="/app/attractions">The Highlands</a></li>
-	        <li><a href="/app/attractions">Wild Life</a></li>
-	        <li><a href="/app/attractions">Other Attractions</a></li>
+            <% _.each(subtypes, function(subtype) { %>
+		        <li><a href="/app/attractions/<%= country.code %>/<%= subtype.id %>" style="text-transform: capitalize"><%= subtype.title %></a></li>
+	        <% }) %>
         </ul>
       </li>
       <li><a href="/app/events">Events</a></li>

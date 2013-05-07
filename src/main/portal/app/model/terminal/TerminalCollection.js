@@ -12,9 +12,6 @@ define([
 
 		model: TerminalModel,
 
-		initialize: function() {
-			app.on('change:country', this.fetch, this);
-		},
 
 		fetched: function() {
 			return this.isFetched;

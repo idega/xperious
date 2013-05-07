@@ -1,67 +1,35 @@
 <div class="site attractions-place-page">
+
   <div id="home" class="section inner-home-section">
     <div class="header-view"></div>
-    <div class="site-block">
-      <h1>You have chosen <span>Nature</span>  in Attractions</h1>
-    </div>
+    <div class="subtype-view"></div>
   </div>
-  <div class="section attractions-title-section">
-    <div class="site-block">
-      <div class="clearfix">
-        <h2>Nature <strong>North</strong></h2>
-      </div>
-      <div class="region-select">
-        <p class="label">CHOOSE REGION:</p>
-        <ul class="menu clearfix">
-          <li><a href="#">Capital area                                          </a></li>
-          <li><a href="#">East</a></li>
-          <li class="selected"><a href="#">North</a></li>
-          <li><a href="#">South</a></li>
-          <li><a href="#">Reykjanes</a></li>
-          <li> <a href="#">West</a></li>
-          <li><a href="#">Westfjords</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
+
+  <div class="regions-view" />
+
   <div class="section package-info-section">
     <div class="site-block">
-      <h2 class="green">Arnarstapi</h2>
-      <p>On the southern side of Snæfellsnes peninsula,119 km from Borgarnes</p>
+      <h2 class="green"><%= product.title %></h2>
+      <p><%= product.subtitle %></p>
     </div>
   </div>
+
   <div class="section gallery-section">
-    <div class="site-block">
-      <div class="gallery">
-        <div class="media-holder"><img style="background-image: url(images/arnarstapi-7.jpg)" /></div>
-        <div>
-          <div class="thumbs-holder gallery-skin">
-            <ul>
-              <li><a href="images/arnarstapi-7.jpg"><img style="background-image: url(images/arnarstapi-7.jpg)" /></a></li>
-              <li><a href="images/arnarstapi-2.jpg"><img style="background-image: url(images/arnarstapi-2.jpg)" /></a></li>
-              <li><a href="images/arnarstapi-3.jpg"><img style="background-image: url(images/arnarstapi-3.jpg)" /></a></li>
-              <li><a href="images/arnarstapi-4.jpg"><img style="background-image: url(images/arnarstapi-4.jpg)" /></a></li>
-              <li><a href="images/arnarstapi-5.jpg"><img style="background-image: url(images/arnarstapi-5.jpg)" /></a></li>
-              <li><a href="images/arnarstapi-6.jpg"><img style="background-image: url(images/arnarstapi-6.jpg)" /></a></li>
-              <li><a href="images/arnarstapi-1.jpg"><img style="background-image: url(images/arnarstapi-1.jpg)" /></a></li>
-            </ul>
-          </div>
-          <div class="controls clearfix"><a href="#" class="prev">Previous image</a><a href="#" class="next">Next image</a></div>
-        </div>
-      </div>
-    </div>
+     <div class="site-block">
+       <h2>Image gallery</h2>
+       <h3>Use the arrow keys to scroll through the images/videos and click on an image to enlarge it or to watch the video.</h3>
+       <div class="gallery-view" />
+     </div>
   </div>
   <div class="section attractions-place-info-section">
     <div class="site-block clearfix">
       <div class="col-1">
         <div class="bordered">
-          <p><strong>Roadnumber:</strong> 574</p>
-          <p><strong>Town:</strong> 356, Snæfellsbær</p>
+          <p><strong>Roadnumber:</strong> <%= product.address? product.address.roadNumber : '' %></p>
+          <p><strong>Town:</strong> <%= product.address? product.address.town : '' %></p>
         </div>
         <div class="description">
-          <p>Arnarstapi was an important trading post in the past and had a much bigger population than it has now.</p>
-          <p>Columnar basalt, ravines and grottoes surround the Arnarstapi pier. There is good anchorage for small boats.</p>
-          <p>There is quite a large arctic tern colony in the village itself. A walk along the coastline is recommended to watch the birds and the magnificent lava formations. The seaside and the cliffs between Arnastapi and Hellnar have been made a Natural Reserve in 1979.</p>
+            <p><%= product.description %></p>
         </div>
       </div>
       <div class="col-2">

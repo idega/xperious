@@ -10,10 +10,6 @@ function(
 
 		model: PlanModel,
 		
-		initialize: function() {
-			app.search.pref.on('change', this.refetch, this);
-		},
-		
 		refetch: function() {
 			this.reset([], {silent: true});
 			this.fetch();

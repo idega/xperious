@@ -80,14 +80,14 @@ define([
 
         	$.each(this.$(selector), function(){
         	    var $el = $(this);
-
+        	    
         	    if ($el.css('background-image')) {
         	    	
         	    	var src = $el
         	    		.css('background-image')
         	    		.replace(/"/g, '')
         	    		.replace(/url\(|\)$/ig, '');
-
+        	    	
         	    	if (src !== 'none') {
 	        	    	images = images
 	        	    		.add($('<img>')

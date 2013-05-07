@@ -10,14 +10,7 @@ function(
 
 		url: '/api/v1/products/search',
 
-
 		model: ProductSearchResultModel,
-
-
-		initialize: function() {
-			app.on('change:day', this.fetch, this);
-		},
-
 
 		fetch: function(day) { 
 			var plan = app.search.results.at(app.search.pref.get('index'));

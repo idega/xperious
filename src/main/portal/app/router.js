@@ -16,7 +16,11 @@ define(['app',
 	'view/plan/day/PlanDayProductView',
 	'view/event/EventsView',
 	'view/attraction/AttractionsView',
+	'view/attraction/AttractionsSubtypeView',
+	'view/attraction/AttractionsRegionsView',
+	'view/attraction/AttractionsListView',
 	'view/attraction/AttractionView',
+	'view/attraction/AttractionGalleryView',
 ], function(app,
 	LoadingView,
 	HeaderView,
@@ -35,16 +39,20 @@ define(['app',
 	PlanDayProductView,
 	EventsView,
 	AttractionsView,
-	AttractionView) {
+	AttractionsSubtypeView,
+	AttractionsRegionsView,
+	AttractionsListView,
+	AttractionView,
+	AttractionGalleryView) {
 
 
 	return Backbone.Router.extend({
 
 	    routes: {
-	    	'attractions*path' : 'attractions',
-	    	'attraction*path' : 'attraction',
-	    	'events*path' : 'events',
 	    	'search(/:query)/:country/:from/:to/:arrivalterminal/:arrivaltime/:guests(/budget/:budgetfrom/:budgetto)(/plan/:index)' : 'search',
+	    	'attractions/:country/:region/:subtype/:product' : 'attraction',
+	    	'attractions/:country/(:region/):subtype' : 'attractions',
+	    	'events*path' : 'events',
 	    	'' : 'index'
 	    },
 
@@ -54,25 +62,61 @@ define(['app',
 	    	// as it listens on special events and blocks ui with
 	    	// the modal dialog when required
 	    	new LoadingView();
+	    	
+	    	// initialize attractions types and regions in the 
+	    	// constructor because they appear in the header and
+	    	// are required for almost all pages
+	    	app.attractions.subtypes.fetch();
 	    },
 
 
 	    /**
 	     * Show attraction based on given id.
 	     */
-	    attraction: function() {
-    		app.layout(this._layout().attraction()).render();
+	    attraction: function(country, region, subtype, product) {
+	    	app.layout(this._layout().attraction()).render();
+	    	app.attractions.country = app.countries.get(country);
+    		app.attractions.subtype.set('id', subtype, {silent: true}).fetch();
+    		app.attractions.product.set('id', product, {silent: true}).fetch();
+    		app.attractions.regions.fetch({data: {country: country, subtype: subtype}}).done(function() { 
+				app.attractions.region = app.attractions.regions.get(region); 
+			}); 
 	    },
-	    
+
 
 	    /**
 	     * Show a list of attractions.
 	     */
-	    attractions: function() {
+	    attractions: function(country, region, subtype) {
     		app.layout(this._layout().attractions()).render();
+    		app.attractions.country = app.countries.get(country);
+    		app.attractions.subtype.set('id', subtype, {silent: true}).fetch();
+    		app.attractions.regions.fetch({data: {
+				country: country, 
+				subtype: subtype
+    		}}).done(function() {
+
+    			app.attractions.region = (region)
+					? app.attractions.regions.get(region) 
+					: app.attractions.regions.at(0); 
+
+				if (app.attractions.regions.size()) {
+			    	app.attractions.products.data({
+			    		country: country,
+			    		subtype: subtype,
+			    		region: app.attractions.region.get('id')
+			    	}).success(function() {
+						// show list view only after attractions have been fetched
+			    		// because otherwise images might get loaded multiple times 
+			    		app.layout().setView(
+		    				'.list-view', 
+		    				new AttractionsListView()).render();
+			    	});
+				}
+			});
 	    },
 
-
+	    
 	    /**
 	     * Show events going on.
 	     */
@@ -138,17 +182,16 @@ define(['app',
 		    		'index', 
 		    		index - 1, 
 		    		{silent: true});
+
+	    		app.layout(this._layout().plan()).render();
+
 	    	} else {
 	    		app.search.pref.unset(
 	    			'index',
 	    			{silent: true});
+	    		
+	    		app.layout(this._layout().search()).render();
 	    	}
-
-
-    		app.layout((index) 
-				? this._layout().plan() 
-				: this._layout().search())
-			.render();
 	    },
 
 	    
@@ -216,6 +259,9 @@ define(['app',
 	    },
 	    
 
+	    /**
+	     * Define layout skeletons for the pages.
+	     */
 	    _layout: function() {
 	    	this.layout = this.layout || {};
 
@@ -299,6 +345,8 @@ define(['app',
 	    		    	layout.setView(new AttractionsView({
 	    		    		views: {
 	    						'.header-view' : new HeaderView(),
+	    						'.subtype-view' : new AttractionsSubtypeView(),
+	    						'.regions-view' : new AttractionsRegionsView(),
 	    						'.footer-view' : new FooterView(),
 	    						'.bottom-view' : new BottomView()
 	    		    		}
@@ -314,6 +362,9 @@ define(['app',
 	    		    	layout.setView(new AttractionView({
 	    		    		views: {
 	    						'.header-view' : new HeaderView(),
+	    						'.subtype-view' : new AttractionsSubtypeView(),
+	    						'.regions-view' : new AttractionsRegionsView(),
+	    						'.gallery-view' : new AttractionGalleryView(),
 	    						'.footer-view' : new FooterView(),
 	    						'.bottom-view' : new BottomView()
 	    		    		}

@@ -1,0 +1,42 @@
+<% function attractionHtml(attraction, index) { %>
+    <a href="javascript:void(0)" class="element" data-id="<%= attraction.id %>">
+         <div class="img" style="background-image: url('<%= attraction.images[0] %>')" />
+         <div class="cover"></div>
+         <div class="details">
+           <h4><%= attraction.title %></h4>
+           <p style="word-wrap: break-word;"><%= attraction.summary %> <span>[...]</span></p>
+         </div>
+    </a>
+<% } %>
+
+
+<div class="attractions-list clearfix">
+   <div class="col">
+    <% _.each(attractions, function(attraction, index) { %>
+        <% if (index % 4 == 0) { %>
+            <% attractionHtml(attraction, index) %>
+        <% } %>
+    <% }) %>
+   </div>
+   <div class="col">
+       <% _.each(attractions, function(attraction, index) { %>
+           <% if (index % 4 == 1) { %>
+               <% attractionHtml(attraction, index) %>
+           <% } %>
+       <% }) %>
+   </div>
+   <div class="col">
+       <% _.each(attractions, function(attraction, index) { %>
+           <% if (index % 4 == 2) { %>
+               <% attractionHtml(attraction, index) %>
+           <% } %>
+       <% }) %>
+   </div>
+   <div class="col">
+       <% _.each(attractions, function(attraction, index) { %>
+           <% if (index % 4 == 3) { %>
+               <% attractionHtml(attraction, index) %>
+           <% } %>
+       <% }) %>
+   </div>
+</div>

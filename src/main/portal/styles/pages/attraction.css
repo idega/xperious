@@ -1,10 +1,19 @@
-.rout-on-map-section .map-holder {
+.attractions-place-page .attractions-title-section .site-block h2 {
+    width: auto;
+}
+
+.attractions-place-page .attractions-title-section .region-select {
+    padding-left: 0px;
+    position: static;
+}
+
+
+.attractions-place-page .rout-on-map-section .map-holder {
     width: 780px;
     height: 390px;
     padding: 0px;
     margin-top: 45px;   
 }
-
 
 .attractions-place-page .gallery .media-holder img {
     padding-right: 780px;
