@@ -17,7 +17,7 @@ define([
 			app.search.results.off('request', this.render, this);
 			app.search.results.off('reset', this.unblock, this);
 		},
-		
+
 		unblock: function() {
 			this.$el.dialog('destroy');
 			$(window).off('scroll', this.resize);

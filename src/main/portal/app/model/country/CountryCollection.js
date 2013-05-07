@@ -25,6 +25,13 @@ define([
 		        	icon: '/app/images/map-is.png',
 		        	lat: 64.787583,
 		        	lng: -18.413086
+				}),
+				new CountryModel({
+		        	code: 'lt',
+		        	title: 'Lithuania',
+		        	icon: '/app/images/map-lt.png',
+		        	lat: 54.6833,
+		        	lng: 26.2833
 				})
 			]);
 		}

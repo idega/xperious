@@ -7,78 +7,68 @@
 
   <div class="regions-view" />
 
-  <div class="section package-info-section">
-    <div class="site-block">
-      <h2 class="green"><%= product.title %></h2>
-      <p><%= product.subtitle %></p>
-    </div>
-  </div>
 
-  <div class="section gallery-section">
-     <div class="site-block">
-       <h2>Image gallery</h2>
-       <h3>Use the arrow keys to scroll through the images/videos and click on an image to enlarge it or to watch the video.</h3>
-       <div class="gallery-view" />
-     </div>
-  </div>
-  <div class="section attractions-place-info-section">
-    <div class="site-block clearfix">
-      <div class="col-1">
-        <div class="bordered">
-          <p><strong>Roadnumber:</strong> <%= product.address? product.address.roadNumber : '' %></p>
-          <p><strong>Town:</strong> <%= product.address? product.address.town : '' %></p>
-        </div>
-        <div class="description">
-            <p><%= product.description %></p>
-        </div>
-      </div>
-      <div class="col-2">
-        <h3>Places of interest</h3>
-        <ul class="menu list clearfix">
-          <li> <a href="#">Saxholl crater</a></li>
-          <li> <a href="#">Bardarlaug pool</a></li>
-          <li> <a href="#">Gatklettur - Arch Rock</a></li>
-          <li> <a href="#">Hellnar</a></li>
-          <li> <a href="#">Holaholar Crater Area</a></li>
-          <li> <a href="#">Stapafell</a></li>
-          <li> <a href="#">Olkelda mineral spring</a></li>
-          <li> <a href="#">Songhellir, cave</a></li>
-          <li> <a href="#">Djupalonssandur & Dritvik</a></li>
-          <li> <a href="#">Vatnshellir Cave</a></li>
-          <li> <a href="#">Snaefellsjokull glacier</a></li>
-          <li> <a href="#">Light house - Malarrifsviti</a></li>
-          <li> <a href="#">Londrangar basalt cliffs</a></li>
-          <li> <a href="#">Light house - Kirkjuholsviti</a></li>
-          <li> <a href="#">Stadarstadur</a></li>
-          <li> <a href="#">Light house - Arnarstapaviti</a></li>
-          <li> <a href="#">Ytri Tunga</a></li>
-        </ul>
-        <h3>Towns & Villages</h3>
-        <ul class="menu list clearfix">
-          <li> <a href="#">Snaefellsnes Peninsula</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="section attractions-place-social">
-    <div class="site-block clearfix">
-      <div class="col-1 clearfix">
-        <div class="fb-like-long"><img src="images/like-long.png"></div><a href="#" class="icon icon-gp"> <img src="images/gp-ico.png"></a><a href="#" class="icon icon-tw"> <img src="images/tw-ico-2.png"></a><a href="#" class="icon icon-mail"><img src="images/mail-ico.png"></a><a href="#" class="icon icon-print"><img src="images/print-ico.png"></a>
-      </div>
-      <div class="col-2 clearfix"><a href="#" class="button">Bookmark</a>
-        <div class="map-image"><img src="images/small-map.png"></div>
-      </div>
-    </div>
-  </div>
-  <div class="section rout-on-map-section">
-    <div class="site-block">
-      <div class="clearfix">
-        <h2>ATTRACTION <br/><strong>on a map</strong></h2>
-        <h3>Click on the map to enlarge it and see more details about the rout and directions.</h3>
-      </div>
-        <div class="map-holder" />
-    </div>
-  </div>
+  <% if (product.id) { %>
+	  <div class="section package-info-section">
+	    <div class="site-block">
+	      <h2 class="green"><%= product.title %></h2>
+	      <p><%= product.subtitle %></p>
+	    </div>
+	  </div>
+	
+	  <div class="section gallery-section">
+	     <div class="site-block">
+	       <h2>Image gallery</h2>
+	       <h3>Use the arrow keys to scroll through the images/videos and click on an image to enlarge it or to watch the video.</h3>
+	       <div class="gallery-view" />
+	     </div>
+	  </div>
+	  <div class="section attractions-place-info-section">
+	    <div class="site-block clearfix">
+	      <div class="col-1">
+	        <div class="bordered">
+	          <p><strong>Roadnumber:</strong> <%= product.address? product.address.roadNumber : '' %></p>
+	          <p><strong>Town:</strong> <%= product.address? product.address.town : '' %></p>
+	        </div>
+	        <div class="description">
+	            <p><%= product.description %></p>
+	        </div>
+	      </div>
+	      <div class="col-2">
+	        <h3>Other attractions in the region</h3>
+	        <ul class="menu list clearfix">
+	            <% _.each(_.first(products, 20), function(p) { %>
+	                <% if (p.id != product.id) { %>
+	                    <li><a href="javascript:void(0)" data-id="<%= p.id %>"><%= p.title %></a></li>
+	                <% } %>
+	            <% }) %>
+	        </ul>
+	      </div>
+	    </div>
+	  </div>
+	  <div class="section attractions-place-social">
+	    <div class="site-block clearfix">
+	      <div class="col-1 clearfix">
+	        <div class="fb-like-long"><img src="images/like-long.png"></div><a href="#" class="icon icon-gp"> <img src="images/gp-ico.png"></a><a href="#" class="icon icon-tw"> <img src="images/tw-ico-2.png"></a><a href="#" class="icon icon-mail"><img src="images/mail-ico.png"></a><a href="#" class="icon icon-print"><img src="images/print-ico.png"></a>
+	      </div>
+	      <div class="col-2 clearfix"><a href="#" class="button">Bookmark</a>
+	        <div class="map-image"><img src="images/small-map.png"></div>
+	      </div>
+	    </div>
+	  </div>
+	  <div class="section rout-on-map-section">
+	    <div class="site-block">
+	      <div class="clearfix">
+	        <h2>ATTRACTION <br/><strong>on a map</strong></h2>
+	        <h3>Click on the map to enlarge it and see more details about the rout and directions.</h3>
+	      </div>
+	        <div class="map-holder" />
+	    </div>
+	  </div>
+  <% } else { %>
+         <div class="loading"><img src="<%= loader %>" /></div>
+  <% } %>
+
   <div class="footer-view" />
   <div class="bottom-shadow">
      <br/>

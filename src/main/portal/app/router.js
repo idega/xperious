@@ -5,6 +5,7 @@ define(['app',
 	'view/site/BottomView',
 	'view/site/FooterView',
 	'view/index/IndexView',
+	'view/index/IndexMenuView',
 	'view/index/timeframe/TimeframeView',
 	'view/index/schedule/ScheduleView',
 	'view/index/event/EventSliderView',
@@ -15,10 +16,10 @@ define(['app',
 	'view/plan/day/PlanDayProductsView',
 	'view/plan/day/PlanDayProductView',
 	'view/event/EventsView',
-	'view/attraction/AttractionsView',
-	'view/attraction/AttractionsSubtypeView',
-	'view/attraction/AttractionsRegionsView',
-	'view/attraction/AttractionsListView',
+	'view/attractions/AttractionsView',
+	'view/attractions/AttractionsSubtypeView',
+	'view/attractions/AttractionsRegionsView',
+	'view/attractions/AttractionsListView',
 	'view/attraction/AttractionView',
 	'view/attraction/AttractionGalleryView',
 ], function(app,
@@ -27,7 +28,8 @@ define(['app',
 	QuestionsView,
 	BottomView,
 	FooterView,
-	IndexView,	
+	IndexView,
+	IndexMenuView,
 	TimeframeView,
 	ScheduleView,
 	EventSliderView,
@@ -50,8 +52,7 @@ define(['app',
 
 	    routes: {
 	    	'search(/:query)/:country/:from/:to/:arrivalterminal/:arrivaltime/:guests(/budget/:budgetfrom/:budgetto)(/plan/:index)' : 'search',
-	    	'attractions/:country/:region/:subtype/:product' : 'attraction',
-	    	'attractions/:country/(:region/):subtype' : 'attractions',
+	    	'attractions/:country/(:region/):subtype(/:product)' : 'attractions',
 	    	'events*path' : 'events',
 	    	'' : 'index'
 	    },
@@ -62,7 +63,7 @@ define(['app',
 	    	// as it listens on special events and blocks ui with
 	    	// the modal dialog when required
 	    	new LoadingView();
-	    	
+
 	    	// initialize attractions types and regions in the 
 	    	// constructor because they appear in the header and
 	    	// are required for almost all pages
@@ -71,52 +72,50 @@ define(['app',
 
 
 	    /**
-	     * Show attraction based on given id.
+	     * Show a list of attractions or one attraction if selected.
 	     */
-	    attraction: function(country, region, subtype, product) {
-	    	app.layout(this._layout().attraction()).render();
-	    	app.attractions.country = app.countries.get(country);
-    		app.attractions.subtype.set('id', subtype, {silent: true}).fetch();
-    		app.attractions.product.set('id', product, {silent: true}).fetch();
-    		app.attractions.regions.fetch({data: {country: country, subtype: subtype}}).done(function() { 
-				app.attractions.region = app.attractions.regions.get(region); 
-			}); 
-	    },
-
-
-	    /**
-	     * Show a list of attractions.
-	     */
-	    attractions: function(country, region, subtype) {
-    		app.layout(this._layout().attractions()).render();
+	    attractions: function(country, region, subtype, product) {
     		app.attractions.country = app.countries.get(country);
     		app.attractions.subtype.set('id', subtype, {silent: true}).fetch();
     		app.attractions.regions.fetch({data: {
 				country: country, 
 				subtype: subtype
-    		}}).done(function() {
-
-    			app.attractions.region = (region)
-					? app.attractions.regions.get(region) 
-					: app.attractions.regions.at(0); 
-
+    		}}).done(_.bind(function() {
 				if (app.attractions.regions.size()) {
+
+	    			app.attractions.region = (region)
+						? app.attractions.regions.get(region) 
+						: app.attractions.regions.at(0);
+						
+					app.attractions.product.clear({silent: true});
+					app.attractions.products.reset([], {silent: true});
+					
+					// this is the soonest we can render the layout
+					app.layout((product) 
+							? this._layout().attraction() 
+							: this._layout().attractions())
+						.render();
+
 			    	app.attractions.products.data({
 			    		country: country,
 			    		subtype: subtype,
 			    		region: app.attractions.region.get('id')
-			    	}).success(function() {
-						// show list view only after attractions have been fetched
-			    		// because otherwise images might get loaded multiple times 
-			    		app.layout().setView(
-		    				'.list-view', 
-		    				new AttractionsListView()).render();
-			    	});
+			    	}).success(_.bind(function() {
+			    		if (product) {
+			    			var attributes = app.attractions.products.get(product).attributes;
+			    			app.attractions.product = app.attractions.product.set(attributes);
+			    		}
+			    	}, this));
+
+				} else {
+					// no regions where fetched, show empty attractions page
+					app.layout(this._layout().attractions()).render();
 				}
-			});
+
+			}, this));
 	    },
 
-	    
+
 	    /**
 	     * Show events going on.
 	     */
@@ -272,6 +271,7 @@ define(['app',
 
     				layout.setView(new IndexView({
     					views: {
+    						'.menu-view' : new IndexMenuView(),
     						'.timeframe-view' : new TimeframeView(),
     						'.schedule-view' : new ScheduleView(),
     						'.events-slider .site-block' :  new EventSliderView(),
@@ -347,6 +347,7 @@ define(['app',
 	    						'.header-view' : new HeaderView(),
 	    						'.subtype-view' : new AttractionsSubtypeView(),
 	    						'.regions-view' : new AttractionsRegionsView(),
+			    				'.list-view' : new AttractionsListView(),
 	    						'.footer-view' : new FooterView(),
 	    						'.bottom-view' : new BottomView()
 	    		    		}

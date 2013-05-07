@@ -1,9 +1,13 @@
+.attractions-place-page .inner-home-section {
+    background: url(../import/images/attractions-bg-2.jpg) no-repeat fixed center top;
+}
+
 .attractions-place-page .attractions-title-section .site-block h2 {
     width: auto;
 }
 
 .attractions-place-page .attractions-title-section .region-select {
-    padding-left: 0px;
+    padding-left: 240px;
     position: static;
 }
 
@@ -26,3 +30,20 @@
     padding-bottom: 100px;
     background-size: cover;
 }
+
+.attractions-place-page .attractions-title-section .site-block {
+    padding-bottom: 8px;
+}
+
+.attractions-place-page .loading {
+    width: 100%; 
+    height: 180px;
+    padding-top: 120px; 
+    text-align: center; 
+    background-color: #fff	
+}
+
+    .attractions-place-page .loading img { 
+        width: 35px;
+        opacity: 0.75;
+    }

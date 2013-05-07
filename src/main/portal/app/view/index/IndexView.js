@@ -212,6 +212,7 @@ define([
 	        	source: '/api/v1/keywords/suggest?country=is'
 	        });
 	
+
 //	        if (!Modernizr.touch) {
 //	            /* http://craigsworks.com/projects/qtip/ */
 //	            $(".tooltip").each(function() {
@@ -311,70 +312,10 @@ define([
 	            }
 	        }
 	
-	        /* Slide down */
-	        this.$('.site-bottom-menu').localScroll({
-	            duration: 300,
-	            easing: "swing"
-	        });
-	
 	
 	        /* Top slider */
 	        initSlider('.home-section .next', '.home-section .prev', '.slider-container');
-	
-	
-	        /* First page bottom menus */
-	        var menuAnimationTime = 100;
-	        this.$(".site-bottom-menu li:has('.convert-form')").hoverIntent({
-	            over: function showHovered() {
-	                $(this).find('.convert-form').css({
-	                    opacity: 0.0,
-	                    visibility: 'visible',
-	                    display: 'block'
-	                }).animate({
-	                    opacity: 1.0
-	                }, menuAnimationTime);
-	
-	                if (window.PIE) {
-	                    $(".convert-form .ui-selectmenu, .convert-form input[type='text']").each(function() {
-	                        PIE.attach(this);
-	                    });
-	                }
-	            },
-	            out: function hideHovered(p, a, r) {
-	                var $form = $(this).find('.convert-form');
-	                $form.css({
-	                    opacity: 1.0
-	                }).animate({
-	                    opacity: 0.0
-	                }, menuAnimationTime, function() {
-	                    $form.css({
-	                        visibility: 'hidden',
-	                        display: 'none'
-	                    });
-	                });
-	            }
-	        });
-	
-	        this.$(".site-bottom-menu li:has('.submenu')").hoverIntent(function() {
-	            $(this).find('.submenu').css({
-	                opacity: 0.0,
-	                display: 'block',
-	                width: '2000px'
-	            }).animate({
-	                opacity: 1.0
-	            }, menuAnimationTime);
-	        }, function() {
-	            var $submenu = $(this).find('.submenu');
-	            $submenu.css({
-	                opacity: 1.0
-	            }).animate({
-	                opacity: 0.0
-	            }, menuAnimationTime, function() {
-	                $submenu.css({
-	                    display: 'none'
-	                });
-	            });
-	        });
+
 
             this.$('input[type="submit"], a').hoverIntent({
                 over: function() {
@@ -385,7 +326,7 @@ define([
                 },
                 interval: 0
             });
-	
+
 	        this.$("#team").waypoint(function(dir) {
 	            if (dir == 'down') {
 	                $bottom.css({

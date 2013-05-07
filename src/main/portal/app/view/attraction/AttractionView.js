@@ -7,6 +7,10 @@ define([
 	return Backbone.View.extend({
 
 		template: 'attraction/attraction',
+		
+		events: {
+			'click .col-2 ul li a' : 'another' 
+		},
 
 		
 		initialize: function() {
@@ -19,10 +23,28 @@ define([
 
 		serialize: function() {
 			return {
-				product: app.attractions.product.toJSON() 
+				product: app.attractions.product.toJSON(),
+				products: app.attractions.products.toJSON(),
+				loader: this.loader()
 			};
 		},
-		
+
+		another: function(e) {
+			app.router.go(
+				'attractions',
+				app.attractions.country.get('code'),
+				app.attractions.region.get('id'),
+				app.attractions.subtype.get('id'),
+				$(e.currentTarget).data('id'),
+				{trigger: true}
+			);
+		},
+
+		beforeRender: function() {
+			app.trigger('change:title', 'Attractions - xperious');
+			$(window).scrollTop(0);
+		},
+
 		afterRender: function() {
 			if (!app.attractions.product.isNew()) {
 				require(['google'], _.bind(function(google) {

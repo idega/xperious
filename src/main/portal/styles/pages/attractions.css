@@ -9,5 +9,18 @@
 }
 
 .attractions-page .attractions-title-section .region-select {
-	padding-left: 0px;
+	padding-left: 240px;
 }
+
+.attractions-page .loading {
+    width: 100%; 
+    height: 180px;
+    padding-top: 120px; 
+    text-align: center; 
+    background-color: #fff  
+}
+
+    .attractions-page .loading img { 
+        width: 35px;
+        opacity: 0.75;
+    }
