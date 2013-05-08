@@ -47,7 +47,7 @@ define([
 
 				this.markers.each(_.bind(function(descriptor) {
 					 var marker = new google.maps.Marker({
-						 position: new google.maps.LatLng(descriptor.lat, descriptor.lng),
+						 position: new google.maps.LatLng(descriptor.pin.lat, descriptor.pin.lng),
 						 title: descriptor.title,
 						 icon: this.defaultIcon,
 						 map: map

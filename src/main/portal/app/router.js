@@ -100,7 +100,7 @@ define(['app',
 			    		country: country,
 			    		subtype: subtype,
 			    		region: app.attractions.region.get('id')
-			    	}).success(_.bind(function() {
+			    	}).done(_.bind(function() {
 			    		if (product) {
 			    			var attributes = app.attractions.products.get(product).attributes;
 			    			app.attractions.product = app.attractions.product.set(attributes);

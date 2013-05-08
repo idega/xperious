@@ -50,7 +50,7 @@ define([
 				require(['google'], _.bind(function(google) {
 					var map = new google.maps.Map(
 						this.$('.map-holder')[0], {
-							zoom: 6,
+							zoom: 9,
 							center: new google.maps.LatLng(
 								app.attractions.product.get('address').latitude, 
 								app.attractions.product.get('address').longitude),

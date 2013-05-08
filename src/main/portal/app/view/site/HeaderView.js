@@ -7,10 +7,6 @@ define([
 
 		template: 'site/header',
 
-		events: {
-			'click #logo' : 'logo'
-		},
-
 		initialize: function() {
 			app.on('change:country', this.render, this);
 			app.attractions.subtypes.on('reset', this.render, this);
@@ -21,14 +17,11 @@ define([
 			app.attractions.subtypes.off('reset', this.render, this);
 		},
 
-		logo: function() {
-			app.router.go('', {trigger: true});
-		},
-
 		serialize: function() {
 			return {
 				country: app.countries.get(app.country()).toJSON(),
-				subtypes: app.attractions.subtypes.toJSON()
+				subtypes: app.attractions.subtypes.toJSON(),
+				root: app.root
 			};
 		},
 

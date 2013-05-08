@@ -27,22 +27,32 @@
 	    <div class="site-block clearfix">
 	      <div class="col-1">
 	        <div class="bordered">
-	          <p><strong>Roadnumber:</strong> <%= product.address? product.address.roadNumber : '' %></p>
-	          <p><strong>Town:</strong> <%= product.address? product.address.town : '' %></p>
+	           <% if (product.address) { %>
+	               <% if (product.address.roadNumber) { %>
+	                   <p><strong>Roadnumber:</strong> <%= product.address.roadNumber %></p>
+	               <% } %>
+	               <% if (product.address.town) { %>
+	                   <p><strong>Town:</strong> <%= product.address.town %></p>
+	               <% } %>
+	           <% } %>
 	        </div>
 	        <div class="description">
 	            <p><%= product.description %></p>
 	        </div>
 	      </div>
 	      <div class="col-2">
-	        <h3>Other attractions in the region</h3>
-	        <ul class="menu list clearfix">
-	            <% _.each(_.first(products, 20), function(p) { %>
-	                <% if (p.id != product.id) { %>
-	                    <li><a href="javascript:void(0)" data-id="<%= p.id %>"><%= p.title %></a></li>
-	                <% } %>
-	            <% }) %>
-	        </ul>
+		        <h3>Other attractions in the region</h3>
+		        <% if (products && products.length > 1) { %>
+			        <ul class="menu list clearfix">
+			            <% _.each(_.first(products, 20), function(p) { %>
+			                <% if (p.id != product.id) { %>
+			                    <li><a href="javascript:void(0)" data-id="<%= p.id %>"><%= p.title %></a></li>
+			                <% } %>
+			            <% }) %>
+			        </ul>
+                <% } else { %>
+                    <p>No other attractions found</p>
+                <% } %>
 	      </div>
 	    </div>
 	  </div>

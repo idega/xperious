@@ -75,8 +75,10 @@ define([
 	
 					var map = new google.maps.Map(
 						this.$('.map-holder')[0], {
-							zoom: 6,
-							center: new google.maps.LatLng(64.942160, -18.544922),
+							zoom: app.countries.get(plan.get('country')).get('zoom'),
+							center: new google.maps.LatLng(
+									app.countries.get(plan.get('country')).get('center').lat,
+									app.countries.get(plan.get('country')).get('center').lng),
 							mapTypeId: google.maps.MapTypeId.ROADMAP,
 							streetViewControl: false
 					});
