@@ -70,6 +70,9 @@ define([
                 false);
 
 
+        	this.loadImages('.product-popup .popup-gallery-fader img:first-child');
+
+
 			require(['google'], _.bind(function(google) {
 				var map = new google.maps.Map(
 					this.$('.map-holder')[0], {

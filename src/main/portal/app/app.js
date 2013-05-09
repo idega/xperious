@@ -96,13 +96,19 @@ define([
 	        	    	// make original element transparent
 	        	    	// so user does not see image loading
 	        	    	$el.css('opacity', '0');
+
+	        	    	var height = $el.css('height') !== '0px' 
+	        	    		? $el.css('height')
+	        	    		: $el.css('padding-bottom');
+
+        	    		var width = $el.css('width') !== '0px' 
+	        	    		? $el.css('width')
+	        	    		: $el.css('padding-right');
+
 	        	    	var $div = $('<div class="loader" data-src="' 
 	        	    		+ src + '"><img src="' + loader + '" />'
 	        	    		+ '</div>');
-	        	    	$div.css({
-	        	    		'width': $el.css('width'),
-	        	    		'height': $el.css('height')
-	        	    	});
+	        	    	$div.css({'width': width, 'height': height });
 	        	    	$el.parent().append($div);
         	    	}
         	    }

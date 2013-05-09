@@ -31,7 +31,7 @@ define([
                     $('#fancybox-close').text('Close');
                 },
 
-                onComplete: function() {
+                onComplete: _.bind(function() {
                 	initSlider(
                     	'#fancybox-content .popup-gallery-fader .next',
                         '#fancybox-content .popup-gallery-fader .prev',
@@ -39,6 +39,8 @@ define([
                         1103, 
                         false);
 
+                	this.loadImages('.event-popup .popup-gallery-fader img:first-child');
+                	
                 	var hoverCallback = function() {
                 	    var $this = $(this);
                 	    $this.toggleClass('hovered', 200, 'swing');
@@ -55,7 +57,7 @@ define([
                             PIE.attach(this);
                         });
                     }
-                }
+                }, this)
             });
 
 			require(['google'], _.bind(function(google) {
