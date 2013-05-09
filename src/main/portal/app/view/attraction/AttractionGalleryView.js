@@ -117,10 +117,10 @@ define([
 
         embed: function(href) {
             if (this.parseVimeo(href)) {
-                return $('<div class="video-wrap vimeo"><iframe src="http://player.vimeo.com/video/' + this.parseVimeo(href) + '?autoplay=1" width="780" height="380" frameborder="0"></iframe></div>');
+                return $('<div class="video-wrap vimeo"><iframe src="http://player.vimeo.com/video/' + this.parseVimeo(href) + '?autoplay=1" width="780" height="500" frameborder="0"></iframe></div>');
 
             } else if (this.parseYoutube(href)) {
-                return $('<div class="video-wrap youtube"><iframe id="ytplayer" type="text/html" width="780" height="380" src="http://www.youtube.com/embed/' + this.parseYoutube(href) +  '?autoplay=1" frameborder="0"/></div>');
+                return $('<div class="video-wrap youtube"><iframe id="ytplayer" type="text/html" width="780" height="500" src="http://www.youtube.com/embed/' + this.parseYoutube(href) +  '?autoplay=1" frameborder="0"/></div>');
 
             } else {
                 return $('<img class="new-image" src="" style="background-image: url(' + href + ');" />"');

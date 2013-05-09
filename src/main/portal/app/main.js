@@ -48,13 +48,13 @@ require([
 		'change:country',
 		app.search.terminals.fetch,
 		app.search.terminals);
-
-	/* Clean search preferences when new terminals are fetch */
+	
+	/* Verify that timeframe does not hold old terminal reference */
 	app.search.terminals.on(
 		'reset', 
-		app.search.pref.onNewTerminals, 
-		app.search.pref);
-	
+		app.search.timeframe.onNewTerminals,
+		app.search.timeframe);
+
 	/* Refresh search results if preferences change */
 	app.search.pref.on(
 		'change', 

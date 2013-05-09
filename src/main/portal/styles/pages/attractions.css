@@ -2,6 +2,7 @@
     width: 226px;
     height: 155px;
     background-size: cover;
+    background-position: center center;
 }
 
 .attractions-page .attractions-title-section .site-block h2 {

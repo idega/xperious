@@ -138,11 +138,8 @@ define(['app',
 	    		budgetfrom, 
 	    		budgetto, 
 	    		index) {
-	    	
-	    	if (!app.search.terminals.fetched()) {
-	    		app.search.terminals.fetch();
-	    	}
 
+    		app.search.terminals.fetch(country);
 
 	    	app.search.pref.set({
 	    		query: decodeURIComponent(query || ''),
@@ -198,12 +195,8 @@ define(['app',
 	     * Provide index page.
 	     */
 	    index: function(path) {
-	    	if (!app.event.timeline.fetched()) {
-	    		app.event.timeline.fetch();
-	    	}
-	    	if (!app.search.terminals.fetched()) {
-	    		app.search.terminals.fetch();
-	    	}
+	    	app.event.timeline.fetch(app.country());
+	    	app.search.terminals.fetch(app.country());
     		app.layout(this._layout().index()).render();	 
 	    },
 	    

@@ -12,16 +12,11 @@ define([
 
 		model: TerminalModel,
 
-
-		fetched: function() {
-			return this.isFetched;
-		},
-
-		fetch: function() {
+		fetch: function(country) {
+			this.reset([], {silent: true});
 			this._super({data: {
-				country: app.country()
+				country: (country) ? country : app.country()
 			}});
-			this.isFetched = true;
 		}
 	});
 

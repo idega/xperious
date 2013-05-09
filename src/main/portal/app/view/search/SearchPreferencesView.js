@@ -22,7 +22,7 @@ define([
 				pref: app.search.pref.toJSON(),
 				arrival: {
 					time: moment.utc(parseInt(app.search.pref.get('arrival').time)).format('HH:mm'),
-					terminal: !_.isEmpty(app.search.terminals) 
+					terminal: app.search.terminals.size() > 0 
 						? app.search.terminals.get(app.search.pref.get('arrival').terminal).get('title')
 						: undefined
 				}

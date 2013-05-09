@@ -14,10 +14,16 @@
 	height: 460px;
 }
 
+.selected-package-page .gallery .media-holder {
+    width: 780px;
+    height: 500px;
+}
+
 .selected-package-page .gallery .media-holder img {
     padding-right: 780px;
-    padding-bottom: 380px;
+    padding-bottom: 500px;
     background-size: cover;
+    background-position: center center;
 }
 
 .selected-package-page .gallery .thumbs-holder img {
@@ -26,6 +32,7 @@
 	background-size: cover;
 	width: 0px;
 	height: 0px;
+    background-position: center center;
 }
 
 
@@ -37,6 +44,14 @@
 	margin-left: 10px; 
 	margin-right: 10px; 
 	margin-bottom: 73px;
+}
+
+.selected-package-page .day-element .img div {
+    width: 300px; 
+    height: 205px;
+	background-size: cover; 
+	border-radius: 3px 3px 0px 0px;
+	background-position: center center;
 }
 
 .product-popup {

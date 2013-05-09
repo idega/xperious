@@ -1,6 +1,7 @@
 .loader {
-	width: 100%;
-	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
 }
 
     .loader img {
@@ -141,6 +142,7 @@
 		background-size: cover; 
 		padding-right: 440px;
         padding-bottom: 205px; 
+        background-position: center center;
 	}
 	
     .popup-gallery-fader .prev, .popup-gallery-fader .next {

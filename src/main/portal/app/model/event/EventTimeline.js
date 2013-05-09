@@ -16,15 +16,10 @@ define([
 			app.on('change:country', this.fetch, this);
 		},
 
-		fetched: function() {
-			return this.isFetched;
-		},
-
-		fetch: function() {
+		fetch: function(country) {
 			this._super({data: {
-				country: app.country()
+				country: country ? country : app.country()
 			}});
-			this.isFetched = true;
 		}
 
 	});

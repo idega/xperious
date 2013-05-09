@@ -50,7 +50,7 @@ define([
 
 		afterRender: function() {
 			if (this.plan()) {
-				this.loadImages('.day-element > div:first-child');
+				this.loadImages('.day-element .img > div:first-child');
 			}
 		}
 	});

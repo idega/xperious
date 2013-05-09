@@ -1,3 +1,8 @@
 .element:hover .loader {
 	visibility: hidden;
 }
+
+.package-elements .element > div {
+	background-size: cover;
+	background-position: center center;
+}

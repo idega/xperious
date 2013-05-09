@@ -5,7 +5,14 @@ define([
 	
 
 	return Backbone.Model.extend({
-		
+
+		onNewTerminals: function() {
+			if (this.has('arrival')) {
+				this.unset('arrival');
+			}
+		},
+
+
 		/* TODO remove this, this is legacy stuff
 		 * to support double calendar
 		 */
