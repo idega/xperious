@@ -68,25 +68,32 @@ define([
 	            }
 	        });
 	
-	        this.$(".site-bottom-menu li:has('.submenu')").hoverIntent(function() {
-	            $(this).find('.submenu').css({
-	                opacity: 0.0,
-	                display: 'block',
-	                width: '2000px'
-	            }).animate({
-	                opacity: 1.0
-	            }, menuAnimationTime);
-	        }, function() {
-	            var $submenu = $(this).find('.submenu');
-	            $submenu.css({
-	                opacity: 1.0
-	            }).animate({
-	                opacity: 0.0
-	            }, menuAnimationTime, function() {
-	                $submenu.css({
-	                    display: 'none'
-	                });
-	            });
+	        this.$(".site-bottom-menu li:has('.submenu')").hoverIntent({
+		        timeout: 300,
+	
+		        over: function() {
+		            $(this).find('.submenu').css({
+		                opacity: 0.0,
+		                display: 'block',
+		                width: window.innerWidth,
+		                left: -$(this).offset().left
+		            }).animate({
+		                opacity: 1.0
+		            }, menuAnimationTime);
+		        }, 
+		        
+		        out: function() {
+		            var $submenu = $(this).find('.submenu');
+		            $submenu.css({
+		                opacity: 1.0
+		            }).animate({
+		                opacity: 0.0
+		            }, menuAnimationTime, function() {
+		                $submenu.css({
+		                    display: 'none'
+		                });
+		            });
+		        }
 	        });
 	        
 	        

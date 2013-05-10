@@ -34,7 +34,8 @@ define([
 		            $(this).find('.submenu').css({
 		                opacity: 0.0,
 		                display: 'block',
-		                width: '2000px'
+		                width: window.innerWidth,
+		                left: -$(this).offset().left + $(this).position().left
 		            }).animate({
 		                opacity: 1.0
 		            }, 100);
