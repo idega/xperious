@@ -2,11 +2,9 @@
 
 	<% function dayHtml(day, index) { %>
 	    <a href="javascript:void(0)" class="day-element" data-index="<%= index %>">
-	        <% if (day.image) { %>
-	           <div class="img" style="position: relative;">
-                    <div style="background-image: url('<%= day.image %>')" />
-               </div>
-	        <% } %>
+           <div class="img" style="position: relative;">
+                   <div style="background-image: url('<%= day.image %>')" />
+              </div>
 	        <div class="description">
 	            <div class="day"><%= index + 1 %></div>
 	            <p><%= day.description %></p>

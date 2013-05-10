@@ -23,8 +23,8 @@ function(
 
 		
 		/* Group plan items by day. This returns days array
-		 * that where each element is an array with items for
-		 * the day.
+		 * where each element is an array itself with the items
+		 * for the day.
 		 */
 		days: function() {
 			if (!this.daysCached) {
@@ -39,20 +39,6 @@ function(
 				this.daysCached = _.values(days);
 			}
 			return this.daysCached;
-		},
-
-
-		/* This returns item that should be used for the plan preview.
-		 * This is the most relevant, most important item for the plan.
-		 */
-		preview: function() {
-			if (this.get('items').size() > 0) {
-				for (var i = 0; i < this.get('items').size(); i++) {
-					if (this.get('items').at(i).get('type') === 'PRODUCT') {
-						return this.get('items').at(i);
-					}
-				}
-			}
 		}
 	});
 

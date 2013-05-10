@@ -20,21 +20,28 @@ function(
 			var usedImages = [];
 			_.each(response, function(plan) {
 
-				for (var i = 0; i < plan.items.length; i++) {
-					if (plan.items[i].type === 'PRODUCT' 
-							&& plan.items[i].images 
-							&& !_.contains(usedImages, plan.items[i].sourceId)) {
-						plan.previewImage = plan.items[i].images[0];
-						usedImages.push(plan.items[i].sourceId);
+				var items = _.sortBy(
+						plan.items, 
+						function(item) { 
+							return item.score; 
+						})
+					.reverse();
+
+				for (var i = 0; i < items.length; i++) {
+					if (items[i].type === 'PRODUCT' 
+							&& items[i].images 
+							&& !_.contains(usedImages, items[i].sourceId)) {
+						plan.previewImage = items[i].images[0];
+						usedImages.push(items[i].sourceId);
 						break;
 					}
 				}
 				
 				// no unique image found, use the most relevant then
 				if (!plan.previewImage) {
-					for (var i = 0; i < plan.items.length; i++) {
-						if (plan.items[i].type === 'PRODUCT' && plan.items[i].images) {
-							plan.previewImage = plan.items[i].images[0];
+					for (var i = 0; i < items.length; i++) {
+						if (items[i].type === 'PRODUCT' && items[i].images) {
+							plan.previewImage = items[i].images[0];
 							break;
 						}
 					}

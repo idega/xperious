@@ -107,16 +107,16 @@ define([
 
 				if (request.destination) {
 					var service = new google.maps.DirectionsService();
-					var display = new google.maps.DirectionsRenderer();
-					display.setMap(map);
+//					var display = new google.maps.DirectionsRenderer();
+//					display.setMap(map);
 
 					service.route(request, _.bind(function(result, status) {
 				    	if (status == google.maps.DirectionsStatus.OK) {
-				    		display.setDirections(result);
+//				    		display.setDirections(result);
 				    		this.appendStats(result);
-				    	} else {
-				    		this.drawMarkers(map);
+//				    	} else {
 				    	}
+			    		this.drawMarkers(map);
 					}, this));
 
 				} else {

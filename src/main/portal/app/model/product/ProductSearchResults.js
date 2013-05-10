@@ -18,7 +18,7 @@ function(
 			var items = plan.days()[day];
 			var lat, lng;
 			for (var i = 0; i < items.length; i++) {
-				if (items[i].get('type') === 'PRODUCT') {
+				if (items[i].get('address') && items[i].get('address').latitude && items[i].get('address').longitude) {
 					lat = items[i].get('address').latitude;
 					lng = items[i].get('address').longitude;
 					break;

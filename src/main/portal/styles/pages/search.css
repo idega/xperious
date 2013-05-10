@@ -6,3 +6,7 @@
 	background-size: cover;
 	background-position: center center;
 }
+
+.package-list-page .sidebar-content-section {
+	padding-bottom: 30px;
+}

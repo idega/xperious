@@ -29,7 +29,16 @@ define([
 			// is not available yet
 			if (this.plan()) {
 				var days = [];
-				_.each(this.plan().days(), function(items) {
+				_.each(this.plan().days(), function(items, index) {
+
+					// try to use the image from the most relevant item
+					var items = _.sortBy(
+							items, 
+							function(item) {
+								return item.get('score');
+							})
+						.reverse();
+
 					for (var i = 0; i < items.length; i++) {
 						if (items[i].get('type') === 'PRODUCT') {
 							days.push({
@@ -37,6 +46,19 @@ define([
 								image: items[i].summaryImage()
 							});
 							break;
+						}
+					}
+
+					// no products found for the day, set lodging image
+					if (!days[index]) {
+						for (var i = 0; i < items.length; i++) {
+							if (items[i].get('type') === 'LODGING') {
+								days.push({
+									description: items[i].summary(),
+									image: items[i].summaryImage()
+								});
+								break;
+							}
 						}
 					}
 				});
