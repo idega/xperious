@@ -3,7 +3,8 @@
 }
 
 .attractions-place-page .attractions-title-section .site-block h2 {
-    width: auto;
+    width: 480px;
+    position: static;
 }
 
 .attractions-place-page .attractions-title-section .region-select {
