@@ -50,8 +50,8 @@
 	          </div>
 	          <div class="col col-2">
 	            <h3>ITEMS Included</h3>
-	            <table class="zebra">
-	                <% if (plan.price != '0.00') { %>
+	            <table class="zebra"> 
+	                <% if (plan.price.price != '0.00') { %>
 	                <% _.each(plan.items, function(item) { %>
 	                    <% if (item.type === 'PRODUCT' && item.price.price != '0.00') { %>
 		                    <tr>

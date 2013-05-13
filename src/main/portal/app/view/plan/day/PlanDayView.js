@@ -17,8 +17,8 @@ define([
 		},
 		
 		show: function(day) {
-			var plan = app.search.results.at(app.search.pref.get('index'));
-			this.items = plan.days()[day];
+			this.plan = app.search.results.at(app.search.pref.get('index'));
+			this.items = this.plan.days()[day];
 			this.day = day;
 			this.render();
 		},
@@ -64,10 +64,10 @@ define([
 
 				var map = new google.maps.Map(
 					this.$('.map-holder')[0], {
-						zoom: 6,
+						zoom: app.countries.get(this.plan.get('country')).get('zoom'),
 						center: new google.maps.LatLng(
-							64.942160, 
-							-18.544922),
+								app.countries.get(this.plan.get('country')).get('center').lat,
+								app.countries.get(this.plan.get('country')).get('center').lng),
 						mapTypeId: google.maps.MapTypeId.ROADMAP,
 						streetViewControl: false
 				});

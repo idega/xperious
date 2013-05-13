@@ -10,7 +10,9 @@ define([
 
 		/* Amount to offset the popup top location from the click coordinates */
 		offset: 230,
-
+		
+		/* Minimal view height, used to calculate view position in the parent dialog */
+		minheight: 700,
 
 		events: {
 			'click .close' : 'hide'
@@ -57,8 +59,18 @@ define([
 				return;
 			}	
 
-			this.$('.product-popup').css('top', this.event.topOffset - $('#fancybox-content').offset().top - this.offset);
-			this.$('.product-popup > .nip').css('top', this.offset);
+			
+			var offset = this.offset;
+			
+			// align popup offset with dialog height so the popup
+			// does not get outside the dialog borders
+			var y = this.event.topOffset - $('#fancybox-content').offset().top;
+			if (y + this.minheight > $('#fancybox-content').height()) {
+				offset = y + this.minheight - $('#fancybox-content').height();
+			}
+
+			this.$('.product-popup').css('top', y - offset);
+			this.$('.product-popup > .nip').css('top', offset);
 			this.$el.show();
 		
 		

@@ -62,7 +62,7 @@ define([
 						}
 					}
 				});
-
+				
 				return {
 					days: days
 				};

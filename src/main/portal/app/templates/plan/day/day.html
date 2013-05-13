@@ -8,7 +8,7 @@
          <h2 class="title">This is how your <span><%= day + 1 %> day</span> in your vacation looks like</h2>
          <h3 class="subtitle">You can add to it, delete it and change as you like, after all it's your vacation.</h3>
          <div class="content">
-           <% var products = _.filter(items, function(i) { return i.type === 'PRODUCT';}) %>
+           <% var products = _.filter(items, function(i) { return i.type === 'PRODUCT' || i.type === 'LODGING';}) %>
            <% _.each(products, function(product) { %>
                 <h4><%= product.title %></h4>
                 <p><%= product.description %></p>

@@ -1,3 +1,4 @@
+
 define([
    'app',
    'view/index/destination/DestinationPopupView'
@@ -99,47 +100,61 @@ define([
 
 
 		parse: function(query) {
-			var numberRegexp = new RegExp('[1-9]+(?= *(month|week|day))', 'gi');
-			var periodRegexp = new RegExp('(months|weeks|days|month|week|day)', 'gi');
+//			var numberRegexp = new RegExp('[1-9]+(?= *(month|week|day))', 'gi');
+//			var periodRegexp = new RegExp('(months|weeks|days|month|week|day)', 'gi');
+//
+//			var number = query.match(numberRegexp);
+//			var period = query.match(periodRegexp);
+//
+//			if (number || period) {
+//				// number not given, assume it's 1
+//				if (!number) number = [1]; 
+//
+//				return {
+//					from: moment()
+//						.startOf('day')
+//						.add('days', 1),
+//
+//					to: moment()
+//						.startOf('day')
+//						.add(this.toUnits(period[0]), number[0]),
+//
+//					query: this.reduce(query
+//						.replace(numberRegexp, '')
+//						.replace(periodRegexp, ''))
+//				};
+//
+//			} else {
+//				// default period is always one
+//				// week  starting from tomorrow
+//				return {
+//					from: moment()
+//						.startOf('day')
+//						.add('days', 1),
+//
+//					to: moment()
+//						.startOf('day')
+//						.add('days', 7),
+//
+//					query: this.reduce(query
+//						.replace(numberRegexp, '')
+//						.replace(periodRegexp, ''))
+//				};
+//			}
 
-			var number = query.match(numberRegexp);
-			var period = query.match(periodRegexp);
+			
+			return {
 
-			if (number || period) {
-				// number not given, assume it's 1
-				if (!number) number = [1]; 
-
-				return {
-					from: moment()
-						.startOf('day')
-						.add('days', 1),
-
-					to: moment()
-						.startOf('day')
-						.add(this.toUnits(period[0]), number[0]),
-
-					query: this.reduce(query
-						.replace(numberRegexp, '')
-						.replace(periodRegexp, ''))
-				};
-
-			} else {
-				// default period is always one
-				// week  starting from tomorrow
-				return {
-					from: moment()
-						.startOf('day')
-						.add('days', 1),
-
-					to: moment()
-						.startOf('day')
-						.add('days', 7),
-
-					query: this.reduce(query
-						.replace(numberRegexp, '')
-						.replace(periodRegexp, ''))
-				};
-			}
+				from: moment()
+					.startOf('day')
+					.add('days', 1),
+	
+				to: moment()
+					.startOf('day')
+					.add('days', 7),
+	
+				query: query
+			};
 		},
 
 
