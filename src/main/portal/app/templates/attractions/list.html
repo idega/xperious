@@ -1,5 +1,5 @@
-<% function attractionHtml(attraction, index) { %>
-    <a href="javascript:void(0)" class="element" data-id="<%= attraction.id %>">
+<% function attractionHtml(attraction, index, baseUrl) { %>
+    <a href="<%= baseUrl  + '/' + attraction.id %>" class="element" data-id="<%= attraction.id %>">
          <div class="img" style="background-image: url('<%= attraction.images[0] %>')" />
          <div class="cover"></div>
          <div class="details">
@@ -15,28 +15,28 @@
    <div class="col">
     <% _.each(attractions, function(attraction, index) { %>
         <% if (index % 4 == 0 && attraction.images) { %>
-            <% attractionHtml(attraction, index) %>
+            <% attractionHtml(attraction, index, baseUrl) %>
         <% } %>
     <% }) %>
    </div>
    <div class="col">
        <% _.each(attractions, function(attraction, index) { %>
            <% if (index % 4 == 1 && attraction.images) { %>
-               <% attractionHtml(attraction, index) %>
+               <% attractionHtml(attraction, index, baseUrl) %>
            <% } %>
        <% }) %>
    </div>
    <div class="col">
        <% _.each(attractions, function(attraction, index) { %>
            <% if (index % 4 == 2 && attraction.images) { %>
-               <% attractionHtml(attraction, index) %>
+               <% attractionHtml(attraction, index, baseUrl) %>
            <% } %>
        <% }) %>
    </div>
    <div class="col">
        <% _.each(attractions, function(attraction, index) { %>
            <% if (index % 4 == 3 && attraction.images) { %>
-               <% attractionHtml(attraction, index) %>
+               <% attractionHtml(attraction, index, baseUrl) %>
            <% } %>
        <% }) %>
    </div>

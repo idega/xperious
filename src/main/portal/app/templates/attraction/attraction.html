@@ -46,7 +46,7 @@
 			        <ul class="menu list clearfix">
 			            <% _.each(_.first(products, 20), function(p) { %>
 			                <% if (p.id != product.id) { %>
-			                    <li><a href="javascript:void(0)" data-id="<%= p.id %>"><%= p.title %></a></li>
+			                    <li><a href="<%= baseUrl + '/' + p.id %>" data-id="<%= p.id %>"><%= p.title %></a></li>
 			                <% } %>
 			            <% }) %>
 			        </ul>

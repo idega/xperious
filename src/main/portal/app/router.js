@@ -52,13 +52,15 @@ define(['app',
 
 	    routes: {
 	    	'search(/:query)/:country/:from/:to/:arrivalterminal/:arrivaltime/:guests(/budget/:budgetfrom/:budgetto)(/plan/:index)' : 'search',
-	    	'attractions/:country/(:region/):subtype(/:product)' : 'attractions',
+	    	'attractions/:country/:subtype(/:region)(/:product)' : 'attractions',
 	    	'events*path' : 'events',
 	    	'' : 'index'
 	    },
 
 
 	    initialize: function() {
+	    	_.bindAll(this);
+
 	    	// no need to call render() explicitly on this view
 	    	// as it listens on special events and blocks ui with
 	    	// the modal dialog when required
@@ -74,7 +76,7 @@ define(['app',
 	    /**
 	     * Show a list of attractions or one attraction if selected.
 	     */
-	    attractions: function(country, region, subtype, product) {
+	    attractions: function(country, subtype, region, product) {
     		app.attractions.country = app.countries.get(country);
     		app.attractions.subtype.set('id', subtype, {silent: true}).fetch();
     		app.attractions.regions.fetch({data: {
@@ -100,6 +102,7 @@ define(['app',
 			    		country: country,
 			    		subtype: subtype,
 			    		region: app.attractions.region.get('id')
+
 			    	}).done(_.bind(function() {
 			    		if (product) {
 			    			var attributes = app.attractions.products.get(product).attributes;
@@ -206,7 +209,7 @@ define(['app',
 	     */
 	    go: function() {	    	
 	    	return this.navigate(
-    			this._url(_.initial(arguments)), 
+    			this._href(_.initial(arguments)), 
     			_.last(arguments));
 	    },
 
@@ -214,7 +217,7 @@ define(['app',
 	    /**
 	     * Follow search preferences and update url.
 	     */
-	    gosearch: function(options) {	    	
+	    gosearch: function(options) {
 	    	this.go(
 				'search',
 				app.search.pref.get('query'),
@@ -233,7 +236,14 @@ define(['app',
 	    },
 
 
-	    _url: function(args) {
+	    /**
+	     * Build absolute url from given arguments.
+	     */
+	    href: function() {
+	    	return app.root +  this._href(arguments);
+	    },
+	    
+	    _href: function(args) {
 	    	return _.map(
 	    			_.without(_.toArray(args), undefined, ''),
     				function(arg) { 

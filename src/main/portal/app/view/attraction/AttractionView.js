@@ -25,24 +25,34 @@ define([
 			return {
 				product: app.attractions.product.toJSON(),
 				products: app.attractions.products.toJSON(),
-				loader: this.loader()
+				loader: this.loader(),
+				baseUrl: app.router.href(
+					'attractions',
+					app.attractions.country.get('code'),
+					app.attractions.subtype.get('id'),
+					app.attractions.region.get('id'))
 			};
 		},
 
 		another: function(e) {
-			app.router.go(
-				'attractions',
-				app.attractions.country.get('code'),
-				app.attractions.region.get('id'),
-				app.attractions.subtype.get('id'),
-				$(e.currentTarget).data('id'),
-				{trigger: true}
-			);
+			if (!e.metaKey) {
+				app.router.go(
+					'attractions',
+					app.attractions.country.get('code'),
+					app.attractions.subtype.get('id'),
+					app.attractions.region.get('id'),
+					$(e.currentTarget).data('id'),
+					{trigger: true}
+				);
+				e.preventDefault();
+			}
 		},
 
 		beforeRender: function() {
-			app.trigger('change:title', 'Attractions - xperious');
 			$(window).scrollTop(0);
+			if (!app.attractions.product.isNew()) {
+				app.trigger('change:title', '{0} - xperious'.format(app.attractions.product.get('title')));
+			}
 		},
 
 		afterRender: function() {
@@ -62,7 +72,7 @@ define([
 						 position: new google.maps.LatLng(
 								app.attractions.product.get('address').latitude, 
 								app.attractions.product.get('address').longitude),
-						 title: 'Arnarstapi',
+						 title: app.attractions.product.get('title'),
 						 map: map
 					 });
 				}, this));

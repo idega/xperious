@@ -94,8 +94,6 @@ define([
 			});
 			app.search.pref.unset('index', {silent:true});
 			app.router.gosearch({trigger: true});
-
-			return false;
 		},
 
 
@@ -205,8 +203,8 @@ define([
 		},
 
 		beforeRender: function() {
-			app.trigger('change:title', 'Welcome - xperious');
 			$(window).scrollTop(0);
+			app.trigger('change:title', 'Welcome - xperious');
 		},
 
 
@@ -332,7 +330,7 @@ define([
 	        initSlider('.home-section .next', '.home-section .prev', '.slider-container');
 
 
-            this.$('input[type="submit"], a').hoverIntent({
+            this.$('input[type="submit"], input[type="button"], a').hoverIntent({
                 over: function() {
                 	$(this).toggleClass('hovered', 0, 'swing');
                 },

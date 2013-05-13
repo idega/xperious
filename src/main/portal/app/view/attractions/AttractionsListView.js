@@ -22,20 +22,27 @@ define([
 		},
 		
 		attraction: function(e) {
-			app.router.go(
-				'attractions',
-				app.attractions.country.get('code'),
-				app.attractions.region.get('id'),
-				app.attractions.subtype.get('id'),
-				$(e.currentTarget).data('id'),
-				{trigger: true});
-			return false;
+			if (!e.metaKey) {
+				app.router.go(
+					'attractions',
+					app.attractions.country.get('code'),
+					app.attractions.subtype.get('id'),
+					app.attractions.region.get('id'),
+					$(e.currentTarget).data('id'),
+					{trigger: true});
+				e.preventDefault();
+			}
 		},
 
 		serialize: function() {
 			return {
 				attractions: app.attractions.products.toJSON(),
-				loader: this.loader()
+				loader: this.loader(),
+				baseUrl: app.router.href(
+					'attractions',
+					app.attractions.country.get('code'),
+					app.attractions.subtype.get('id'),
+					app.attractions.region.get('id'))
 			};
 		},
 

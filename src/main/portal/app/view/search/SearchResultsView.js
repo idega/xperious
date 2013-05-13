@@ -27,17 +27,32 @@ define([
 
         serialize: function() {
         	return {
-        		results: this.collection.toJSON()
+        		results: this.collection.toJSON(),
+        		baseUrl: app.router.href(
+					'search',
+					app.search.pref.get('query'),
+					app.search.pref.get('country'),
+					app.search.pref.get('from').format('YYYYMMDD'),
+					app.search.pref.get('to').format('YYYYMMDD'),
+					app.search.pref.get('arrival').terminal,
+					app.search.pref.get('arrival').time,
+					app.search.pref.get('guests'),
+					app.search.pref.budget(),
+					app.search.pref.budgetfrom(),
+					app.search.pref.budgetto())
         	};
         },
 
 
-        result: function(event) {
-        	app.search.pref.set(
-        		'index', 
-        		$(event.currentTarget).data('index'),
-        		{silent: true});
-        	app.router.gosearch({trigger: true});
+        result: function(e) {
+        	if (!e.metaKey) {
+	        	app.search.pref.set(
+	        		'index', 
+	        		$(e.currentTarget).data('index'),
+	        		{silent: true});
+	        	app.router.gosearch({trigger: true});
+	        	e.preventDefault();
+        	}
         },
         
 

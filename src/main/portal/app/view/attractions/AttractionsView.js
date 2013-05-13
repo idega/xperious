@@ -9,7 +9,9 @@ define([
 		template: 'attractions/attractions',
 		
 		beforeRender: function() {
-			app.trigger('change:title', 'Attractions - xperious');
+			if (!app.attractions.subtype.isNew()) {
+				app.trigger('change:title', '{0} - xperious'.format(app.attractions.subtype.get('title').capitalize()));
+			}
 		}
 
 	});

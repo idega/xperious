@@ -12,7 +12,7 @@ define([
 
 
 		beforeRender: function() {
-			app.trigger('change:title', 'Suggestions - xperious');
+			app.trigger('change:title', 'Our suggestions - xperious');
 			$(window).scrollTop(0);
 		},
 

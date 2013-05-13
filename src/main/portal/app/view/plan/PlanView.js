@@ -52,8 +52,8 @@ define([
 
 
 		beforeRender: function() {
-			app.trigger('change:title', 'Itinerary - xperious');
 			$(window).scrollTop(0);
+			app.trigger('change:title', 'Itinerary - xperious');
 		},
 
 
