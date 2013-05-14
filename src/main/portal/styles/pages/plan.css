@@ -70,3 +70,36 @@
         padding-right: 440px; 
         padding-bottom: 205px;
     }
+    
+.days-list .wider {
+	width: 450px; 
+	float: left; 
+	margin-right: 22px;
+}
+
+    .days-list .wider .day-element .img div{
+        width: 450px; 
+        height: 205px;
+    }
+
+
+.days-list .widest {
+    width: 900px; 
+    height: 205px;
+    margin-bottom: 20px;
+}
+
+	.days-list .widest .day-element .img div{
+        width: 450px; 
+        height: 205px;
+        border-radius: 3px 0px 0px 3px;
+	}
+	
+	.days-list .widest .day-element .img {
+        float: left;
+    }
+    
+    .days-list .widest .day-element .description {
+        margin-left: 450px;
+        height: 175px;
+    }

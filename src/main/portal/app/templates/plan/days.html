@@ -18,27 +18,43 @@
 
 
 	<div class="days-list clearfix">
-	    <div class="col col-1">
-	       <% _.each(days, function(day, index) { %>  
-	           <% if (index % 3 == 0) { %>
-	                <% dayHtml(day, index) %> 
-	           <% } %>
-	     <% }); %>
-	    </div>
-	    <div class="col col-2">
-	        <% _.each(days, function(day, index) { %>
-	            <% if (index % 3 == 1) { %>
-	                <% dayHtml(day, index) %> 
-	            <% } %>
-	       <% }); %>
-	    </div>
-	    <div class="col col-3">
-	        <% _.each(days, function(day, index) { %>
-	            <% if (index % 3 == 2) { %>
-	                    <% dayHtml(day, index) %> 
-	             <% } %>
-	        <% }); %>
-	    </div>
+	    <% if (days.length == 1) { %>
+            <div class="col widest">
+                <% dayHtml(days[0], 0) %> 
+            </div>
+
+	    <% } else if (days.length == 2) { %>
+            <div class="col wider">
+                <% dayHtml(days[0], 0) %> 
+            </div>
+             <div class="col wider">
+                <% dayHtml(days[1], 1) %> 
+            </div>
+
+	    <% } else { %>
+		    <div class="col col-1">
+		       <% _.each(days, function(day, index) { %>  
+		           <% if (index % 3 == 0) { %>
+		                <% dayHtml(day, index) %> 
+		           <% } %>
+		     <% }); %>
+		    </div>
+		    <div class="col col-2">
+		        <% _.each(days, function(day, index) { %>
+		            <% if (index % 3 == 1) { %>
+		                <% dayHtml(day, index) %> 
+		            <% } %>
+		       <% }); %>
+		    </div>
+		    <div class="col col-3">
+		        <% _.each(days, function(day, index) { %>
+		            <% if (index % 3 == 2) { %>
+		                    <% dayHtml(day, index) %> 
+		             <% } %>
+		        <% }); %>
+		    </div>
+
+		 <% } %>
 	</div>
 
 <% } %>
