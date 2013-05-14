@@ -62,7 +62,7 @@ button, input, select, textarea {font-family: 'Ubuntu', sans-serif; font-size: 1
 .ui-autocomplete {padding: 0; background: #fff;}
 .ui-menu .ui-menu-item {border: none; background: none !important; margin: 0 !important;}
 .ui-menu .ui-menu-item a {padding: 4px 17px; font-size: 14px; color: #6d6d6d; border: none; background: none !important; margin: 0 !important;}
-.ui-menu .ui-menu-item a:hover {color: #fff; background: #86c543 !important; }
+.ui-menu .ui-menu-item a:hover {color: #333;}
 
 /*Custom Selectmenu*/
 .ui-selectmenu { display: block; display: inline-block; position: relative; height: 46px; vertical-align: middle; text-decoration: none; overflow: hidden; zoom: 1; float: left; border: none; background: #fff; border-radius: 4px; font-weight: 300;}
@@ -415,12 +415,16 @@ li:hover .convert-form input[type='text'] {zoom: 1;}
 .subscribe-form input[type='text'] {width: 222px; margin-right: 15px; padding: 13px 16px;}
 .subscribe-form .ui-selectmenu {margin-right: 18px;}
 .subscribe-form input[type='submit'] {background-color: #696969; width: 100px;}
-.no-js .subscribe-form input[type='submit']:hover, .subscribe-form input[type='submit'].hovered {background-color: #a6a49f;}
+.no-js .subscribe-form input[type='submit']:hover, .subscribe-form input[type='submit'].hovered,
+.content-page .subscribe-form input[type='submit']:hover,
+.blog-page .subscribe-form input[type='submit']:hover {background-color: #a6a49f;}
 .subscribe-form .explain {padding-top: 15px; padding-left: 6px; width: 430px;}
 
 .social-links {padding-top: 46px;}
 .social-links a {display: inline-block; width: 27px; height: 27px; margin-right: 5px;}
-.no-js .social-links a:hover, .social-links a.hovered {opacity: 0.8; filter: alpha(opacity = 80);}
+.no-js .social-links a:hover, .social-links a.hovered,
+.content-page .social-links a:hover,
+.blog-page .social-links a:hover {opacity: 0.8; filter: alpha(opacity = 80);}
 .social-links .ico-fb {background: url(../images/fb-ico.png) no-repeat left top;}
 .social-links .ico-g {background: url(../images/g-ico.png) no-repeat left top;}
 .social-links .ico-tw {background: url(../images/tw-ico.png) no-repeat left top;}
@@ -573,7 +577,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 /*Alignments*/
 .first .big {font-size: 38px; line-height: 40px;}
 .align-middle .title {top: 30%;}
-.align-middle .price {}
 .align-left .title,
 .align-left .price {left: 15px; right: auto; text-align: left}
 .align-right .title,
@@ -599,7 +602,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 .simple-section p, .post-content p {font-size: 14px; color: #333; line-height: 22px; margin-bottom: 25px;}
 .simple-section p:last-child {margin-bottom: 0px;}
 
-.content-page .inner-home-section {}
 .content-page .inner-home-section h1 {padding-bottom: 73px; padding-top: 120px;}
 
 
@@ -623,9 +625,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 .blog-section {background: #fff;}
 .blog-section .site-block {padding: 80px 0;}
 
-.blog-page .inner-home-section {}
 .blog-page .inner-home-section h1 {padding-bottom: 73px; padding-top: 120px;}
-
 
 .blog-left {width: 670px; float: left;}
 .blog-side {width: 254px; float: right; padding-top: 10px; padding-right: 43px;}
@@ -640,8 +640,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 .article h2 {margin-top: 0; margin-bottom: 6px; font-size: 48px; color: #86c543; font-weight: 300;}
 .article .post-info {color: #a6a49f; margin-bottom: 18px;}
 .article .post-info strong {color: #333333; font-weight: 400;}
-.article .post-info a {}
-.article .post-content {}
+
+.article h2 a:hover,
+.article .post-info a:hover,
+.blog-side a:hover {color: #53762b;}
 
 .blog-left .paginator {font-size: 14px; color: #a6a49f;}
 .paginator p {margin-right: 150px; margin-left: 150px;} 
@@ -656,7 +658,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 .blog-side h3 strong {font-weight: 400;}
 
 /*Recent widget*/
-.block-recent {}
 .block-recent li {margin-bottom: 15px; font-size: 14px;}
 .block-recent .comments {color: #a6a49f; font-size: 12px; display: inline-block; padding-left: 4px;}
 
@@ -665,7 +666,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 .block-topics li {font-size: 14px; margin-bottom: 2px;}
 
 /*Photo widget*/
-.block-photo {}
 .block-photo h3 {margin-top: 21px;}
 .block-photo a {float: left;}
 
@@ -718,7 +718,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 
 .copyrights {font-size: 14px; margin-top: 20px;}
 
-.js .landing-page {visibility:hidden;}
+.js.no-touch .landing-page {visibility:hidden;}
 
 #plan-inputs-container{overflow: hidden; width:0px;display:inline-block; float: left; }
 #plan-inputs-container .inner{width:350px;}
