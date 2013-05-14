@@ -17,6 +17,7 @@ define([
 		        	code: 'uk',
 		        	title: 'United Kingdom',
 		        	icon: '/app/images/map-uk.png',
+		        	email: 'uk@xperious.travel',
 		        	zoom: 6,
 		        	pin: {
 		        		lat: 51.5171,
@@ -32,6 +33,7 @@ define([
 		        	code: 'is',
 		        	title: 'Iceland',
 		        	icon: '/app/images/map-is.png',
+		        	email: 'iceland@xperious.travel',
 		        	zoom: 6,
 		        	pin: {
 		        		lat: 64.787583,
@@ -47,6 +49,7 @@ define([
 		        	code: 'lt',
 		        	title: 'Lithuania',
 		        	icon: '/app/images/map-lt.png',
+		        	email: 'lithuania@xperious.travel',
 		        	zoom: 7,
 		        	pin: {
 		        		lat: 54.6833,

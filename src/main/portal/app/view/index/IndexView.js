@@ -198,7 +198,7 @@ define([
 		serialize: function() {
 			return {
 				pref: app.search.pref.toJSON(),
-				country: app.countries.get(app.country()).get('title')
+				country: app.countries.get(app.country()).toJSON()
 			};
 		},
 
@@ -222,7 +222,10 @@ define([
 	
 	
 	        $("input.autocomplete-search-input").autocomplete({
-	        	source: '/api/v1/keywords/suggest?country=is'
+	        	source: '/api/v1/keywords/suggest?country=is',
+	        	response: function(event, ui) {
+	        		ui.content.splice(8, ui.content.length);
+	        	}
 	        });
 	
 
