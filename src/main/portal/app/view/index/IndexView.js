@@ -207,7 +207,6 @@ define([
 			app.trigger('change:title', 'Welcome - xperious');
 		},
 
-
 		afterRender: function() {
 
 			var guests = app.search.pref.get('guests');
@@ -220,56 +219,50 @@ define([
 	        /*Placeholder for old browsers*/
 	        $('input[placeholder], textarea[placeholder]').placeholder();
 	
-	
-	        $("input.autocomplete-search-input").autocomplete({
-	        	source: '/api/v1/keywords/suggest?country=is',
+
+            function extractLast(term) {
+        		return term.split(' ').pop();
+            }
+            
+	        $('input.autocomplete-search-input')
+	        .bind('keydown', function(event) {
+		        if (event.keyCode === $.ui.keyCode.TAB 
+	        		&& $(this).data('ui-autocomplete').menu.active) {
+		          event.preventDefault();
+		        }
+		    })
+		    .autocomplete({
+	        	delay: 0, 
+
+	        	source: function(request, response) {
+	                  $.getJSON('/api/v1/keywords/suggest?country=' + app.country(), {
+	                    term: extractLast(request.term)
+	                  }, response );
+	            },
+	            
+	            search: function() {
+	                  var term = extractLast(this.value);
+	                  if (term.length < 1) {
+	                    return false;
+	                  }
+	                },
+
+                focus: function() {
+                  return false;
+                },
+
+                select: function(event, ui) {
+                  var terms = this.value.split(' ');
+                  terms.pop();
+                  terms.push(ui.item.value);
+                  this.value = terms.join(' ');
+                  return false;
+                },
+
 	        	response: function(event, ui) {
 	        		ui.content.splice(8, ui.content.length);
 	        	}
 	        });
-	
-
-//	        if (!Modernizr.touch) {
-//	            /* http://craigsworks.com/projects/qtip/ */
-//	            $(".tooltip").each(function() {
-//	                var config = {
-//	                    content: {},
-//	                    style: {
-//	                        name: 'dark',
-//	                        width: 285,
-//	                        padding: 15,
-//	                        border: {
-//	                            width: 2,
-//	                            radius: 2,
-//	                            color: '#000000'
-//	                        },
-//	
-//	                        tip: { // Now an object instead of a string
-//	                            corner: 'topLeft', // We declare our corner within the object using the corner sub-option
-//	                            color: '#000000',
-//	                            size: {
-//	                                x: 20, // Be careful that the x and y values refer to coordinates on screen, not height or width.
-//	                                y: 20 // Depending on which corner your tooltip is at, x and y could mean either height or width!
-//	                            }
-//	                        }
-//	                    },
-//	                    position: {
-//	                        adjust: {
-//	                            x: -350,
-//	                            y: 0
-//	                        }
-//	                    }
-//	                },
-//	                $this = $(this);
-//	                if ($this.data('tooltipcontent')) {
-//	                    config.content.text = $this.data('tooltipcontent');
-//	                }
-//	                if ($this.data('tooltiptitle')) {
-//	                    config.content.title = $this.data('tooltiptitle');
-//	                }
-//	                $this.qtip(config);
-//	            });
-//	        }
 	
 	        $(".slider-container").imagesLoaded(centerSliderImages);
 	
