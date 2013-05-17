@@ -36,15 +36,33 @@
 }
 
 
-.day-popup .lefter div > p, 
-.day-popup .lefter li p {
-	font-size: 14px; 
-	color: #fff; 
-	padding-left: 22px; 
-	margin-left: 10px; 
-	margin-right: 10px; 
-	margin-bottom: 73px;
+#day-popup {
 }
+
+	#day-popup .day-popup .lefter div > p, 
+	#day-popup .day-popup .lefter li p {
+		font-size: 14px; 
+		color: #fff; 
+		padding-left: 22px; 
+		margin-left: 10px; 
+		margin-right: 10px; 
+		margin-bottom: 73px;
+	}
+	
+	#day-popup .righter .content h4 span { 
+        cursor: hand; 
+        cursor: pointer;
+    }
+
+	#day-popup .day-popup .event-tooltip .close {
+		padding-right: 15px;
+		padding-top: 3px;
+	}
+	
+	#day-popup .day-popup .event-tooltip .popup-bottom {
+        padding-bottom: 20px;
+    }
+
 
 .selected-package-page .day-element .img div {
     width: 300px; 
@@ -56,7 +74,6 @@
 
 .product-popup {
 	position: absolute;
-	left: 270px;
 }
 
     .product-popup .map-holder {
@@ -70,6 +87,7 @@
         padding-right: 440px; 
         padding-bottom: 205px;
     }
+
     
 .days-list .wider {
 	width: 450px; 

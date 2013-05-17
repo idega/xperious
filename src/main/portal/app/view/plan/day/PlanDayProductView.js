@@ -45,33 +45,43 @@ define([
 
 		serialize: function() {
 			return {
-				product: (this.event) 
-					? this.event.product.toJSON() 
-					: undefined
+				product: (this.event) ? this.event.product.toJSON() : undefined,
+				event: this.event
 			};
 		},
 
 
 		afterRender: function() {
+
 			// become visible only after event was fired
 			if (typeof this.event === 'undefined') {
 				this.$el.hide();
 				return;
 			}	
 
-			
-			var offset = this.offset;
-			
-			// align popup offset with dialog height so the popup
-			// does not get outside the dialog borders
-			var y = this.event.topOffset - $('#fancybox-content').offset().top;
-			if (y + this.minheight > $('#fancybox-content').height()) {
-				offset = y + this.minheight - $('#fancybox-content').height();
-			}
 
-			this.$('.product-popup').css('top', y - offset);
-			this.$('.product-popup > .nip').css('top', offset);
-			this.$el.show();
+			if (this.event.nip === 'left') {
+				var offset = this.offset;
+				// align popup offset with dialog height so the popup
+				// does not get outside the dialog borders
+				var y = this.event.topOffset - $('#fancybox-content').offset().top;
+				if (y + this.minheight > $('#fancybox-content').height()) {
+					offset = y + this.minheight - $('#fancybox-content').height();
+				}
+				this.$('.product-popup').css('top', y - offset);
+				this.$('.product-popup').css('left', 270);
+				this.$('.product-popup > .nip').css('top', offset);
+				this.$el.show();
+
+			} else if (this.event.nip === 'top'){
+				var y = this.event.topOffset - $('#fancybox-content').offset().top;
+				this.$('.product-popup').css('top', y + 30);
+				this.$('.product-popup').css('left', 290);
+				this.$('.product-popup > .nip').css('top', -15);
+				this.$('.product-popup > .nip').css('left', 20);
+				this.$('.product-popup > .nip').css('transform', 'rotate(90deg)');
+				this.$el.show();
+			}
 		
 		
         	initSlider(

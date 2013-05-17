@@ -27,6 +27,15 @@
         background: #86c543 !important; 
     }
 
+/* Fancybox close button */
+#fancybox-close {
+	padding-right: 15px;
+	padding-top: 5px;
+}
+    #fancybox-close.destination {
+        padding-right: 20px;
+    }
+
 
 .loader {
 	position: absolute;
@@ -46,12 +55,14 @@
     }
 
 
+/** Global widget overlay style */
 .ui-widget-overlay {
     opacity: 1;
     background: rgba(0, 0, 0, 0.75);
 }
 
-/** Loading dialog */
+
+/** Loading dialog/screen */
 .loading {
 	z-index: 1001;
 }
@@ -151,7 +162,6 @@
 	.bottom-menu > li:nth-child(5) {
 	    width: 25%;
 	}
-
 
 
 

@@ -29,9 +29,13 @@ define([
                 overlayOpacity: 0.75,
                 padding: 0,
                 onStart: _.bind(function() {
+                	$('#fancybox-close').addClass('destination');
                     $('#fancybox-close').text('Close');
                     $("#fancybox-outer").removeClass();
-                }, this)
+                }, this),
+                onClosed: function() {
+                	$('#fancybox-close').removeClass('destination');
+                }
             });
 
 

@@ -8,34 +8,70 @@ define([
 
 		template: 'plan/day/day',
 		
+
+		events: {
+			'click .title' : 'clickShowProduct',
+			'click .more-info' : 'clickMoreInfo'
+		},
+
+
 		initialize: function() {
 			app.on('change:day', this.show, this);
 		},
 
+
 		cleanup: function() {
 			app.off('change:day', this.show, this);
 		},
-		
+
+
 		show: function(day) {
 			this.plan = app.search.results.at(app.search.pref.get('index'));
 			this.items = this.plan.days()[day];
 			this.day = day;
 			this.render();
 		},
-		
+
+
 		hide: function() {
 			this.day = undefined;
 		},
 
+
 		serialize: function() {
 			return {
 				day: this.day,
+				duration: _.reduce(
+						this.items, function(sum, item) {
+							return (item.get('type') !== 'LODGING') 
+								? sum + item.get('duration') 
+								: sum;
+					}, 0), 
 				items: _.map(
 					this.items, function(item) { 
-						return item.toJSON();
+						return item.serialize();
 					}
-				),
+				)
 			};
+		},
+
+
+		clickShowProduct: function(e) {
+			app.trigger('change:product', {
+				product: this.items[$(e.currentTarget).data('index')],
+				topOffset: this.$(e.currentTarget).offset().top,
+				nip: 'top'
+			});  
+		},
+		
+		
+		clickMoreInfo: function(e) {
+			var title = this.$(e.currentTarget).closest('.wrapper').find('.title');
+			app.trigger('change:product', {
+				product: this.items[title.data('index')],
+				topOffset: title.offset().top,
+				nip: 'top'
+			});
 		},
 		
 
@@ -57,7 +93,7 @@ define([
 	                $('#fancybox-close').text('Close');
 	                $("#fancybox-outer").removeClass().addClass('day-lightbox');
 	            },
-	            onClosed: this.hide()
+	            onClosed: this.hide
 			});
 
 			require(['google'], _.bind(function(google) {
@@ -107,14 +143,12 @@ define([
 
 				if (request.destination) {
 					var service = new google.maps.DirectionsService();
-//					var display = new google.maps.DirectionsRenderer();
-//					display.setMap(map);
+					var display = new google.maps.DirectionsRenderer();
+					display.setMap(map);
 
 					service.route(request, _.bind(function(result, status) {
 				    	if (status == google.maps.DirectionsStatus.OK) {
-//				    		display.setDirections(result);
-				    		this.appendStats(result);
-//				    	} else {
+				    		this.appendDistance(result);
 				    	}
 			    		this.drawMarkers(map);
 					}, this));
@@ -127,8 +161,8 @@ define([
 			}, this));
 		},
 
-		appendStats: function(result) {
 
+		appendDistance: function(result) {
 			var distance = Math.round(_.reduce(
 				result.routes[0].legs, 
 				function(sum, leg) { 
@@ -136,23 +170,17 @@ define([
 				}, 
 			0));
 
-    		var duration = moment.duration(_.reduce(
-    			result.routes[0].legs, 
-    			function(sum, leg) { 
-    				return sum + leg.duration.value; 
-    			}, 
-    			0
-	    	), 'seconds').humanize();
+			this.$('.total-distance').text('Total distance: ' + distance + 'km');
 
-    		// display total distance and duration
-    		$('<h5>Total distance ' + 
-    			distance + 
-    			' km, about ' + 
-    			duration + 
-    			' by car</h5>')
-    		.insertAfter('.day-map h4');
-
+			//    		var duration = moment.duration(_.reduce(
+			//    			result.routes[0].legs, 
+			//    			function(sum, leg) { 
+			//    				return sum + leg.duration.value; 
+			//    			}, 
+			//    			0
+			//	    	), 'seconds').humanize();
 		},
+
 
 		drawMarkers: function(map) {
 			_.each(this.items, function(item) {

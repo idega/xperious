@@ -31,7 +31,8 @@ define([
 					// product found, trigger product change event
 					app.trigger('change:product', {
 						product: app.search.products.at(i).get('product'),
-						topOffset: $(e.currentTarget).offset().top
+						topOffset: $(e.currentTarget).offset().top,
+						nip: 'left'
 					});  
 					break;
 				}

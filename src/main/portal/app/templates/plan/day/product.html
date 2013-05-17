@@ -34,7 +34,9 @@
             <span class="nip"></br></span>
        </div>
 		<div class="popup-bottom">
-		  <a href="javascript:void(0)" class="button">ADD TO TRIP</a>
+		  <% if (event.nip === 'left') { %>
+		      <a href="javascript:void(0)" class="button">ADD TO TRIP</a>
+		  <% } %>
 		</div>
 		<div class="close">Close</div>
 	</div>

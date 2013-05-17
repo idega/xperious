@@ -29,6 +29,8 @@ define([
 			// is not available yet
 			if (this.plan()) {
 				var days = [];
+				
+				
 				_.each(this.plan().days(), function(items, index) {
 
 					// try to use the image from the most relevant item

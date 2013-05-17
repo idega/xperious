@@ -54,12 +54,16 @@ define([
 	
 
 		open: function() {
+			var defaultDate = this.model.asString(this.property);
+			if (!defaultDate) {
+				defaultDate = this.model.asString('from');
+			}
 			this.$('.datepicker').datepicker({
 				dateFormat: 'yy-mm-dd',
 				numberOfMonths: 1,
 				firstDay: 1,
 				modal: false,
-				defaultDate: this.model.asString(this.property),
+				defaultDate: defaultDate,
 				onSelect: this.onDateSelect,
                 beforeShowDay: this.beforeShowDay
 			});
