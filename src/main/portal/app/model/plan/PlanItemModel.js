@@ -18,6 +18,7 @@ define([
 			json.summary.on = rounded.format('HH:mm');
 			json.summary.duration = moment.duration(json.duration).humanize();
 			json.summary.summary = this.summary();
+			json.summary.description = this.summaryDescription();
 			json.summary.image = this.summaryImage();
 			
 			return json;
@@ -40,9 +41,15 @@ define([
 			} else if (this.has('logo')) {
 				return this.get('logo');
 			}
-		}
+		},
 		
-
+		summaryDescription: function() {
+			if (this.has('description')) {
+				// strip html on description
+				return this.get('description')
+					.replace(/<(?:.|\n)*?>/gm, '');
+			}
+		}
 	});
 
 });

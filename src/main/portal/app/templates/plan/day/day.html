@@ -12,16 +12,16 @@
            <% _.each(included, function(item, index) { %>
 	           <div class="wrapper">
 	                <h4>
-	                    <span class="title" data-index="<%= _.indexOf(items, item) %>"><%= item.title %></span>
+	                    <span class="wrapper-title" data-index="<%= _.indexOf(items, item) %>"><%= item.title %></span>
 	                </h4>
-	                <p>
+<!-- 	                <p>
 	                    <div style="width: 200px; height: 150px; background-image: url('<%= item.summary.image %>'); background-size: cover; background-position: center center;" />
-	                </p>
-	                <p>
+	                </p> -->
+<!-- 	                <p>
 	                    <%= item.summary.on %> <%= item.summary.duration %>
-	                </p>
+	                </p> -->
 	                <p>
-	                    <%= item.description %>
+	                    <%= item.summary.description %>
 	                    <a class="more-info" data-index="<%= _.indexOf(items, item) %>" href="javascript:void(0)">More Info</a>
 	                </p>
 	           </div>
@@ -33,8 +33,10 @@
        </div>
        <div class="day-map">
          <h4>DAY ON THE MAP</h4>
-         <span class="total-distance"></span>
-         <span class="total-duration">Total time: <%= moment.duration(duration).humanize() %></span>
+         <h5>
+            <span class="total-distance"></span>
+            <span class="total-duration">Total time: <%= moment.duration(duration).humanize() %></span>
+         </h5>
          <div class="map-holder" />
        </div>
      </div>

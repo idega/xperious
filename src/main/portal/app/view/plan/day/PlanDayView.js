@@ -10,7 +10,7 @@ define([
 		
 
 		events: {
-			'click .title' : 'clickShowProduct',
+			'click .content h4 span' : 'clickShowProduct',
 			'click .more-info' : 'clickMoreInfo'
 		},
 
@@ -66,7 +66,7 @@ define([
 		
 		
 		clickMoreInfo: function(e) {
-			var title = this.$(e.currentTarget).closest('.wrapper').find('.title');
+			var title = this.$(e.currentTarget).closest('.wrapper').find('.wrapper-title');
 			app.trigger('change:product', {
 				product: this.items[title.data('index')],
 				topOffset: title.offset().top,
