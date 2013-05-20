@@ -20,6 +20,7 @@ define([
 
 
 		initialize: function() {
+			_.bindAll(this);
 			app.on('change:product', this.show, this);
 			app.on('change:day', this.hide, this);
 		},
@@ -40,6 +41,7 @@ define([
 		hide: function() {
 			this.event = undefined;
 			this.render();
+			$('html').unbind('click', this.hide);
 		},
 
 
@@ -93,6 +95,13 @@ define([
 
 
         	this.loadImages('.product-popup .popup-gallery-fader img:first-child');
+        	
+        	// clicking on anything else except the 
+			// dialog itself should close it
+			$('#fancybox-content').bind('click', this.hide);
+			this.$el.bind('click', function(e) {
+				e.stopPropagation();
+			});
 
 
 			require(['google'], _.bind(function(google) {

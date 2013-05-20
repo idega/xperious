@@ -25,6 +25,7 @@ define([
 
 		
 		product: function(e) {
+			e.stopPropagation();
 			var id = $(e.currentTarget).data('id');
 			for (var i = 0; i < app.search.products.size(); i++) {
 				if (app.search.products.at(i).get('product').get('id') === id) {

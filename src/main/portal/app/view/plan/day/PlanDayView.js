@@ -57,15 +57,17 @@ define([
 
 
 		clickShowProduct: function(e) {
+			e.stopPropagation();
 			app.trigger('change:product', {
 				product: this.items[$(e.currentTarget).data('index')],
 				topOffset: this.$(e.currentTarget).offset().top,
 				nip: 'top'
-			});  
+			});
 		},
 		
 		
 		clickMoreInfo: function(e) {
+			e.stopPropagation();
 			var title = this.$(e.currentTarget).closest('.wrapper').find('.wrapper-title');
 			app.trigger('change:product', {
 				product: this.items[title.data('index')],
