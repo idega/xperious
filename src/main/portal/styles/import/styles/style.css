@@ -264,6 +264,15 @@ background: url(../images/bg-4.jpg) no-repeat center center fixed;
 .qtip-tip {background: url(../images/nip.png) no-repeat left top; left: -5px !important;}
 .qtip-tip * {display: none !important;}
 
+.qtip-light .qtip-wrapper {box-shadow: 0 0 10px #a6a49f; border-radius: 4px;}
+.qtip-light .qtip-borderBottom,
+.qtip-light .qtip-borderTop {display: none !important;}
+
+.qtip-light .qtip-tip {background: url(../images/nip-2.png) no-repeat left top; width: 19px; height: 26px; margin-right: -10px !important; margin-top: 11px !important; left: auto !important;}
+.qtip-light .qtip-contentWrapper {border: none !important; background: #a6a49f !important; color: #333333;}
+.qtip-light .qtip-title {font-weight: 400 !important;}
+.qtip-light .qtip-content {font-size: 14px; line-height: 18px;}
+
 /*Site bottom menu*/
 .site-bottom-menu {position: absolute; bottom: 0px; left: 0; width: 100%; z-index: 10; background: url(../images/bottom-rep.png);}
 .site-bottom-menu .site-block-in {padding: 0;}

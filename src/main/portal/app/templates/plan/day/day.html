@@ -7,36 +7,24 @@
        <div class="top">
          <h2 class="title">This is how your <span><%= day + 1 %> day</span> in your vacation looks like</h2>
          <h3 class="subtitle">You can add to it, delete it and change as you like, after all it's your vacation.</h3>
-         <div class="content">
+         <div class="activities-list">
            <% var included = _.filter(items, function(i) { return i.type === 'PRODUCT' || i.type === 'LODGING';}) %>
            <% _.each(included, function(item, index) { %>
-	           <div class="wrapper">
-	                <h4>
-	                    <span class="wrapper-title" data-index="<%= _.indexOf(items, item) %>"><%= item.title %></span>
-	                </h4>
-<!-- 	                <p>
-	                    <div style="width: 200px; height: 150px; background-image: url('<%= item.summary.image %>'); background-size: cover; background-position: center center;" />
-	                </p> -->
-<!-- 	                <p>
-	                    <%= item.summary.on %> <%= item.summary.duration %>
-	                </p> -->
-	                <p>
-	                    <%= item.summary.summary %>
-	                    <a class="more-info" data-index="<%= _.indexOf(items, item) %>" href="javascript:void(0)">More Info</a>
-	                </p>
-	           </div>
+               <div class="activities-element clearfix">
+                    <div class="fl activities-element__image" style="background-image: url('<%= item.summary.image %>'); background-size: cover; background-position: center center; width: 130px; height: 130px;" />
+                    <p class="activities-element__time"><%= item.summary.on %></p>
+                    <p class="activities-element__name" data-index="<%= items.indexOf(item) %>"><%= item.title %></p>
+                    <p class="activities-element__text"><%= item.summary.summary %><a href="javascript:void(0)" class="activities-element__more">More info</a></p>
+                    <p class="activities-element__info"><span class="h-highlight-color"><strong>1590</strong></span> Reviews <br/> Duration: <strong><%= item.summary.duration %></strong></p><a href="#" data-tooltiptitle="Rearrange item" data-tooltipcontent="You can change the order of the day by clicking on this ikon, hold the mouse button and drag where you want." class="activities-element__repostion js-show-tooltip"><br></a><a href="#" data-tooltiptitle="Delete item" data-tooltipcontent="You can delete this item by clicking on this icon." class="activities-element__remove js-show-tooltip"><br></a>
+               </div>
            <% }) %>
-           <% if (!items.length) { %>
-                <p style="font-size: 16px; font-weight: 300; height: 200px">No attractions this day, you can enjoy the view while driving and relax at the hotel.</p>
-           <% } %>
          </div>
        </div>
        <div class="day-map">
-         <h4>DAY ON THE MAP</h4>
-         <h5>
-            <span class="total-distance"></span>
-            <span class="total-duration">Total time: <%= moment.duration(duration).humanize() %></span>
-         </h5>
+         <div class="day-map__top">
+              <h4>TODAYS routes</h4>
+              <h5><span class="total-distance"></span> <span class="day-map__time-ico">Total time:</span> <span class="h-highlight-color"><strong><%= moment.duration(duration).humanize() %></strong></span></h5>            
+         </div>
          <div class="map-holder" />
        </div>
      </div>

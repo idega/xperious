@@ -132,11 +132,11 @@
 .day-popup {background: #e5e5e5 url(../images/day-popup-grad.png) repeat-y left top; width: 986px; border-radius: 4px; position: relative;}
 .day-popup .lefter {width: 270px; float: left; padding: 15px 0px 15px 0px; padding-top: 112px; background: url(../images/add-hand.png) no-repeat 120px 40px;}
 .day-popup .righter {width: 715px; float: right;}
+.day-popup .righter strong {font-weight: 500;}
 .day-popup .lefter h4 {font-size: 18px; color: #fff; font-weight: 400; margin: 0; padding-left: 22px; text-transform: uppercase; margin-bottom: 19px; margin-left: 10px; margin-right: 10px;}
 .day-popup .lefter > p {font-size: 14px; color: #fff; padding-left: 22px; margin-left: 10px; margin-right: 10px; margin-bottom: 73px;}
 .day-popup .activities-block h4 {background: url(../images/day-group-title.png) no-repeat left 6px;}
 .day-popup .activities-block {background: url(../images/day-activities-dots.png) no-repeat 32px bottom; padding-bottom: 26px; margin-bottom: 23px;}
-.day-popup .lefter ul {}
 .day-popup .lefter li {padding-bottom: 1px; position: relative;}
 .day-popup .lefter li > a {color: #fff; text-transform: uppercase; font-size: 14px; padding-left: 32px; padding-right: 10px; display: block; line-height: 20px;}
 .day-popup .lefter li > a:hover,
@@ -144,21 +144,43 @@
 .day-popup .lefter li.active > a {background: #86c543; color: #605f5c;}
 
 .day-popup .top {padding-bottom: 25px; padding-left: 23px; padding-right: 23px; padding-top: 50px;}
-.day-popup .righter .title {margin: 0px; font-weight: 300; color: #86c543; font-size: 31px; text-align: center;}
+.day-popup .righter .title {margin: 0px; font-weight: 300; color: #86c543; font-size: 31px;}
 .day-popup .righter .title span {display: inline-block; background: #53762b; color: #fff; font-weight: 500; padding: 0 3px; }
-.day-popup .subtitle {font-size: 17px; color: #6d6d6d; font-weight: 300; text-align: center; padding-bottom: 31px; margin-top: 0;}
-.day-popup .content {}
-.day-popup .content h4 {font-size: 18px; color: #333; margin-bottom: 0; font-weight: 300; text-transform: uppercase;}
-.day-popup .content p {margin-top: 0px; color: #6d6d6d; font-size: 14px; line-height: 18px;}
-.day-popup .day-map {}
-.day-popup .day-map h4 {font-size: 24px; color: #86c543; font-weight: 300; margin: 0; text-align: center;}
-.day-popup .day-map h5 {font-size: 16px; font-weight: 300; color: #333; margin: 0; text-align: center; padding-bottom: 25px;}
+.day-popup .subtitle {font-size: 17px; color: #6d6d6d; font-weight: 400; padding-bottom: 23px; margin-top: 6px;}
+
+/*Activities list in popup*/
+.h-highlight-color {color: #86c543;}
+
+.activities-list {border-bottom: 1px solid #c9c8c5;}
+
+
+.activities-element {position: relative; padding: 5px 0; border-top: 1px solid #c9c8c5; color: #333;}
+.activities-element__image {margin-right: 13px;}
+.activities-element__time {margin: 0; font-size: 24px; color: #86c543; font-weight: bold; margin-top: 6px;}
+.activities-element__name {font-size: 22px; margin: 3px 0;}
+.activities-element__text {font-size: 14px; line-height: 19px; margin: 0;}
+.activities-element__more {display: inline-block; padding-left: 11px; background: url(../images/more-arrow.png) no-repeat left 7px; margin-left: 5px;}
+.activities-element__info {position: absolute; top: 14px; right: 28px; width: 125px; text-align: right; margin: 0;}
+
+.activities-element__repostion,
+.activities-element__remove {display: inline-block; position: absolute; right: 0px; width: 12px; height: 12px;}
+.activities-element__repostion {top: 16px; background: url(../images/reposition-ico.png) no-repeat left top; cursor: ns-resize;}
+.activities-element__remove {top: 33px; background: url(../images/remove-ico.png) no-repeat left top;}
+
+
+.day-popup .day-map h4 {font-size: 24px; color: #86c543; font-weight: 300; margin: 0;}
+.day-popup .day-map h5 {font-size: 16px; font-weight: 300; color: #333; margin: 0; padding-bottom: 10px;}
+
+.day-map__top {padding: 0 20px;}
+.day-map__time-ico {display: inline-block; padding-left: 27px; background: url(../images/time-ico-2.png) no-repeat left 4px; margin-left: 4px;}
+
+
 
 .day-lightbox #fancybox-close {color: #a6a49f; right: 10px; top: 3px; background-image: url(../images/close-2.png); display: inline-block; position: absolute;}
 .day-popup .event-tooltip .close {top: auto; bottom: 4px; right: 12px; color: #a6a49f; background: url(../images/close-2.png) no-repeat right center; display: inline-block; position: absolute; font-size: 10px; line-height: 28px; padding-right: 20px; text-transform: uppercase; cursor: pointer;}
 
 
-.day-popup .event-tooltip {position: absolute; left: 270px; top: -285px; box-shadow: 0 0 15px #333333;}
+.day-popup .event-tooltip {position: absolute; left: 270px; top: -285px; box-shadow: 0 0 15px #333333; z-index: 30;}
 .day-popup .event-tooltip > .nip {position: absolute; display: inline-block; left: -12px; top: 285px; background: url(../images/tooltip-nip.png) no-repeat left top; width: 12px; height: 20px;}
 .day-popup .place-description {padding: 0 5px;}
 .day-popup .place-description p {font-size: 14px; color: #333; line-height: 18px; margin-top: 0; margin-bottom: 5px;}

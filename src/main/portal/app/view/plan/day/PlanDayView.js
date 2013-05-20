@@ -10,8 +10,8 @@ define([
 		
 
 		events: {
-			'click .content h4 span' : 'clickShowProduct',
-			'click .more-info' : 'clickMoreInfo'
+			'click .activities-element__name' : 'clickShowProduct',
+			'click .activities-element__more' : 'clickMoreInfo'
 		},
 
 
@@ -68,7 +68,7 @@ define([
 		
 		clickMoreInfo: function(e) {
 			e.stopPropagation();
-			var title = this.$(e.currentTarget).closest('.wrapper').find('.wrapper-title');
+			var title = this.$(e.currentTarget).closest('.activities-element').find('.activities-element__name');
 			app.trigger('change:product', {
 				product: this.items[title.data('index')],
 				topOffset: title.offset().top,
@@ -80,6 +80,7 @@ define([
 		afterRender: function() {
 			// become visible only if day has been specified
 			if (typeof this.day === 'undefined') return;
+
 
 			$.fancybox({
 				content: this.$el,
@@ -97,6 +98,49 @@ define([
 	            },
 	            onClosed: this.hide
 			});
+			
+			this.loadImages('.activities-element__image');
+			
+
+			$(".js-show-tooltip").each(function() {
+                var config = {
+                    content: {},
+                    style: {
+                        name: 'light',
+                        width: 285,
+                        padding: 15,
+                        border: {
+                            width: 2,
+                            radius: 2,
+                            color: '#000000'
+                        },
+
+                        tip: { // Now an object instead of a string
+                            corner: 'topRight', // We declare our corner within the object using the corner sub-option
+                            color: '#000000',
+                            size: {
+                                x: 19, // Be careful that the x and y values refer to coordinates on screen, not height or width.
+                                y: 26 // Depending on which corner your tooltip is at, x and y could mean either height or width!
+                            }
+                        }
+                    },
+                    position: {
+                        adjust: {
+                            x: -302,
+                            y: -16
+                        }
+                    }
+                },
+                $this = $(this);
+                if ($this.data('tooltipcontent')) {
+                    config.content.text = $this.data('tooltipcontent');
+                }
+                if ($this.data('tooltiptitle')) {
+                    config.content.title = $this.data('tooltiptitle');
+                }
+                $this.qtip(config);
+            });
+
 
 			require(['google'], _.bind(function(google) {
 
@@ -172,15 +216,7 @@ define([
 				}, 
 			0));
 
-			this.$('.total-distance').text('Total distance: ' + distance + 'km');
-
-			//    		var duration = moment.duration(_.reduce(
-			//    			result.routes[0].legs, 
-			//    			function(sum, leg) { 
-			//    				return sum + leg.duration.value; 
-			//    			}, 
-			//    			0
-			//	    	), 'seconds').humanize();
+			this.$('.total-distance').html('Total distance <span class="h-highlight-color"><strong>' + distance + ' km</strong></span>&nbsp;&nbsp;:');
 		},
 
 

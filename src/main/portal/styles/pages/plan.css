@@ -62,6 +62,26 @@
 	#day-popup .day-popup .event-tooltip .popup-bottom {
         padding-bottom: 20px;
     }
+    
+    #day-popup .day-map__time-ico {
+        background: url(../import/images/time-ico-2.png) no-repeat left 0px;
+    }
+    
+    #day-popup .activities-element__repostion {
+        top: 14px;
+    }
+    
+     #day-popup .activities-element__remove {
+        top: 30px;
+    }
+    
+    #day-popup .day-map__time-ico {
+        padding-left: 25px;
+    }
+    
+    #day-popup .activities-element__more {
+        background: url(../import/images/more-arrow.png) no-repeat left 5px;
+    }
 
 
 .selected-package-page .day-element .img div {

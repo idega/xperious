@@ -77,8 +77,8 @@ define([
 
 			} else if (this.event.nip === 'top'){
 				var y = this.event.topOffset - $('#fancybox-content').offset().top;
-				this.$('.product-popup').css('top', y + 30);
-				this.$('.product-popup').css('left', 290);
+				this.$('.product-popup').css('top', y + 35);
+				this.$('.product-popup').css('left', 430);
 				this.$('.product-popup > .nip').css('top', -15);
 				this.$('.product-popup > .nip').css('left', 20);
 				this.$('.product-popup > .nip').css('transform', 'rotate(90deg)');
