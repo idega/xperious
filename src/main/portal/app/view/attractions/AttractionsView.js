@@ -1,7 +1,9 @@
 define([
-   'app'
+   'app',
+   'view/attractions/AttractionsListView'
 ],function(
-	app) {
+	app,
+	AttractionsListView) {
 
 
 	return Backbone.View.extend({
@@ -24,7 +26,14 @@ define([
 			if (app.attractions.subtype.has('title')) {
 				app.trigger('change:title', '{0} - xperious'.format(app.attractions.subtype.get('title').capitalize()));
 			}
+		},
+		
+		afterRender: function() {
+			this.findImages('.section').imagesLoaded(_.bind(function() {
+				this.setView('.list-view', new AttractionsListView()).render();
+			}, this));
 		}
 	});
+
 
 });

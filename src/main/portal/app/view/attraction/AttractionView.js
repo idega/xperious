@@ -57,24 +57,28 @@ define([
 
 		afterRender: function() {
 			if (!app.attractions.product.isNew()) {
-				require(['google'], _.bind(function(google) {
-					var map = new google.maps.Map(
-						this.$('.map-holder')[0], {
-							zoom: 9,
-							center: new google.maps.LatLng(
-								app.attractions.product.get('address').latitude, 
-								app.attractions.product.get('address').longitude),
-							mapTypeId: google.maps.MapTypeId.ROADMAP,
-							streetViewControl: false
-					});
-	
-					new google.maps.Marker({
-						 position: new google.maps.LatLng(
-								app.attractions.product.get('address').latitude, 
-								app.attractions.product.get('address').longitude),
-						 title: app.attractions.product.get('title'),
-						 map: map
-					 });
+				this.findImages('.section').imagesLoaded(_.bind(function() {
+
+					require(['google'], _.bind(function(google) {
+						var map = new google.maps.Map(
+							this.$('.map-holder')[0], {
+								zoom: 9,
+								center: new google.maps.LatLng(
+									app.attractions.product.get('address').latitude, 
+									app.attractions.product.get('address').longitude),
+								mapTypeId: google.maps.MapTypeId.ROADMAP,
+								streetViewControl: false
+						});
+		
+						new google.maps.Marker({
+							 position: new google.maps.LatLng(
+									app.attractions.product.get('address').latitude, 
+									app.attractions.product.get('address').longitude),
+							 title: app.attractions.product.get('title'),
+							 map: map
+						 });
+					}, this));
+
 				}, this));
 			}
 		}

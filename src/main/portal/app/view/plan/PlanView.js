@@ -64,36 +64,36 @@ define([
 				// to avoid ugly page while browser is loading all the images in 
 				// random order
 				this.findImages('.section').imagesLoaded(_.bind(function() {
+
 					this.setView('.plan-days-view', new PlanDaysView()).render();
 					this.setView('.plan-gallery-view', new PlanGalleryView()).render();
-				}, this));
 
-
-				var plan = this.plan();	
-	
-				require(['google'], _.bind(function(google) {
-	
-					var map = new google.maps.Map(
-						this.$('.map-holder')[0], {
-							zoom: app.countries.get(plan.get('country')).get('zoom'),
-							center: new google.maps.LatLng(
-									app.countries.get(plan.get('country')).get('center').lat,
-									app.countries.get(plan.get('country')).get('center').lng),
-							mapTypeId: google.maps.MapTypeId.ROADMAP,
-							streetViewControl: false
-					});
-	
-					plan.get('items').each(function(item) {
-						if (item.get('type') === 'PRODUCT') {
-							new google.maps.Marker({
-								 position: new google.maps.LatLng(
-									item.get('address').latitude, 
-									item.get('address').longitude),
-								 title: item.get('title'),
-								 map: map
-							 });
-						}
-					});
+					var plan = this.plan();	
+					
+					require(['google'], _.bind(function(google) {
+		
+						var map = new google.maps.Map(
+							this.$('.map-holder')[0], {
+								zoom: app.countries.get(plan.get('country')).get('zoom'),
+								center: new google.maps.LatLng(
+										app.countries.get(plan.get('country')).get('center').lat,
+										app.countries.get(plan.get('country')).get('center').lng),
+								mapTypeId: google.maps.MapTypeId.ROADMAP,
+								streetViewControl: false
+						});
+		
+						plan.get('items').each(function(item) {
+							if (item.get('type') === 'PRODUCT') {
+								new google.maps.Marker({
+									 position: new google.maps.LatLng(
+										item.get('address').latitude, 
+										item.get('address').longitude),
+									 title: item.get('title'),
+									 map: map
+								 });
+							}
+						});
+					}, this));	
 				}, this));
 
 			}

@@ -19,7 +19,6 @@ define(['app',
 	'view/attractions/AttractionsView',
 	'view/attractions/AttractionsSubtypeView',
 	'view/attractions/AttractionsRegionsView',
-	'view/attractions/AttractionsListView',
 	'view/attraction/AttractionView',
 	'view/attraction/AttractionGalleryView',
 ], function(app,
@@ -43,7 +42,6 @@ define(['app',
 	AttractionsView,
 	AttractionsSubtypeView,
 	AttractionsRegionsView,
-	AttractionsListView,
 	AttractionView,
 	AttractionGalleryView) {
 
@@ -350,7 +348,6 @@ define(['app',
 	    						'.header-view' : new HeaderView(),
 	    						'.subtype-view' : new AttractionsSubtypeView(),
 	    						'.regions-view' : new AttractionsRegionsView(),
-			    				'.list-view' : new AttractionsListView(),
 	    						'.footer-view' : new FooterView(),
 	    						'.bottom-view' : new BottomView()
 	    		    		}
