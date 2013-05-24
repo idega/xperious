@@ -17,9 +17,6 @@ performed the following steps:
 
 RUN
 ===
-You will need to create the following directories. Also make sure that they have required
-permissions to write:
-
 ### mysql
 1. Copy `msql java connector` jar to `$TOMCAT/lib` folder.
 
@@ -74,6 +71,11 @@ permissions to write:
 3. Modify `JAVA_OPTS` in `tomcat/startup.sh`. Add the following parameter:
 
 		-Didegaweb.jcr.home=/var/jcr/xperious
+
+4. Make sure that application is configured with the proper image host address. Check property `com.idega.travel.image_host` under workspace. For local setup it should be:
+
+		com.idega.travel.image_host = http://localhost:8080
+
 
 ### jvm
 1. Modify `JAVA_OPTS` in `tomcat/startup.sh`. Consider using the following value:
