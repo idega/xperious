@@ -17,7 +17,7 @@
 		      <ul>
 	            <% if (length > 1) { %>
 		               <% _.each(product.images, function(img) { %>
-		                   <li><a href="<%= img %>"><img style="background-image: url('<%= img %>');"/></a></li>
+		                   <li><a href="<%= img %>"><img style="background-image: url('<%= img %>?w=300');"/></a></li>
 		               <% }); %>
 		               <% _.each(product.video, function(url) { %>
 		                   <li><a href="<%= url %>"><img /></a></li>

@@ -11,7 +11,7 @@
            <% var included = _.filter(items, function(i) { return i.type === 'PRODUCT' || i.type === 'LODGING';}) %>
            <% _.each(included, function(item, index) { %>
                <div class="activities-element clearfix">
-                    <div class="fl activities-element__image" style="background-image: url('<%= item.summary.image %>'); background-size: cover; background-position: center center; width: 130px; height: 130px;" />
+                    <div class="fl activities-element__image" style="background-image: url('<%= item.summary.image %>?w=300'); background-size: cover; background-position: center center; width: 130px; height: 130px;" />
                     <p class="activities-element__time"><%= item.summary.on %></p>
                     <p class="activities-element__name" data-index="<%= items.indexOf(item) %>"><%= item.title %></p>
                     <p class="activities-element__text"><%= item.summary.summary %><a href="javascript:void(0)" class="activities-element__more">More info</a></p>

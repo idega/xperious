@@ -3,9 +3,9 @@
      <div class="popup-gallery-fader">
         <% _.each(event.images, function(image, index) { %>
             <% if (index == 0) { %>
-                <img style="background-image: url('<%= image %>');" />
+                <img style="background-image: url('<%= image %>?w=500')" />
             <% } else { %>
-                <img style="background-image: url('<%= image %>'); display: none;" />
+                <img style="background-image: url('<%= image %>?w=500'); display: none;" />
             <% } %>
         <% }); %>
         <% if (event.images.length > 1) { %>
