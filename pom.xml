@@ -184,86 +184,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
     </pluginRepositories>
 
   <build>
-  
-    <!-- This is required for eclipse maven plugin. It prevents exec plugin execution on each file compilation. -->
-    <pluginManagement>
-        <plugins>
-           <plugin>
-             <groupId>org.eclipse.m2e</groupId>
-             <artifactId>lifecycle-mapping</artifactId>
-             <version>1.0.0</version>
-             <configuration>
-               <lifecycleMappingMetadata>
-                 <pluginExecutions>
-                   <pluginExecution>
-                     <pluginExecutionFilter>
-                       <groupId>org.codehaus.mojo</groupId>
-                       <artifactId>exec-maven-plugin</artifactId>
-                       <versionRange>[1.2.1,)</versionRange>
-                       <goals>
-                         <goal>exec</goal>
-                       </goals>
-                     </pluginExecutionFilter>
-                     <action>
-                       <ignore />
-                     </action>
-                   </pluginExecution>
-                 </pluginExecutions>
-               </lifecycleMappingMetadata>
-             </configuration>
-          </plugin>
-        </plugins>
-    </pluginManagement>
-  
-
     <plugins>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>exec-maven-plugin</artifactId>
-          <version>1.2.1</version>
-          <executions>
-            <execution>
-              <id>grunt</id>
-              <phase>generate-resources</phase>
-              <goals>
-                <goal>exec</goal>
-              </goals>
-              <configuration>
-                <workingDirectory>src/main/portal/</workingDirectory>
-	            <executable>grunt</executable>
-	            <skip>${optimize.skip}</skip>
-              </configuration>
-            </execution>
-          </executions>
-        </plugin>
-		<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-resources-plugin</artifactId>
-			<version>2.4.2</version>
-			<executions>
-			   <execution>
-			      <phase>process-resources</phase>
-			      <goals>
-			        <goal>copy-resources</goal>
-			      </goals>
-			      <configuration>
-			        <overwrite>true</overwrite>
-			        <outputDirectory>${project.build.directory}/${project.artifactId}-${project.version}/portal</outputDirectory>
-			        <resources>
-			          <resource>
-			            <directory>${project.basedir}/src/main/portal</directory>
-			            <filtering>true</filtering>
-			            <excludes>
-			             <exclude>package.json</exclude>
-			             <exclude>Gruntfile.js</exclude>
-			             <exclude>node_modules/</exclude>
-			            </excludes>
-			          </resource>
-			        </resources>
-			      </configuration>
-			    </execution>
-			  </executions>
-		</plugin>
 		<plugin>
 		  <groupId>org.codehaus.mojo</groupId>
 		  <artifactId>buildnumber-maven-plugin</artifactId>
@@ -328,10 +249,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
       <profile>
           <id>default</id>
           <properties>
-            <optimize.skip>true</optimize.skip>
-			<extract.bundle.resources>false</extract.bundle.resources>
-            <js.main.file>/portal/lib/require/require.js</js.main.file>
-            <css.main.file>/portal/styles/main.css</css.main.file>
+            <extract.bundle.resources>false</extract.bundle.resources>
           </properties>
           <activation>
               <activeByDefault>true</activeByDefault>
@@ -340,10 +258,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
       <profile>
           <id>optimize</id>
           <properties>  
-            <optimize.skip>false</optimize.skip>
-			<extract.bundle.resources>true</extract.bundle.resources>
-            <js.main.file>/portal/dist/release/out.js</js.main.file>
-            <css.main.file>/portal/dist/release/out.css</css.main.file>
+            <extract.bundle.resources>true</extract.bundle.resources>
           </properties>
       </profile>
   </profiles>
