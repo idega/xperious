@@ -1,19 +1,14 @@
 BUILD
 ===
-Javascript resources are optimized during the build process (if you use `-Poptimize`). Make sure that you have
-performed the following steps:
 
-1. Install nodejs:
+1. Use `optimize`profile when building for deployment.
 
-		brew install node
+		mvn -o -U -Poptimize clean package
 
-2. From `src/main/portal/` directory execute the following command:
+2. If you want to run application locally just run the following command and start tomcat server with context pointed to `target` dir:
 
-		npm install
+		mvn -o -U clean package
 
-3. Use `optimize` profile when building with Maven:
-
-		mvn -o -U -Poptimize clean install
 
 RUN
 ===
@@ -72,7 +67,7 @@ RUN
 
 		-Didegaweb.jcr.home=/var/jcr/xperious
 
-4. Make sure that application is configured with the proper image host address. Check property `com.idega.travel.image_host` under workspace. For local setup it should be:
+4. Make sure that application is configured with the proper image host address. Check property `com.idega.travel.image_host` under Idega workspace. For local setup it should be:
 
 		com.idega.travel.image_host = http://localhost:8080
 
@@ -81,6 +76,45 @@ RUN
 1. Modify `JAVA_OPTS` in `tomcat/startup.sh`. Consider using the following value:
 
 		export JAVA_OPTS=" -Xmx2048M -XX:MaxPermSize=512M -XX:+CMSClassUnloadingEnabled -XX:+CMSPermGenSweepingEnabled -Djava.awt.headless=true -Dfile.encoding=UTF-8 -XX:+HeapDumpOnOutOfMemoryError -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=40 -Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=10008 -Didegaweb.jcr.home=/var/jcr/xperious -Dorg.apache.jackrabbit.version.recovery=true"
+
+### httpd (optional)
+You can run xperious without the http server. Just use direct tomcat url like `localhost:8080`. But if you want to mimic production environment then configure your http server by following this guide.
+
+
+1. Create `/etc/httpd/conf/workers.properties` for `jk_module` :
+
+		worker.list=worker1
+		worker.worker1.type=ajp13
+		worker.worker1.port=8101
+		worker.worker1.host=localhost
+		worker.worker1.lbfactor=1
+
+2. Install and load `jk_module` in `httpd.conf` module:
+
+		LoadModule jk_module modules/mod_jk.so
+		JkWorkersFile /etc/httpd/conf/workers.properties
+		JkLogFile     /var/log/httpd/mod_jk_log
+		JkLogLevel    info
+
+
+3. Add `VirtualHost` configuration to `httpd.conf`:
+
+		<VirtualHost core.test.xperious.com:80>
+		    ServerName core.test.xperious.com
+		    ErrorLog /var/log/httpd/xperiouscoretest_error_log
+		    CustomLog /var/log/httpd/xperiouscoretest_log combined
+		    JkMount /* worker1
+		    DocumentRoot /home/idegaweb/tomcat/core.test.xperious.com/webapps/ROOT
+		    DirectoryIndex index.html index.html.var index.jsp
+		    <Location /pkiauth>
+		        Deny from all
+		    </Location>
+		    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/x-javascript application/javascript
+		    ErrorDocument 500 "Internal server error"
+		    ErrorDocument 503 "Service unavailable - we will be back in a minute"
+		</VirtualHost>
+
+	Make sure that `NameVirtualHost` directive is present in your `httpd.conf` because otherwise name-based virtual hosts might not be working.
 
 
 Performance improvements
