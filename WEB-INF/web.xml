@@ -4,21 +4,4 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" 
 	id="Idega_ePlatform" version="2.5">
 
-	<security-constraint>
-	    <web-resource-collection>
-	        <web-resource-name></web-resource-name>
-	        <url-pattern>/pages/*</url-pattern>
-	        <url-pattern>/workspace/*</url-pattern>
-	    </web-resource-collection>
-	    <auth-constraint>
-	        <role-name>xperious</role-name>
-	        <role-name>Administrator</role-name>
-	    </auth-constraint>
-	</security-constraint>
-
-	<login-config>
-	    <auth-method>BASIC</auth-method>
-	    <realm-name>xperious</realm-name>
-	</login-config>
-
 </web-app>
