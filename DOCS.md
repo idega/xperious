@@ -400,7 +400,34 @@ Returns all available events for given country sorted by date in ascending order
 
 ``` js
 [
-  "whale",
-  "whale watching"
+   {
+      "id":18,
+      "starting":1375566780000,
+      "ending":1375739580000,
+      "timezone":"Iceland",
+      "title":"Innipúkinn Festival",
+      "subtitle":null,
+      "shortDescription":"<div>Innipukinn is an annual music festival taking place in downtown Reykjavik, Iceland. Its 11th edition will be held August 3-5, 2012.</div><div><div></div></div>",
+      "description":"<div>Innipukinn is an annual music festival taking place in downtown Reykjavik, Iceland. Its 11th edition will be held August 3-5, 2012.<br></div><div><div><div><br>Innipukinn is an annual music festival held in Reykjavik, Iceland.&nbsp;<br></div><div><br>Its 11th edition will be held August 3.-5. @ Iðnó in downtown Reykjavik.<br><br>Artists confirmed for Innipúkinn 2012:<br><span>Þú og ég ásamt Moses Hightower<br>Moses Hightower<br>Ojba Rasta<br>Tilbury<br>Borko<br>Prinspóló<br>Oculus<br>Úlfur Úlfur<br>Mammút<br>Dr. Gunni<br>Jónas Sigurðsson<br>Just Another Snake Cult<br>Anna Svava<br>Lay Low<br>Ásgeir Trausti<br>Kiryiama Family<br><br>Tickets:&nbsp;<a target=\"_blank\" rel=\"nofollow\" href=\"http://www.facebook.com/l.php?u=http%3A%2F%2Fmidi.is%2Ftonleikar%2F1%2F7091&amp;h=fAQG7zXb2&amp;s=1\">http://midi.is/tonleikar/1/7091</a><br><br>_______________________________________<br>_______________________________________<br><br>INNIPÚKINN FESTIVAL...<br><br>Past guests include Hjálmar, Mugison, Cat Power, Hjaltalín, Lay Low, Blonde Redhead, FM Belfast, Raveonettes, Television, Dikta, Trabant, Amiina, Ólöf Arnalds, Ólafur Arnalds, Mínus, Jonathan Ritchman, Seabear, Sin Fang, Megas and many, many more.<br><br>To get all set, this nice wrap-up by Iceacreamman.com is a good read:<a target=\"_blank\" rel=\"nofollow\" href=\"http://www.facebook.com/l.php?u=http%3A%2F%2Ficecreamman.com%2F2009%2F08%2Finnipukinn-music-festival%2F&amp;h=sAQETic6K&amp;s=1\">http://icecreamman.com/2009/08/innipukinn-music-festival/</a><br><br>You can count on good music + BBQs, music market, pop-quiz and the legendary Coctail Zeit happening along the music program.<br><br>_______________________________________<br>_______________________________________<br><br>TICKETS<br>Tickets will be released July 16th 2012.<br>Ticket outlets:<br>Online:&nbsp;<a target=\"_blank\" rel=\"nofollow\" href=\"http://www.facebook.com/l.php?u=http%3A%2F%2Fmidi.is%2Ftonleikar%2F1%2F7091&amp;h=oAQGBV_ZC&amp;s=1\">http://midi.is/tonleikar/1/7091</a><br>Brim outlets in Laugavegur 71 and Kringlan mall<br><br>Change your tickets for Festival or single night wristbands at the venue.<br>Iðnó<br>Vonarstræti 3<br>101 Reykjavik<br>_______________________________________<br>_______________________________________<br><br>VENUE<br><br>Iðnó theater<br>Vonarstræti 3<br>101 Reykjavik<br><br>Extra events to take place on off-venue bars in 101 Reykjavik. (To be announced.)</span></div></div></div>",
+      "address":{
+         "country":"IS",
+         "town":"Reykjavik",
+         "street":"IÐNÓ",
+         "streetNumber":null,
+         "postalCode":"101",
+         "roomNumber":null,
+         "roadNumber":null,
+         "latitude":64.1457705913803,
+         "longitude":-21.9396114349365
+      },
+      "images":[
+         "http://media.xperious.com/content/files/public/event/20130513/1368481991846/277889_10151070604699872_265489645_o.jpg",
+         "http://media.xperious.com/content/files/public/event/20130513/1368481991846/304859_10151074764749872_956986914_n.jpg",
+         "http://media.xperious.com/content/files/public/event/20130513/1368481991846/483380_10151074764014872_1921241223_n.jpg",
+         "http://media.xperious.com/content/files/public/event/20130513/1368481991846/531670_10151074764584872_820657541_n.jpg",
+         "http://media.xperious.com/content/files/public/event/20130513/1368481991846/551013_10151074764059872_162525933_n.jpg",
+         "http://media.xperious.com/content/files/public/event/20130513/1368481991846/621762_10151070605209872_1242209113_o.jpg"
+      ]
+   }
 ]
 ```
