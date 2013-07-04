@@ -32,8 +32,8 @@ Plan is a central structure in xperious API. It includes full trip agenda with t
 * `query` - search keyword
 * `country` - [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) abbreviation for destination country
 * `terminal` - arrival terminal code in the destination country
-* `from` - arrival date and time
-* `to` - departure date and time
+* `from` - arrival date and time in `Terminal` timezone
+* `to` - departure date and time in `Terminal` timezone
 * `guests` - number of travellers
 
 #### Response
@@ -45,8 +45,9 @@ Returns a list of up to 5 plans with items. Each plan item contains full descrip
    {
       "id": "7vzsoj2b7b",
       "country": "is",
-      "from": 1371808800000,
-      "to": 1371859199000,
+      "timeZone":"UTC",
+      "from":"2013-07-04T10:00:00",
+      "to":"2013-07-04T23:59:59",
       "items": [
           // contains all plan items like tranportation, activites, etc
           ...
@@ -256,7 +257,8 @@ Returns a list of supported arrival/departure terminals.
       "code": "keflavik",
       "title": "Keflavik Airport",
       "latitude": 63.9964,
-      "longitude": -22.6233
+      "longitude": -22.6233,
+      "timeZone": "UTC"
    },
    ...
 ]
@@ -402,9 +404,9 @@ Returns all available events for given country sorted by date in ascending order
 [
    {
       "id":18,
-      "starting":1375566780000,
-      "ending":1375739580000,
-      "timezone":"Iceland",
+      "starting":"2013-08-03T15:00:00",
+      "ending":"2013-08-05T20:00:00",
+      "timeZone":"UTC"
       "title":"Innipúkinn Festival",
       "subtitle":null,
       "shortDescription":"<div>Innipukinn is an annual music festival taking place in downtown Reykjavik, Iceland. Its 11th edition will be held August 3-5, 2012.</div><div><div></div></div>",
