@@ -77,10 +77,71 @@ RUN
 
 		export JAVA_OPTS=" -Xmx2048M -XX:MaxPermSize=512M -XX:+CMSClassUnloadingEnabled -XX:+CMSPermGenSweepingEnabled -Djava.awt.headless=true -Dfile.encoding=UTF-8 -XX:+HeapDumpOnOutOfMemoryError -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=40 -Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=10008 -Didegaweb.jcr.home=/var/jcr/xperious -Dorg.apache.jackrabbit.version.recovery=true"
 
+### thumbor (optional)
+API returns images pointing to `thumbor`(https://github.com/globocom/thumbor). You have to install it if you need optimized images locally. Otherwise it will return original image for all sizes.
+
+1. Create running directories for `thumbor` and set appropriate permissions:
+
+		sudo mkdir /var/thumbor
+		sudo chown idegaweb /var/thumbor
+		sudo touch /var/log/thumbor
+		sudo chown idegaweb /var/log/thumbor
+
+2. Create `/etc/thumbor.conf`.
+
+2. Start `thumbor` tornado server:
+
+		nohup thumbor --port 8888 &>> /var/log/thumbor &
+
+3. Set property `com.idega.travel.thumbor_host` in the workspace configuration console.
+
+
+#### installation on OS X 
+1. Make sure `brew doctor` is ok.
+2.  Install `brew` python:
+		
+		sudo brew install python
+
+3. Add `brew` python formulas:
+
+		brew tap samueljohn/python
+
+4. Install `PIL` fork called `Pillow` (makes life so much easier):
+
+		brew install pillow
+
+5. Install `pip` python package manager:
+
+		sudo brew install pip
+
+6. Install thumbor:
+
+		sudo pip install thumbor
+
+#### installation on CentOS
+1. Install all pre-requisites for PIL.
+
+		sudo yum install -y python-devel
+		sudo yum install -y freetype freetype-devel libpng libpng-devel libjpeg libjpeg-devel
+		sudo yum install -y pip
+
+2. Install `thumbor`:
+		
+		sudo pip-python install thumbor
+
+3. Replace `pil` with `pillow` fork so jpeg/png processing works properly:
+
+		sudo pip-python uninstall pil
+		sudo pip-python install pillow
+
+
+
+
 ### httpd (optional)
-You can run xperious without the http server. Just use direct tomcat url like `localhost:8080`. But if you want to mimic production environment then configure your http server by following this guide.
+You can run xperious without the http server. Just use direct tomcat url like `localhost:8080`. This is totally optional unless you choose to run `thumbor` or want to mimic production environment.
 
 
+#### Partner portal
 1. Create `/etc/httpd/conf/workers.properties` for `jk_module` :
 
 		worker.list=worker1
@@ -99,12 +160,11 @@ You can run xperious without the http server. Just use direct tomcat url like `l
 
 3. Add `VirtualHost` configuration to `httpd.conf`:
 
-		<VirtualHost core.test.xperious.com:80>
-		    ServerName core.test.xperious.com
-		    ErrorLog /var/log/httpd/xperiouscoretest_error_log
-		    CustomLog /var/log/httpd/xperiouscoretest_log combined
+		NameVirtualHost core.localhost.com:80
+		<VirtualHost core.localhost.com:80>
+		    ServerName core.localhost.com
 		    JkMount /* worker1
-		    DocumentRoot /home/idegaweb/tomcat/core.test.xperious.com/webapps/ROOT
+		    DocumentRoot TOMCAT_DIR/webapps/ROOT
 		    DirectoryIndex index.html index.html.var index.jsp
 		    <Location /pkiauth>
 		        Deny from all
@@ -115,6 +175,16 @@ You can run xperious without the http server. Just use direct tomcat url like `l
 		</VirtualHost>
 
 	Make sure that `NameVirtualHost` directive is present in your `httpd.conf` because otherwise name-based virtual hosts might not be working.
+
+#### Thumbor
+1.  Add `VirtualHost` configuration to `httpd.conf`:
+
+		NameVirtualHost media.localhost.com:80
+		<VirtualHost media.localhost.com:80>
+			ServerName media.localhost.com
+			ProxyRequests off
+			ProxyPass / http://localhost:8888/
+		</VirtualHost>
 
 
 Performance improvements
