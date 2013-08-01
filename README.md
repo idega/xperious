@@ -78,7 +78,7 @@ RUN
 		export JAVA_OPTS=" -Xmx2048M -XX:MaxPermSize=512M -XX:+CMSClassUnloadingEnabled -XX:+CMSPermGenSweepingEnabled -Djava.awt.headless=true -Dfile.encoding=UTF-8 -XX:+HeapDumpOnOutOfMemoryError -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=40 -Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=10008 -Didegaweb.jcr.home=/var/jcr/xperious -Dorg.apache.jackrabbit.version.recovery=true"
 
 ### thumbor (optional)
-API returns images pointing to `thumbor`(https://github.com/globocom/thumbor). You have to install it if you need optimized images locally. Otherwise it will return original image for all sizes.
+In production images are served through `thumbor` (https://github.com/globocom/thumbor). You have to install it if you need optimized images locally. Otherwise it will return original image for all sizes.
 
 1. Create running directories for `thumbor` and set appropriate permissions:
 
@@ -91,12 +91,12 @@ API returns images pointing to `thumbor`(https://github.com/globocom/thumbor). Y
 
 2. Start `thumbor` tornado server:
 
-		nohup thumbor --port 8888 &>> /var/log/thumbor &
+		nohup /usr/local/share/python/thumbor -l debug --port 8888 &>> /var/log/thumbor &
 
-3. Set property `com.idega.travel.thumbor_host` in the workspace configuration console.
+3. Set application property `com.idega.travel.thumbor_host` to your thumbor host (something like `http://thumbor.localhost.com`).
 
 
-#### installation on OS X 
+#### thumbor installation on OS X 
 1. Make sure `brew doctor` is ok.
 2.  Install `brew` python:
 		
@@ -118,14 +118,14 @@ API returns images pointing to `thumbor`(https://github.com/globocom/thumbor). Y
 
 		sudo pip install thumbor
 
-#### installation on CentOS
-1. Install all pre-requisites for PIL.
+#### thumbor installation on CentOS
+1. Install all prerequisites for building `PIL`.
 
 		sudo yum install -y python-devel
 		sudo yum install -y freetype freetype-devel libpng libpng-devel libjpeg libjpeg-devel
 		sudo yum install -y pip
 
-2. Install `thumbor`:
+2. Install `thumbor` (it will install `PIL` altogether):
 		
 		sudo pip-python install thumbor
 
