@@ -160,9 +160,9 @@ You can run xperious without the http server. Just use direct tomcat url like `l
 
 3. Add `VirtualHost` configuration to `httpd.conf`:
 
-		NameVirtualHost core.localhost.com:80
-		<VirtualHost core.localhost.com:80>
-		    ServerName core.localhost.com
+		NameVirtualHost partner.localhost.com:80
+		<VirtualHost partner.localhost.com:80>
+		    ServerName partner.localhost.com
 		    JkMount /* worker1
 		    DocumentRoot TOMCAT_DIR/webapps/ROOT
 		    DirectoryIndex index.html index.html.var index.jsp
@@ -175,6 +175,9 @@ You can run xperious without the http server. Just use direct tomcat url like `l
 		</VirtualHost>
 
 	Make sure that `NameVirtualHost` directive is present in your `httpd.conf` because otherwise name-based virtual hosts might not be working.
+
+#### API portal
+Copy paste the partner configuration and map it on something like `api.localhost.com`. Do not forget to add another `mod_jk` worker group.
 
 #### Thumbor
 1.  Add `VirtualHost` configuration to `httpd.conf`:
